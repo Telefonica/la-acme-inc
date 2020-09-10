@@ -1,0 +1,41 @@
+{
+  "name": "la-acme-inc-mh",
+  "private": true,
+  "scripts": {
+    "browser": "PORT=3001 BROSWER=none react-app-rewired start",
+    "browser:mock": "PORT=3001 REACT_APP_AURA_MOCK_CLIENT=true react-app-rewired start",
+    "build": "react-app-rewired build",
+    "build:mock": "REACT_APP_AURA_MOCK_CLIENT=true react-app-rewired build"
+  },
+  "dependencies": {
+    "@telefonica/la-web-sdk": "beta",
+    "classnames": "^2.2.6",
+    "jss": "^10.4.0",
+    "jss-plugin-camel-case": "^10.4.0",
+    "jss-plugin-default-unit": "^10.4.0",
+    "jss-plugin-nested": "^10.4.0",
+    "jss-plugin-vendor-prefixer": "^10.4.0",
+    "react-jss": "^10.4.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.22",
+    "@types/react-dom": "^16.9.5",
+    "customize-cra": "^1.0.0",
+    "node-sass": "^4.13.1",
+    "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
+    "react-app-rewired": "^2.1.6",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.0",
+    "typescript": "~3.8.3"
+  },
+  "browserslist": {
+    "production": [
+      "chrome 24"
+    ],
+    "development": [
+      "chrome 24"
+    ]
+  },
+  "homepage": "./"
+}

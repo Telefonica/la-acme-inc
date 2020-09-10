@@ -1,0 +1,32 @@
+{
+    "name": "la-acme-inc",
+    "version": "1.0.0",
+    "main": "lib/index.js",
+    "private": true,
+    "engines": {
+        "node": "12.x"
+    },
+    "license": "UNLICENSED",
+    "plugin": {
+        "provides": [
+            "la-acme-inc"
+        ]
+    },
+    "dependencies": {
+        "@hapi/joi": "^16.1.5",
+        "@telefonica/la-bot-sdk": "beta",
+        "botbuilder": "~4.6.2",
+        "botbuilder-dialogs": "~4.6.2",
+        "request-promise-native": "^1.0.8"
+    },
+    "devDependencies": {
+        "@types/hapi__joi": "^15.0.4",
+        "@types/node": "^12.12.6",
+        "@types/request-promise-native": "^1.0.17",
+        "typescript": "~3.8.3"
+    },
+    "scripts": {
+        "build": "rm -rf lib && tsc",
+        "prepack": "npm run build"
+    }
+}

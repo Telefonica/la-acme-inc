@@ -1,0 +1,15 @@
+{
+  "dialogs": [
+    {
+      "triggerConditions": [
+        {
+          "contextFilters": [],
+          "intent": "intent.la-acme-inc.home"
+        }
+      ],
+      "id": "la-acme-inc-home",
+      "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
+    }
+  ],
+  "name": "la-acme-inc"
+}

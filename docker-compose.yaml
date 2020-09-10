@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  aura-mini-bot:
+    image: dockerhub.hi.inet/haac/la/aura-mini-bot:1.9.2
+    volumes:
+      - ./dialogs:/tmp/dialogs
+    env_file:
+      - config.env
+    environment:
+      - AURA_MONGODB_URI=mongodb://mongo:27017
+    depends_on:
+      - mongo
+      - ngrok
+
+  mongo:
+    image: mongo:3.6.5
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+  
+  azcli:
+    image: mcr.microsoft.com/azure-cli:latest
+    depends_on:
+      - ngrok
+    env_file:
+      - config.env
+    command: >
+      sh -c "
+        az login &&
+        az bot update \
+          -n $$AURA_MICROSOFT_BOT_NAME \
+          -g $$AURA_MICROSOFT_RESOURCE_GROUP \
+          --endpoint $$(curl --silent http://ngrok:4040/api/tunnels | jq -r '.tunnels | map(.public_url) | .[]' | grep https)/api/messages
+      "
+
+  ngrok:
+    image: wernight/ngrok
+    command: ngrok http aura-mini-bot:8080
+
+  web-stb:
+    image: nginx:alpine
+    volumes:
+      - ./webapps/set-top-box-haac/build:/usr/share/nginx/html
+      - ./webapps/movistar-home/build:/usr/share/nginx/html/mh
+    ports:
+      - "8081:80"
