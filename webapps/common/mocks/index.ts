@@ -1,4 +1,4 @@
-import { Screen, Intent, HomeScreenMessage } from '../../../dialogs/src/models';
+import { Screen, Intent, HomeScreenData } from '../../../dialogs/src/models';
 
 const START = 'intent.internal.living-app.start';
 
@@ -15,8 +15,8 @@ const screen = (screen: Screen, msg: Record<string, any> = {}) => {
     };
 };
 
-const home: HomeScreenMessage = {
-    title: 'Welcome to VideoGames App!',
+const home: HomeScreenData = {
+    title: 'VideoGames Categories',
     categories: [
         {
             id: '01',

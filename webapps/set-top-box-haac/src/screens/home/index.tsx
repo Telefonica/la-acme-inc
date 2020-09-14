@@ -1,20 +1,25 @@
+import { NavigableButton, screenReady } from '@telefonica/la-web-sdk';
+import { HomeScreenData } from '../../../../../dialogs/src/models';
 import React from 'react';
-import { screenReady } from '@telefonica/la-web-sdk';
-import { HomeScreenMessage } from '../../../../../dialogs/src/models';
 
-const HomeScreen: React.FC<HomeScreenMessage> = (data: HomeScreenMessage) => {
+const HomeScreen: React.FC<HomeScreenData> = (data: HomeScreenData) => {
     const { categories, title } = data;
 
     return (
         <div className="HomeScreen">
-            <h1>HOME</h1>
-            <p>{title}</p>
+            <h1>{title}</h1>
             {console.log(categories)}
-            <ul>
             {categories.map((category: any) => (
-                <li key={category.id}>{category.name}</li>
+                <NavigableButton
+                    onClick={(e: any) => (console.log(e.target))}
+                    key={category.id}
+                    defaultClass=""
+                    focusedClass=""
+                    id="categories-button"
+                >
+                    Go to {category.name} Games
+                </NavigableButton>
             ))}
-            </ul>
         </div>
     );
 };

@@ -7,10 +7,16 @@ const SplashScreen: React.FC<Preloadable> = ({ onReady }: Preloadable) => {
 
     useEffect(() => {
         onReady();
-        sendCommand({ intent: Intent.HOME, entities: [] });
+        setTimeout(() => {
+            sendCommand({ intent: Intent.HOME, entities: [] });
+        }, 3000);
     }, [onReady, sendCommand]);
 
-    return <div className="SplashScreen">WELCOME TO ACME INC!</div>;
+    return (
+        <div className="SplashScreen" id="splash">
+            <h1>WELCOME TO ACME INC!</h1>
+        </div>
+    );
 };
 
 export default SplashScreen;

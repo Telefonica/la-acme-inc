@@ -31,7 +31,7 @@ export enum Entity {
 
 export enum CustomAction {}
 
-export interface HomeScreenMessage {
+export interface HomeScreenData {
     title: string;
     categories: any;
 }
