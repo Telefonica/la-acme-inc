@@ -6,16 +6,19 @@ export interface SessionData {
 
 export enum DialogId {
     HOME = 'la-acme-inc-home',
+    GAMES = 'la-acme-inc-games'
 }
 
 export enum Screen {
     HOME = 'home',
     ERROR = 'error',
     SPLASH = 'splash',
+    GAMES = 'games',
 }
 
 export enum Intent {
     HOME = 'intent.la-acme-inc.home',
+    GAMES = 'intent.la-acme-inc.games',
 }
 
 export enum Operation {
@@ -30,4 +33,7 @@ export enum CustomAction {}
 
 export interface HomeScreenMessage {
     title: string;
+    categories: any;
 }
+
+

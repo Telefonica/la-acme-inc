@@ -10,7 +10,7 @@ const SplashScreen: React.FC<Preloadable> = ({ onReady }: Preloadable) => {
         sendCommand({ intent: Intent.HOME, entities: [] });
     }, [onReady, sendCommand]);
 
-    return <div className="SplashScreen">SPLASH</div>;
+    return <div className="SplashScreen">WELCOME TO ACME INC!</div>;
 };
 
 export default SplashScreen;
