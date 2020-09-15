@@ -42,6 +42,7 @@ export interface HomeScreenData {
 export interface GenreCategory {
     genre: string;
     catId: string;
+    img: string;
     items: Game[];
 }
 

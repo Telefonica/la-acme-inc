@@ -24,6 +24,8 @@ const home: HomeScreenData = {
         {
             genre: 'adventure',
             catId: '01',
+            // eslint-disable-next-line prettier/prettier
+            img: 'https://images.unsplash.com/photo-1482398650355-d4c6462afa0e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=80',
             items: [
                 {
                     id: 'ad1',
@@ -57,6 +59,8 @@ const home: HomeScreenData = {
         {
             genre: 'action',
             catId: '02',
+            // eslint-disable-next-line prettier/prettier
+            img: 'https://images.unsplash.com/photo-1566577134770-3d85bb3a9cc4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=80',
             items: [
                 {
                     id: 'ac1',
@@ -88,6 +92,8 @@ const home: HomeScreenData = {
         {
             genre: 'simulation',
             catId: '03',
+            // eslint-disable-next-line prettier/prettier
+            img: 'https://images.unsplash.com/photo-1581090016743-0791caf50d31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=80',
             items: [
                 {
                     id: 'si1',
@@ -118,6 +124,8 @@ const home: HomeScreenData = {
         {
             genre: 'sports',
             catId: '04',
+            // eslint-disable-next-line prettier/prettier
+            img: 'https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=80',
             items: [
                 {
                     id: 'sp1',
