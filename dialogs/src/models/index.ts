@@ -15,12 +15,16 @@ export enum Screen {
     SPLASH = 'splash',
     ADVENTURE = 'adventure',
     ACTION = 'action',
+    SIMULATION = 'simulation',
+    SPORTS = 'sports',
 }
 
 export enum Intent {
     HOME = 'intent.la-acme-inc.home',
     ADVENTURE = 'intent.la-acme-inc.adventure',
     ACTION = 'intent.la-acme-inc.action',
+    SIMULATION = 'intent.la-acme-inc.simulation',
+    SPORTS = 'intent.la-acme-inc.sport',
     BACK = 'intent.la-acme-inc.home',
 }
 
@@ -47,8 +51,8 @@ export interface GenreCategory {
 }
 
 export interface Game {
-    id: string,
-    img?: string,
+    id: string;
+    img?: string;
     title: string;
     platform: string;
     year: string;

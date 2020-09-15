@@ -7,8 +7,7 @@ import { init, Channel } from '@telefonica/la-web-sdk';
 import SplashScreen from './screens/splash';
 import ErrorScreen from './screens/error';
 import HomeScreen from './screens/home';
-import AdventureScreen from './screens/categories/adventure';
-import ActionScreen from './screens/categories/action';
+import GenreScreen from './screens/genre';
 
 init({
     channel: Channel.STB,
@@ -17,8 +16,10 @@ init({
         [Screen.SPLASH]: () => SplashScreen,
         [Screen.ERROR]: () => ErrorScreen,
         [Screen.HOME]: () => HomeScreen,
-        [Screen.ADVENTURE]: () => AdventureScreen,
-        [Screen.ACTION]: () => ActionScreen,
+        [Screen.ADVENTURE]: () => GenreScreen,
+        [Screen.ACTION]: () => GenreScreen,
+        [Screen.SIMULATION]: () => GenreScreen,
+        [Screen.SPORTS]: () => GenreScreen,
     },
     buildNumber: process.env.BUILD_NUMBER,
     auraMockClient:

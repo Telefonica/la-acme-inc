@@ -7,6 +7,8 @@ const script = {
     [Intent.HOME]: () => screen(Screen.HOME, home),
     [Intent.ADVENTURE]: () => screen(Screen.ADVENTURE, home.categories[0]),
     [Intent.ACTION]: () => screen(Screen.ACTION, home.categories[1]),
+    [Intent.SIMULATION]: () => screen(Screen.SIMULATION, home.categories[2]),
+    [Intent.SPORTS]: () => screen(Screen.SPORTS, home.categories[3]),
     [Intent.BACK]: () => screen(Screen.HOME, home),
 };
 
@@ -29,7 +31,7 @@ const home: HomeScreenData = {
             items: [
                 {
                     id: 'ad1',
-                    img: 'zelda',
+                    img: 'zelda.png',
                     title: 'The legend of Zelda',
                     platform: 'Nintendo 64',
                     year: '1998',
@@ -38,7 +40,7 @@ const home: HomeScreenData = {
                 },
                 {
                     id: 'ad2',
-                    img: 'tombraider',
+                    img: 'tombraider.jpg',
                     title: 'Tomb Raider',
                     platform: 'PlayStation',
                     year: '1996',
@@ -47,7 +49,7 @@ const home: HomeScreenData = {
                 },
                 {
                     id: 'ad3',
-                    img: 'darksouls3',
+                    img: 'darksouls3.jpg',
                     title: 'Dark Souls 3',
                     platform: 'Xbox One',
                     year: '1998',
@@ -64,7 +66,7 @@ const home: HomeScreenData = {
             items: [
                 {
                     id: 'ac1',
-                    img: 'streetfighter4',
+                    img: 'streetfighter4.png',
                     title: 'Street Fighter IV',
                     platform: 'Playstation 4',
                     year: '2018',
@@ -73,7 +75,7 @@ const home: HomeScreenData = {
                 },
                 {
                     id: 'ac2',
-                    img: 'callofduty',
+                    img: 'callofduty.jpg',
                     title: 'Call of Duty: operations',
                     platform: 'Windows 10',
                     year: '2020',
@@ -81,7 +83,7 @@ const home: HomeScreenData = {
                 },
                 {
                     id: 'ac3',
-                    img: 'quake2',
+                    img: 'quake2.jpg',
                     title: 'Quake 2',
                     platform: 'Windows 98',
                     year: '1997',
@@ -146,7 +148,7 @@ const home: HomeScreenData = {
                 {
                     id: 'sp3',
                     title: 'Super tennis',
-                    platform: 'Super Nintento',
+                    platform: 'Super Nintendo',
                     year: '1990',
                     description:
                         'Super tennis is a sport simulation video game developed by the Redwood Shores studio of Maxis and published by Electronic Arts. It is the fourth major title in The Sims series and was originally announced on May 6, 2013, and was released in North America on September 2, 2014 for Microsoft Windows.',
