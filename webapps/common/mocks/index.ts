@@ -5,6 +5,7 @@ const START = 'intent.internal.living-app.start';
 const script = {
     [START]: () => screen(Screen.SPLASH),
     [Intent.HOME]: () => screen(Screen.HOME, home),
+    [Intent.GAMES]: () => screen(Screen.GAMES, games),
 };
 
 const screen = (screen: Screen, msg: Record<string, any> = {}) => {
@@ -128,5 +129,38 @@ const home: HomeScreenData = {
         },
     ],
 };
+
+const games: any = [
+    {
+        genre: 'adventure',
+        catId: '01',
+        items: [
+            {
+                id: 'a1',
+                title: 'The legend of Zelda',
+                platform: 'Nintendo 64',
+                year: '1998',
+                description:
+                    'The Legend of Zelda is a high fantasy action-adventure video game franchise created by Japanese game designers Shigeru Miyamoto and Takashi Tezuka. It is primarily developed and published by Nintendo, although some portable installments and re-releases have been outsourced to Capcom, Vanpool, and Grezzo. The gameplay incorporates action-adventure and elements of action RPG games.',
+            },
+            {
+                id: 'a2',
+                title: 'Tomb Raider',
+                platform: 'PlayStation',
+                year: '1996',
+                description:
+                    'Development of Tomb Raider, the first video game, began in 1994; it was released in October 1996. Its critical and commercial success prompted Core Design to develop a new game annually for the next four years, which put a strain on staff. The sixth game, The Angel of Darkness, faced difficulties during development and was considered a failure at release. This prompted Eidos to switch development duties to Crystal Dynamics, which has been the series primary developer since. Other developers have contributed to spin-off titles and ports of mainline entries.',
+            },
+            {
+                id: 'a3',
+                title: 'Dark Souls 3',
+                platform: 'Xbox One',
+                year: '1998',
+                description:
+                    'Dark Souls III is an action role-playing video game developed by FromSoftware and published by Bandai Namco Entertainment for PlayStation 4, Xbox One, and Microsoft Windows. The fourth installment of the Souls series and the final installment of the Dark Souls trilogy, the game was released in Japan in March 2016 and worldwide a month later. Two downloadable content (DLC) expansions, Ashes of Ariandel and The Ringed City, were also made for the game.',
+            },
+        ],
+    },
+];
 
 export default script;
