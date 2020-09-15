@@ -8,18 +8,14 @@ import { Intent } from '../../../../../dialogs/src/models';
 const HomeScreen: React.FC<HomeScreenData> = (data: HomeScreenData) => {
     const { categories, title } = data;
 
-    const { sendCommand } = useAura();   
-    
-    const test: any = {};
+    const { sendCommand } = useAura();
 
     const goToGames = () => {
-        console.log('test')
-        sendCommand({ intent: Intent.GAMES, entities: [test] });
+        sendCommand({ intent: Intent.GAMES, entities: [] });
     }
     return (
         <div className="HomeScreen">
             <h1>{title}</h1>
-            {console.log(categories)}
             {categories.map((category: any) => (
                 <NavigableButton
                     onClick={(e: any) => goToGames()}

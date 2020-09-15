@@ -1,6 +1,5 @@
 import React from 'react';
 import { screenReady } from '@telefonica/la-web-sdk';
-import { HomeScreenData } from '../../../../../dialogs/src/models';
 
 const GamesScreen: any = (games: any) => {
     const gameList = games[0].items;
