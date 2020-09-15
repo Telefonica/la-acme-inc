@@ -5,7 +5,8 @@ const START = 'intent.internal.living-app.start';
 const script = {
     [START]: () => screen(Screen.SPLASH),
     [Intent.HOME]: () => screen(Screen.HOME, home),
-    [Intent.GAMES]: () => screen(Screen.GAMES, games),
+    [Intent.ADVENTURE]: () => screen(Screen.ADVENTURE, games),
+    [Intent.ACTION]: () => screen(Screen.ACTION, games),
     [Intent.BACK]: () => screen(Screen.HOME, home),
 };
 

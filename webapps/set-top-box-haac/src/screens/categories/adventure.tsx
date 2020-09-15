@@ -1,9 +1,9 @@
 import React from 'react';
 import { screenReady, NavigableButton } from '@telefonica/la-web-sdk';
 import { Intent } from '../../../../../dialogs/src/models';
-import { Preloadable, useAura } from '@telefonica/la-web-sdk';
+import { useAura } from '@telefonica/la-web-sdk';
 
-const GamesScreen: any = (games: any) => {
+const AdventureScreen: any = (games: any) => {
     const { sendCommand } = useAura();
 
     const goToHome = () => {
@@ -13,11 +13,11 @@ const GamesScreen: any = (games: any) => {
     const gameList = games[0].items;
 
     return (
-        <div className="GamesScreen">
-            <h1>GAMES - CATEGORIE {games[0].genre.toUpperCase()}</h1>
+        <div className="AdventureScreen">
+            <h1>GAMES - CATEGORIE ADVENTURE</h1>
             {gameList.map((game: any) => (
                 <div className="card" key={game.id}>
-                    {/*<img src="img_avatar.png" alt="Avatar" style="width:100%">*/}
+                    <img src="img_avatar.png" alt={game.title} />
                     <div className="container">
                         <h4>
                             <b>{game.title}</b>
@@ -35,4 +35,4 @@ const GamesScreen: any = (games: any) => {
     );
 };
 
-export default screenReady(GamesScreen);
+export default screenReady(AdventureScreen);

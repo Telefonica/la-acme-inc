@@ -13,12 +13,14 @@ export enum Screen {
     HOME = 'home',
     ERROR = 'error',
     SPLASH = 'splash',
-    GAMES = 'games',
+    ADVENTURE = 'adventure',
+    ACTION = 'action',
 }
 
 export enum Intent {
     HOME = 'intent.la-acme-inc.home',
-    GAMES = 'intent.la-acme-inc.games',
+    ADVENTURE = 'intent.la-acme-inc.adventure',
+    ACTION = 'intent.la-acme-inc.action',
     BACK = 'intent.la-acme-inc.home',
 }
 
