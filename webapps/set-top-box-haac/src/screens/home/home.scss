@@ -1,0 +1,29 @@
+.home-screen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.title {
+  position: absolute;
+  font-size: 32px;
+  top: 6vw;
+  left: 6vw;
+}
+
+.home-section {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  border: 1px solid transparent;
+}
+
+.focus {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
