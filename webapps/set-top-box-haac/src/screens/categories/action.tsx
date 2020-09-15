@@ -3,21 +3,21 @@ import { screenReady, NavigableButton } from '@telefonica/la-web-sdk';
 import { Intent } from '../../../../../dialogs/src/models';
 import { useAura } from '@telefonica/la-web-sdk';
 
-const ActionScreen: any = (games: any) => {
+const AdventureScreen: any = (games: any) => {
     const { sendCommand } = useAura();
 
     const goToHome = () => {
         sendCommand({ intent: Intent.HOME, entities: [] });
     };
 
-    const gameList = games[1].items;
-    
+    const gameList = games.items;
+
     return (
         <div className="ActionScreen">
-            <h1>GAMES - CATEGORIE ACTION</h1>
+            <h1>GAMES - CATEGORY {games.genre.toUpperCase()}</h1>
             {gameList.map((game: any) => (
                 <div className="card" key={game.id}>
-                    {/*<img src="img_avatar.png" alt="Avatar" style="width:100%">*/}
+                    <img src="img_avatar.png" alt={game.title} />
                     <div className="container">
                         <h4>
                             <b>{game.title}</b>
@@ -35,4 +35,4 @@ const ActionScreen: any = (games: any) => {
     );
 };
 
-export default screenReady(ActionScreen);
+export default screenReady(AdventureScreen);

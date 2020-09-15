@@ -9,13 +9,12 @@ const HomeScreen: React.FC<HomeScreenData> = (data: HomeScreenData) => {
 
     const { sendCommand } = useAura();
 
-    const goToCategorie = (catId: any) => {
-        console.log('catId', catId);
-        switch (catId) {
-            case '01':
+    const goToCategorie = (genre: string) => {
+        switch (genre) {
+            case 'adventure':
                 sendCommand({ intent: Intent.ADVENTURE, entities: [] });
                 break;
-            case '02':
+            case 'action':
                 sendCommand({ intent: Intent.ACTION, entities: [] });
                 break;
             default:
@@ -27,13 +26,13 @@ const HomeScreen: React.FC<HomeScreenData> = (data: HomeScreenData) => {
             <h1>{title}</h1>
             {categories.map((category: any) => (
                 <NavigableButton
-                    onClick={(e: any) => goToCategorie(category.id)}
-                    key={category.id}
+                    onClick={(e: any) => goToCategorie(category.genre)}
+                    key={category.catId}
                     defaultClass=""
                     focusedClass=""
                     id="categories-button"
                 >
-                    Go to {category.name}
+                    Go to {category.genre}
                 </NavigableButton>
             ))}
         </div>

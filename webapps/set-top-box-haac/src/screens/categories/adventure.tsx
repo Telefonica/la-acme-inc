@@ -10,11 +10,11 @@ const AdventureScreen: any = (games: any) => {
         sendCommand({ intent: Intent.HOME, entities: [] });
     };
 
-    const gameList = games[0].items;
+    const gameList = games.items;
 
     return (
         <div className="AdventureScreen">
-            <h1>GAMES - CATEGORIE ADVENTURE</h1>
+            <h1>GAMES - CATEGORY {games.genre.toUpperCase()}</h1>
             {gameList.map((game: any) => (
                 <div className="card" key={game.id}>
                     <img src="img_avatar.png" alt={game.title} />

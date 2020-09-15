@@ -8,7 +8,7 @@ import SplashScreen from './screens/splash';
 import ErrorScreen from './screens/error';
 import HomeScreen from './screens/home';
 import AdventureScreen from './screens/categories/adventure';
-
+import ActionScreen from './screens/categories/action';
 
 init({
     channel: Channel.STB,
@@ -18,6 +18,7 @@ init({
         [Screen.ERROR]: () => ErrorScreen,
         [Screen.HOME]: () => HomeScreen,
         [Screen.ADVENTURE]: () => AdventureScreen,
+        [Screen.ACTION]: () => ActionScreen,
     },
     buildNumber: process.env.BUILD_NUMBER,
     auraMockClient:

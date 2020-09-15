@@ -6,7 +6,7 @@ export interface SessionData {
 
 export enum DialogId {
     HOME = 'la-acme-inc-home',
-    GAMES = 'la-acme-inc-games'
+    GAMES = 'la-acme-inc-games',
 }
 
 export enum Screen {
@@ -36,7 +36,19 @@ export enum CustomAction {}
 
 export interface HomeScreenData {
     title: string;
-    categories: any;
+    categories: GenreCategory[];
 }
 
+export interface GenreCategory {
+    genre: string;
+    catId: string;
+    items: Game[];
+}
 
+export interface Game {
+    id: string,
+    title: string;
+    platform: string;
+    year: string;
+    description: string;
+}
