@@ -1,4 +1,4 @@
-import { Screen, Intent, HomeScreenData, GenreCategory, Game } from '../../../dialogs/src/models';
+import { Screen, Intent, HomeScreenData } from '../../../dialogs/src/models';
 
 const START = 'intent.internal.living-app.start';
 

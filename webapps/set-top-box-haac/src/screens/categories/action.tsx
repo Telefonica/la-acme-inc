@@ -22,7 +22,6 @@ const ActionScreen: any = (games: any) => {
         it is like this for the demo but you have to change it    
     */
     const getImg = (name: string) => {
-        console.log('test ', name);
         switch (name) {
             case 'streetfighter4':
                 return streetfighter4;

@@ -22,7 +22,6 @@ const AdventureScreen: any = (games: any) => {
         it is like this for the demo but you have to change it    
     */
     const getImg = (name: string) => {
-        console.log('test ', name);
         switch (name) {
             case 'zelda':
                 return zelda;
