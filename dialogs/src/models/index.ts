@@ -47,6 +47,7 @@ export interface GenreCategory {
 
 export interface Game {
     id: string,
+    img?: string,
     title: string;
     platform: string;
     year: string;

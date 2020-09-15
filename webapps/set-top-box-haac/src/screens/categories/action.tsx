@@ -2,8 +2,13 @@ import React from 'react';
 import { screenReady, NavigableButton } from '@telefonica/la-web-sdk';
 import { Intent } from '../../../../../dialogs/src/models';
 import { useAura } from '@telefonica/la-web-sdk';
+// images
+import callofduty from '../../../../common/assets/imgs/callofduty.jpg';
+import streetfighter4 from '../../../../common/assets/imgs/streetfighter4.png';
+import quake2 from '../../../../common/assets/imgs/quake2.jpg';
+import notfound from '../../../../common/assets/imgs/notfound.png';
 
-const AdventureScreen: any = (games: any) => {
+const ActionScreen: any = (games: any) => {
     const { sendCommand } = useAura();
 
     const goToHome = () => {
@@ -12,19 +17,42 @@ const AdventureScreen: any = (games: any) => {
 
     const gameList = games.items;
 
+    /* TODO
+        bad implementation of the use of images, 
+        it is like this for the demo but you have to change it    
+    */
+    const getImg = (name: string) => {
+        console.log('test ', name);
+        switch (name) {
+            case 'streetfighter4':
+                return streetfighter4;
+                break;
+            case 'callofduty':
+                return callofduty;
+                break;
+            case 'quake2':
+                return quake2;
+                break;
+            default:
+                return notfound;
+                break;
+        }
+    };
+
     return (
         <div className="ActionScreen">
             <h1>GAMES - CATEGORY {games.genre.toUpperCase()}</h1>
             {gameList.map((game: any) => (
                 <div className="card" key={game.id}>
-                    <img src="img_avatar.png" alt={game.title} />
+                    <img src={getImg(game.img)} alt={game.title} />
+
                     <div className="container">
                         <h4>
-                            <b>{game.title}</b>
+                            <b>Name: {game.title}</b>
                         </h4>
-                        <p>{game.platform}</p>
-                        <p>{game.year}</p>
-                        <p>{game.description}</p>
+                        <p>Platform: {game.platform}</p>
+                        <p>Year: {game.year}</p>
+                        <p>Description: {game.description}</p>
                     </div>
                 </div>
             ))}
@@ -35,4 +63,4 @@ const AdventureScreen: any = (games: any) => {
     );
 };
 
-export default screenReady(AdventureScreen);
+export default screenReady(ActionScreen);

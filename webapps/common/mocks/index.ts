@@ -27,27 +27,30 @@ const home: HomeScreenData = {
             items: [
                 {
                     id: 'ad1',
+                    img: 'zelda',
                     title: 'The legend of Zelda',
                     platform: 'Nintendo 64',
                     year: '1998',
                     description:
-                        'The Legend of Zelda is a high fantasy action-adventure video game franchise created by Japanese game designers Shigeru Miyamoto and Takashi Tezuka. It is primarily developed and published by Nintendo, although some portable installments and re-releases have been outsourced to Capcom, Vanpool, and Grezzo. The gameplay incorporates action-adventure and elements of action RPG games.',
+                        'The Legend of Zelda is a high fantasy action-adventure video game franchise created by Japanese game designers.',
                 },
                 {
                     id: 'ad2',
+                    img: 'tombraider',
                     title: 'Tomb Raider',
                     platform: 'PlayStation',
                     year: '1996',
                     description:
-                        'Development of Tomb Raider, the first video game, began in 1994; it was released in October 1996. Its critical and commercial success prompted Core Design to develop a new game annually for the next four years, which put a strain on staff. The sixth game, The Angel of Darkness, faced difficulties during development and was considered a failure at release. This prompted Eidos to switch development duties to Crystal Dynamics, which has been the series primary developer since. Other developers have contributed to spin-off titles and ports of mainline entries.',
+                        'Development of Tomb Raider, the first video game, began in 1994; it was released in October 1996.',
                 },
                 {
                     id: 'ad3',
+                    img: 'darksouls3',
                     title: 'Dark Souls 3',
                     platform: 'Xbox One',
                     year: '1998',
                     description:
-                        'Dark Souls III is an action role-playing video game developed by FromSoftware and published by Bandai Namco Entertainment for PlayStation 4, Xbox One, and Microsoft Windows. The fourth installment of the Souls series and the final installment of the Dark Souls trilogy, the game was released in Japan in March 2016 and worldwide a month later. Two downloadable content (DLC) expansions, Ashes of Ariandel and The Ringed City, were also made for the game.',
+                        'Dark Souls III is an action role-playing video game developed by FromSoftware and published by Bandai Namco Entertainment.',
                 },
             ],
         },
@@ -57,27 +60,28 @@ const home: HomeScreenData = {
             items: [
                 {
                     id: 'ac1',
+                    img: 'streetfighter4',
                     title: 'Street Fighter IV',
                     platform: 'Playstation 4',
                     year: '2018',
                     description:
-                        'Street Fighter IV is a 2008 fighting game published by Capcom, who also co-developed the game with Dimps. It was the first original main entry in the series since Street Fighter III in 1997, a hiatus of eleven years.',
+                        'Street Fighter IV is a 2008 fighting game published by Capcom, who also co-developed the game with Dimps.',
                 },
                 {
                     id: 'ac2',
+                    img: 'callofduty',
                     title: 'Call of Duty: operations',
                     platform: 'Windows 10',
                     year: '2020',
-                    description:
-                        'Call of Duty is a first-person shooter video game franchise published by Activision. Starting out in 2003, it first focused on games set in World War II. Over time, the series has seen games set in the midst of the Cold War, futuristic worlds, and outer space.',
+                    description: 'Call of Duty is a first-person shooter video game franchise published by Activision.',
                 },
                 {
                     id: 'ac3',
+                    img: 'quake2',
                     title: 'Quake 2',
                     platform: 'Windows 98',
                     year: '1997',
-                    description:
-                        'Quake II is a first-person shooter video game released in December 1997. It was developed by id Software and published by Activision. It is not a direct sequel to Quake; id decided to revert to an existing trademark when the games fast-paced, tactile feel felt closer to a Quake game than a new franchise.',
+                    description: 'Quake II is a first-person shooter video game released in December 1997.',
                 },
             ],
         },
