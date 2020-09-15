@@ -53,6 +53,12 @@ const HomeScreen: React.FC<HomeScreenData> = (data: HomeScreenData) => {
             case 'action':
                 sendCommand({ intent: Intent.ACTION, entities: [] });
                 break;
+            case 'sports':
+                sendCommand({ intent: Intent.SPORTS, entities: [] });
+                break;
+            case 'simulation':
+                sendCommand({ intent: Intent.SIMULATION, entities: [] });
+                break;
             default:
                 break;
         }
@@ -64,7 +70,10 @@ const HomeScreen: React.FC<HomeScreenData> = (data: HomeScreenData) => {
             {categories.map((category: GenreCategory, index: number) => (
                 <div className="home-section" key={category.catId}>
                     <NavigableButton
-                        onClick={() => goToCategory(category.genre)}
+                        onClick={() => {
+                            setCurrentIndex(index);
+                            goToCategory(category.genre);
+                        }}
                         defaultClass="button"
                         focusedClass="focus"
                         defaultFocused={index === 0}
