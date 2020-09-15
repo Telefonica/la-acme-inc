@@ -29,7 +29,7 @@ const GamesScreen: any = (games: any) => {
                 </div>
             ))}
             <NavigableButton onClick={(e: any) => goToHome()} defaultClass="" focusedClass="" id="categories-button">
-                Go to Categories
+                BACK
             </NavigableButton>
         </div>
     );

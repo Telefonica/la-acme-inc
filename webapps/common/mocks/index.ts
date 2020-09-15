@@ -18,7 +18,7 @@ const screen = (screen: Screen, msg: Record<string, any> = {}) => {
 };
 
 const home: HomeScreenData = {
-    title: 'VideoGames Categories',
+    title: 'VIDEOGAMES CATEGORIES',
     categories: [
         {
             id: '01',
