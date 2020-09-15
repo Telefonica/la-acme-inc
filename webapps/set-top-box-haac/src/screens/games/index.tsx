@@ -1,7 +1,15 @@
 import React from 'react';
-import { screenReady } from '@telefonica/la-web-sdk';
+import { screenReady, NavigableButton } from '@telefonica/la-web-sdk';
+import { Intent } from '../../../../../dialogs/src/models';
+import { Preloadable, useAura } from '@telefonica/la-web-sdk';
 
 const GamesScreen: any = (games: any) => {
+    const { sendCommand } = useAura();
+
+    const goToHome = () => {
+        sendCommand({ intent: Intent.HOME, entities: [] });
+    };
+
     const gameList = games[0].items;
 
     return (
@@ -20,6 +28,9 @@ const GamesScreen: any = (games: any) => {
                     </div>
                 </div>
             ))}
+            <NavigableButton onClick={(e: any) => goToHome()} defaultClass="" focusedClass="" id="categories-button">
+                Go to Categories
+            </NavigableButton>
         </div>
     );
 };

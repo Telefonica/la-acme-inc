@@ -6,6 +6,7 @@ const script = {
     [START]: () => screen(Screen.SPLASH),
     [Intent.HOME]: () => screen(Screen.HOME, home),
     [Intent.GAMES]: () => screen(Screen.GAMES, games),
+    [Intent.BACK]: () => screen(Screen.HOME, home),
 };
 
 const screen = (screen: Screen, msg: Record<string, any> = {}) => {

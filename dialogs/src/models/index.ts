@@ -19,6 +19,7 @@ export enum Screen {
 export enum Intent {
     HOME = 'intent.la-acme-inc.home',
     GAMES = 'intent.la-acme-inc.games',
+    BACK = 'intent.la-acme-inc.home',
 }
 
 export enum Operation {
