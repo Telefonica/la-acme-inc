@@ -1,12 +1,16 @@
 export const LIBRARY_NAME = 'la-acme-inc';
 
+// user data session
 export interface SessionData {
-    sampleKey: string;
+    name: string;
 }
 
 export enum DialogId {
     HOME = 'la-acme-inc-home',
-    GAMES = 'la-acme-inc-games',
+    ADVENTURE = 'la-acme-inc-adventure',
+    ACTION = 'la-acme-inc-adventure',
+    SIMULATION = 'la-acme-inc-adventure',
+    SPORTS = 'la-acme-inc-adventure'
 }
 
 export enum Screen {
@@ -26,6 +30,7 @@ export enum Intent {
     SIMULATION = 'intent.la-acme-inc.simulation',
     SPORTS = 'intent.la-acme-inc.sport',
     BACK = 'intent.la-acme-inc.home',
+    NAME = 'intent.la-acme-inc.name',
 }
 
 export enum Operation {
@@ -33,7 +38,7 @@ export enum Operation {
 }
 
 export enum Entity {
-    MESSAGE = 'ent.message',
+    NAME = 'ent.name',
 }
 
 export enum CustomAction {}
