@@ -8,9 +8,9 @@ export interface SessionData {
 export enum DialogId {
     HOME = 'la-acme-inc-home',
     ADVENTURE = 'la-acme-inc-adventure',
-    ACTION = 'la-acme-inc-adventure',
-    SIMULATION = 'la-acme-inc-adventure',
-    SPORTS = 'la-acme-inc-adventure'
+    ACTION = 'la-acme-inc-action',
+    SIMULATION = 'la-acme-inc-simulation',
+    SPORTS = 'la-acme-inc-sports'
 }
 
 export enum Screen {
@@ -28,8 +28,8 @@ export enum Intent {
     ADVENTURE = 'intent.la-acme-inc.adventure',
     ACTION = 'intent.la-acme-inc.action',
     SIMULATION = 'intent.la-acme-inc.simulation',
-    SPORTS = 'intent.la-acme-inc.sport',
-    BACK = 'intent.la-acme-inc.home',
+    SPORTS = 'intent.la-acme-inc.sports',
+    BACK = 'intent.la-acme-inc.back',
     NAME = 'intent.la-acme-inc.name',
 }
 
@@ -41,7 +41,7 @@ export enum Entity {
     NAME = 'ent.name',
 }
 
-export enum CustomAction {}
+export enum CustomAction { }
 
 export interface HomeScreenData {
     title: string;

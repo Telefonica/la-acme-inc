@@ -5,7 +5,15 @@ import configurationSchema from './config';
 import { LIBRARY_NAME } from './models';
 
 export = function setup(options: any, imports: any, register: (err: Error, result: any) => void) {
-    const dialogs = ['./dialogs/dialog-la-start', './dialogs/dialog-la-close', './dialogs/dialog-home'];
+    const dialogs = [
+        './dialogs/dialog-la-start',
+        './dialogs/dialog-la-close',
+        './dialogs/dialog-home',
+        './dialogs/dialog-action',
+        './dialogs/dialog-adventure',
+        './dialogs/dialog-simulation',
+        './dialogs/dialog-sports'
+    ];
 
     sdk.loader.excludeDialogs(dialogs, options);
 

@@ -1,1 +1,17 @@
-{}
+{
+    "hello-living-apps:error.session": [
+      "Vaya, la página no se ha cargado. Por favor, vuelve a intentarlo más tarde"
+    ],
+    "hello-living-apps:error.service": [
+      "Vaya, la página no se ha cargado. Por favor, vuelve a intentarlo más tarde"
+    ],
+    "hello-living-apps:error.no_entity": [
+      "Lo siento, no te he entendido. Por favor, prueba de nuevo"
+    ],
+    "hello-living-apps:home.welcome": [
+      "Bienvenido a la living app de Acme Inc"
+    ],
+    "hello-living-apps:home.suggestions": [
+      "Atrás:intent.operation.sdk.back|Mi nombre es %(name):intent.la-acme-inc.name?ent.name=%(name)"
+    ]
+  }

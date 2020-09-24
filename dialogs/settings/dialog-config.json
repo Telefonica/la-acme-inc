@@ -9,6 +9,60 @@
       ],
       "id": "la-acme-inc-home",
       "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
+    },
+    {
+      "triggerConditions": [
+        {
+          "contextFilters": [],
+          "intent": "intent.la-acme-inc.adventure"
+        }
+      ],
+      "id": "la-acme-inc-adventure",
+      "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
+    },
+    {
+      "triggerConditions": [
+        {
+          "contextFilters": [],
+          "intent": "intent.la-acme-inc.action"
+        }
+      ],
+      "id": "la-acme-inc-action",
+      "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
+    },
+    {
+      "triggerConditions": [
+        {
+          "contextFilters": [],
+          "intent": "intent.la-acme-inc.simulation"
+        }
+      ],
+      "id": "la-acme-inc-simulation",
+      "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
+    },
+    {
+      "triggerConditions": [
+        {
+          "contextFilters": [],
+          "intent": "intent.la-acme-inc.sports"
+        }
+      ],
+      "id": "la-acme-inc-sports",
+      "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
+    },
+    {
+      "triggerConditions": [
+        {
+          "context_filters": [],
+          "intent": "intent.la-acme-inc.back"
+        }
+      ],
+      "id": "la-acme-inc-back",
+      "only_in": [
+        "movistar-home",
+        "set-top-box",
+        "set-top-box-haac"
+      ]
     }
   ],
   "name": "la-acme-inc"
