@@ -49,6 +49,12 @@ export interface HomeScreenData {
     suggestions?: Suggestion[];
 }
 
+export interface GameScreenData {
+    title: string;
+    games: Game[];
+    suggestions?: Suggestion[];
+}
+
 export interface Category {
     id: string;
     name: string;

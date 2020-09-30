@@ -1,7 +1,7 @@
 {
     "games": [
         {
-            "id": "ac1",
+            "id": "ac01",
             "img": "streetfighter4.png",
             "title": "Street Fighter IV",
             "platform": "Playstation 4",
@@ -9,7 +9,7 @@
             "description": "Street Fighter IV is a 2008 fighting game published by Capcom, who also co-developed the game with Dimps."
         },
         {
-            "id": "ac2",
+            "id": "ac02",
             "img": "callofduty.jpg",
             "title": "Call of Duty: operations",
             "platform": "Windows 10",
@@ -17,7 +17,7 @@
             "description": "Call of Duty is a first-person shooter video game franchise published by Activision."
         },
         {
-            "id": "ac3",
+            "id": "ac03",
             "img": "quake2.jpg",
             "title": "Quake 2",
             "platform": "Windows 98",

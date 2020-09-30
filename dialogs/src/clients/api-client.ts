@@ -26,7 +26,7 @@ export class ApiClient extends BaseApiClient {
     }
 
     // to obtain video game action data
-    async getAction(): Promise<Game> {
+    async getAction(): Promise<Game[]> {
         // import mock data
         const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_ACTION}`;
         const msg = 'Fetching action videogames from mock data';
@@ -38,7 +38,7 @@ export class ApiClient extends BaseApiClient {
     }
 
     // to obtain video game action data
-    async getAdventure(): Promise<Game> {
+    async getAdventure(): Promise<Game[]> {
         // import mock data
         const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_ADVENTURE}`;
         const msg = 'Fetching adventure videogames from mock data';
@@ -50,7 +50,7 @@ export class ApiClient extends BaseApiClient {
     }
 
     // to obtain video game simulation data
-    async getSimulation(): Promise<Game> {
+    async getSimulation(): Promise<Game[]> {
         // import mock data
         const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_SIMULATION}`;
         const msg = 'Fetching simulation videogames from mock data';
@@ -62,7 +62,7 @@ export class ApiClient extends BaseApiClient {
     }
 
     // to obtain video game sports data
-    async getSports(): Promise<Game> {
+    async getSports(): Promise<Game[]> {
         // import mock data
         const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_SPORTS}`;
         const msg = 'Fetching sports videogames from mock data';

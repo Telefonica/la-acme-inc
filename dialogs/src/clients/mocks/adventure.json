@@ -1,7 +1,7 @@
 {
     "games": [
         {
-            "id": "ad1",
+            "id": "ad01",
             "img": "zelda.png",
             "title": "The legend of Zelda",
             "platform": "Nintendo 64",
@@ -9,7 +9,7 @@
             "description": "The Legend of Zelda is a high fantasy action-adventure video game franchise created by Japanese game designers."
         },
         {
-            "id": "ad2",
+            "id": "ad02",
             "img": "tombraider.jpg",
             "title": "Tomb Raider",
             "platform": "PlayStation",
@@ -17,7 +17,7 @@
             "description": "Development of Tomb Raider, the first video game, began in 1994; it was released in October 1996."
         },
         {
-            "id": "ad3",
+            "id": "ad03",
             "img": "darksouls3.jpg",
             "title": "Dark Souls 3",
             "platform": "Xbox One",

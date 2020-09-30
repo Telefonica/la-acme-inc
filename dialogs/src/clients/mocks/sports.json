@@ -1,21 +1,21 @@
 {
     "games": [
         {
-            "id": "sp1",
+            "id": "sp01",
             "title": "Fifa 2020",
             "platform": "Xbox One x",
             "year": "2020",
             "description": "Age of Empires is a series of historical real-time strategy video games, originally developed by Ensemble Studios and published by Xbox Game Studios. The first game was Age of Empires, released in 1997. Eight total games within the series have been released."
         },
         {
-            "id": "sp2",
+            "id": "sp02",
             "title": "NBA 2K 2020",
             "platform": "Playstation 4",
             "year": "2020",
             "description": "NBA 2k is a basket simulation game developed by Bullfrog Productions and published by Electronic Arts in 1997 for the PC in which players design and operate a privately owned hospital with the goal of curing patients of fictitious comical ailments."
         },
         {
-            "id": "sp3",
+            "id": "sp03",
             "title": "Super tennis",
             "platform": "Super Nintendo",
             "year": "1990",

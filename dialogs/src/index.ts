@@ -4,7 +4,7 @@ import * as path from 'path';
 import configurationSchema from './config';
 import { LIBRARY_NAME } from './models';
 
-export = function setup(options: any, imports: any, register: (err: Error, result: any) => void) {
+export = function setup(options: any, imports: any, register: (err: Error, result: any) => void): void {
     const dialogs = [
         './dialogs/dialog-la-start',
         './dialogs/dialog-la-close',
@@ -12,7 +12,7 @@ export = function setup(options: any, imports: any, register: (err: Error, resul
         './dialogs/dialog-action',
         './dialogs/dialog-adventure',
         './dialogs/dialog-simulation',
-        './dialogs/dialog-sports'
+        './dialogs/dialog-sports',
     ];
 
     sdk.loader.excludeDialogs(dialogs, options);
