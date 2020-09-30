@@ -1,3 +1,5 @@
+import { Suggestion } from '@telefonica/la-bot-sdk';
+
 export const LIBRARY_NAME = 'la-acme-inc';
 
 // user data session
@@ -41,11 +43,10 @@ export enum Entity {
     NAME = 'ent.name',
 }
 
-export enum CustomAction { }
-
 export interface HomeScreenData {
     title: string;
     categories: GenreCategory[];
+    suggestions?: Suggestion[];
 }
 
 export interface GenreCategory {

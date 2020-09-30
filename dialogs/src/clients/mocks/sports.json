@@ -1,0 +1,28 @@
+{
+  "genre": "sports",
+  "catId": "04",
+  "img": "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=80",
+  "items": [
+      {
+          "id": "sp1",
+          "title": "Fifa 2020",
+          "platform": "Xbox One x",
+          "year": "2020",
+          "description": "Age of Empires is a series of historical real-time strategy video games, originally developed by Ensemble Studios and published by Xbox Game Studios. The first game was Age of Empires, released in 1997. Eight total games within the series have been released."
+      },
+      {
+          "id": "sp2",
+          "title": "NBA 2K 2020",
+          "platform": "Playstation 4",
+          "year": "2020",
+          "description": "NBA 2k is a basket simulation game developed by Bullfrog Productions and published by Electronic Arts in 1997 for the PC in which players design and operate a privately owned hospital with the goal of curing patients of fictitious comical ailments."
+      },
+      {
+          "id": "sp3",
+          "title": "Super tennis",
+          "platform": "Super Nintendo",
+          "year": "1990",
+          "description": "Super tennis is a sport simulation video game developed by the Redwood Shores studio of Maxis and published by Electronic Arts. It is the fourth major title in The Sims series and was originally announced on May 6, 2013, and was released in North America on September 2, 2014 for Microsoft Windows."
+      }
+  ]
+}

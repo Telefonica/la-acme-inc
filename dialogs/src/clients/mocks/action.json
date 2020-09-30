@@ -1,0 +1,31 @@
+{
+  "genre": "action",
+  "catId": "02",
+  "img": "https://images.unsplash.com/photo-1566577134770-3d85bb3a9cc4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=80",
+  "items": [
+      {
+          "id": "ac1",
+          "img": "streetfighter4.png",
+          "title": "Street Fighter IV",
+          "platform": "Playstation 4",
+          "year": "2018",
+          "description": "Street Fighter IV is a 2008 fighting game published by Capcom, who also co-developed the game with Dimps."
+      },
+      {
+          "id": "ac2",
+          "img": "callofduty.jpg",
+          "title": "Call of Duty: operations",
+          "platform": "Windows 10",
+          "year": "2020",
+          "description": "Call of Duty is a first-person shooter video game franchise published by Activision."
+      },
+      {
+          "id": "ac3",
+          "img": "quake2.jpg",
+          "title": "Quake 2",
+          "platform": "Windows 98",
+          "year": "1997",
+          "description": "Quake II is a first-person shooter video game released in December 1997."
+      }
+  ]
+}
