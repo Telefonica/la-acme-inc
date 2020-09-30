@@ -1,3 +1,24 @@
 {
-    "categories": ["adventure", "action", "simulation","sports" ]
+    "categories": [
+        {
+            "id": "01",
+            "name": "adventure",
+            "img": "https://images.unsplash.com/photo-1482398650355-d4c6462afa0e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=80"
+        },
+        {
+            "id": "02",
+            "name": "action",
+            "img": "https://images.unsplash.com/photo-1566577134770-3d85bb3a9cc4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=80"
+        },
+        {
+            "id": "03",
+            "genre": "simulation",
+            "img": "https://images.unsplash.com/photo-1581090016743-0791caf50d31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=80"
+        },
+        {
+            "id": "04",
+            "genre": "sports",
+            "img": "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=80"
+        }
+    ]
 }

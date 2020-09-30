@@ -1,8 +1,5 @@
 {
-    "genre": "adventure",
-    "catId": "01",
-    "img": "https://images.unsplash.com/photo-1482398650355-d4c6462afa0e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=80",
-    "items": [
+    "games": [
         {
             "id": "ad1",
             "img": "zelda.png",

@@ -12,7 +12,7 @@ export enum DialogId {
     ADVENTURE = 'la-acme-inc-adventure',
     ACTION = 'la-acme-inc-action',
     SIMULATION = 'la-acme-inc-simulation',
-    SPORTS = 'la-acme-inc-sports'
+    SPORTS = 'la-acme-inc-sports',
 }
 
 export enum Screen {
@@ -45,15 +45,14 @@ export enum Entity {
 
 export interface HomeScreenData {
     title: string;
-    categories: GenreCategory[];
+    categories: Category[];
     suggestions?: Suggestion[];
 }
 
-export interface GenreCategory {
-    genre: string;
-    catId: string;
+export interface Category {
+    id: string;
+    name: string;
     img: string;
-    items: Game[];
 }
 
 export interface Game {
