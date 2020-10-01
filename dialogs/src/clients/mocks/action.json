@@ -2,6 +2,7 @@
     "games": [
         {
             "id": "ac01",
+            "cat": "action",
             "img": "streetfighter4.png",
             "title": "Street Fighter IV",
             "platform": "Playstation 4",
@@ -10,6 +11,7 @@
         },
         {
             "id": "ac02",
+            "cat": "action",
             "img": "callofduty.jpg",
             "title": "Call of Duty: operations",
             "platform": "Windows 10",
@@ -18,6 +20,7 @@
         },
         {
             "id": "ac03",
+            "cat": "action",
             "img": "quake2.jpg",
             "title": "Quake 2",
             "platform": "Windows 98",

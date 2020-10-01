@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as sdk from '@telefonica/la-bot-sdk';
 import * as path from 'path';
 
 import configurationSchema from './config';
 import { LIBRARY_NAME } from './models';
 
-export = function setup(options: any, imports: any, register: (err: Error, result: any) => void): void {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export = function setup(options: any, register: (err: Error, result: any) => void): void {
     const dialogs = [
         './dialogs/dialog-la-start',
         './dialogs/dialog-la-close',

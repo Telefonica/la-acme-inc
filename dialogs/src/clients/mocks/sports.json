@@ -2,6 +2,7 @@
     "games": [
         {
             "id": "sp01",
+            "cat": "sports",
             "title": "Fifa 2020",
             "platform": "Xbox One x",
             "year": "2020",
@@ -9,6 +10,7 @@
         },
         {
             "id": "sp02",
+            "cat": "sports",
             "title": "NBA 2K 2020",
             "platform": "Playstation 4",
             "year": "2020",
@@ -16,6 +18,7 @@
         },
         {
             "id": "sp03",
+            "cat": "sports",
             "title": "Super tennis",
             "platform": "Super Nintendo",
             "year": "1990",

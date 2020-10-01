@@ -21,6 +21,7 @@ export default class AdventureDialog extends Dialog {
         return [AdventureDialog.dialogPrompt];
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {
         return;
     }

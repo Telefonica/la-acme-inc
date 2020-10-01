@@ -32,6 +32,7 @@ export default class HomeDialog extends Dialog {
         return;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private async _dialogStage(stepContext: WaterfallStepContext<any>): Promise<DialogTurnResult> {
         // get the session data from sdk
         const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);

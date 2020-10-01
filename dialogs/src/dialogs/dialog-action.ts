@@ -21,6 +21,7 @@ export default class ActionDialog extends Dialog {
         return [ActionDialog.dialogPrompt];
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {
         return;
     }

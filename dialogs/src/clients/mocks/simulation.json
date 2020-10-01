@@ -2,6 +2,7 @@
     "games": [
         {
             "id": "si01",
+            "cat": "simulation",
             "title": "Age of empires",
             "platform": "Windows 98",
             "year": "1997",
@@ -9,6 +10,7 @@
         },
         {
             "id": "si02",
+            "cat": "simulation",
             "title": "Theme Hospital",
             "platform": "Playstation",
             "year": "1996",
@@ -16,6 +18,7 @@
         },
         {
             "id": "si03",
+            "cat": "simulation",
             "title": "The sims 4",
             "platform": "Windows 10",
             "year": "2018",

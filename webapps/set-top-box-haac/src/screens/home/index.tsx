@@ -1,14 +1,13 @@
 import './home.scss';
 
 import { KeyCode, KeyEvent, NavigableButton, screenReady, useBackground, useInput } from '@telefonica/la-web-sdk';
-import { HomeScreenData, GenreCategory } from '../../../../../dialogs/src/models';
+import { HomeScreenData, Category } from '../../../../../dialogs/src/models';
 import { useAura } from '@telefonica/la-web-sdk';
 import React, { useEffect, useCallback, useState } from 'react';
 import { Intent } from '../../../../../dialogs/src/models';
 
 const HomeScreen: React.FC<HomeScreenData> = (data: HomeScreenData) => {
     const { categories, title } = data;
-
     const background = useBackground();
     const { sendCommand } = useAura();
     const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -67,19 +66,19 @@ const HomeScreen: React.FC<HomeScreenData> = (data: HomeScreenData) => {
     return (
         <div className="home-screen">
             <h1 className="title">{title}</h1>
-            {categories.map((category: GenreCategory, index: number) => (
-                <div className="home-section" key={category.catId}>
+            {categories.map((category: Category, index: number) => (
+                <div className="home-section" key={category.id}>
                     <NavigableButton
                         onClick={() => {
                             setCurrentIndex(index);
-                            goToCategory(category.genre);
+                            goToCategory(category.name);
                         }}
                         defaultClass="button"
                         focusedClass="focus"
                         defaultFocused={index === 0}
-                        id={category.catId}
+                        id={category.id}
                     >
-                        Go to {category.genre}
+                        Go to {category.name}
                     </NavigableButton>
                 </div>
             ))}

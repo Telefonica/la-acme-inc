@@ -2,12 +2,12 @@ import './genre.scss';
 
 import React, { useRef } from 'react';
 import { screenReady, NavigableButton, Footer } from '@telefonica/la-web-sdk';
-import { Intent, Game, GenreCategory } from '../../../../../dialogs/src/models';
+import { Intent, Game, GameScreenData } from '../../../../../dialogs/src/models';
 import { useAura } from '@telefonica/la-web-sdk';
 
-const GenreScreen: React.FC<GenreCategory> = (genreCategory: GenreCategory) => {
+const GameScreen: React.FC<GameScreenData> = (gameData: GameScreenData) => {
     const { sendCommand } = useAura();
-    const gameList = useRef(genreCategory.items);
+    const gameList = useRef(gameData.games);
 
     const goToHome = () => {
         sendCommand({ intent: Intent.HOME, entities: [] });
@@ -23,7 +23,7 @@ const GenreScreen: React.FC<GenreCategory> = (genreCategory: GenreCategory) => {
 
     return (
         <div className="genre-screen">
-            <h1 className="title">GAMES - CATEGORY {genreCategory.genre.toUpperCase()}</h1>
+            <h1 className="title">GAMES - CATEGORY {gameData.title.toUpperCase()} </h1>
             <div className="games">
                 {gameList.current.map((game: Game) => (
                     <div className="game" key={game.id}>
@@ -50,4 +50,4 @@ const GenreScreen: React.FC<GenreCategory> = (genreCategory: GenreCategory) => {
     );
 };
 
-export default screenReady(GenreScreen);
+export default screenReady(GameScreen);
