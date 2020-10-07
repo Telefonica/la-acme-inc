@@ -40,12 +40,13 @@ const HomeScreen: React.FC<HomeScreenData> = (data: HomeScreenData) => {
     useInput(onKeyPressed);
 
     useEffect(() => {
-        background.setBackground(categories[currentIndex].img);
+        background.setBackground(categories[currentIndex].image_background);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex]);
 
     const goToCategory = (genre: string) => {
-        switch (genre) {
+        console.log('genre ', genre);
+        switch (genre.toLowerCase()) {
             case 'adventure':
                 sendCommand({ intent: Intent.ADVENTURE, entities: [] });
                 break;

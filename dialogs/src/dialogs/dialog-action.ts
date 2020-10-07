@@ -35,7 +35,7 @@ export default class ActionDialog extends Dialog {
 
         const screenData: GameScreenData = {
             title: 'ACTION VIDEOGAMES',
-            games,
+            games: games['results'],
         };
 
         // answer for the webapp

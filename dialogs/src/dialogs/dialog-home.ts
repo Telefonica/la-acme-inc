@@ -50,7 +50,7 @@ export default class HomeDialog extends Dialog {
 
         const screenData: HomeScreenData = {
             title: 'VIDEOGAMES CATEGORIES',
-            categories,
+            categories: categories['results'],
             suggestions: Suggestion.getSuggestions(stepContext, 'home.suggestion', { name }), // TODO config para usar locale (LANGUAGES)
         };
 

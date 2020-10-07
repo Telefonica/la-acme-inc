@@ -58,14 +58,18 @@ export interface GameScreenData {
 export interface Category {
     id: string;
     name: string;
-    img: string;
+    slug: string;
+    games_count: number;
+    image_background: string;
 }
 
 export interface Game {
     id: string;
-    img?: string;
-    title: string;
-    platform: string;
-    year: string;
-    description: string;
+    background_image: string;
+    name: string;
+    slug: string;
+    platforms: Array<any>;
+    released: string;
+    metacritic: number;
+    playtime: number;
 }
