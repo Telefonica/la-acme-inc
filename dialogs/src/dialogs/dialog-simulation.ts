@@ -2,7 +2,7 @@ import { Configuration, Dialog, PromptCase, RouteAction, ScreenMessage } from '@
 import { ApiClient } from '../clients/api-client';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, Intent, GameScreenData, Screen } from '../models';
+import { DialogId, LIBRARY_NAME, GameScreenData, Screen, Operation } from '../models';
 
 /* dialog simulation child of HOME */
 
@@ -44,7 +44,7 @@ export default class SimulationDialog extends Dialog {
         await sdk.messaging.send(stepContext, message);
         // user choices operations
         const choices: string[] = [
-            Intent.BACK, // go back
+            Operation.BACK, // go back
         ];
         return await sdk.messaging.prompt(stepContext, SimulationDialog.dialogPrompt, choices);
     }
@@ -52,7 +52,7 @@ export default class SimulationDialog extends Dialog {
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
         const cases: PromptCase[] = [
             {
-                operation: Intent.BACK, // go back
+                operation: Operation.BACK, // go back
                 action: [RouteAction.POP], // save this navigation in the routing
             },
         ];

@@ -31,8 +31,7 @@ export enum Intent {
     ACTION = 'intent.la-acme-inc.action',
     SIMULATION = 'intent.la-acme-inc.simulation',
     SPORTS = 'intent.la-acme-inc.sports',
-    BACK = 'intent.la-acme-inc.back',
-    NAME = 'intent.la-acme-inc.name',
+    NAME = 'intent.la-acme-inc.set-name',
 }
 
 export enum Operation {
