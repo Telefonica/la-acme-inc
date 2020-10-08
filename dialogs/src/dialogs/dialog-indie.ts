@@ -4,13 +4,13 @@ import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
 import { DialogId, LIBRARY_NAME, Intent, GameScreenData, Screen } from '../models';
 
-/* dialog simulation child of HOME */
+/* dialog indie child of HOME */
 
-export default class SimulationDialog extends Dialog {
-    static readonly dialogPrompt = `${DialogId.SIMULATION}-prompt`;
+export default class IndieDialog extends Dialog {
+    static readonly dialogPrompt = `${DialogId.INDIE}-prompt`;
 
     constructor(config: Configuration) {
-        super(LIBRARY_NAME, DialogId.SIMULATION, config);
+        super(LIBRARY_NAME, DialogId.INDIE, config);
     }
 
     protected dialogStages(): WaterfallStep[] {
@@ -18,7 +18,7 @@ export default class SimulationDialog extends Dialog {
     }
 
     protected prompts(): string[] {
-        return [SimulationDialog.dialogPrompt];
+        return [IndieDialog.dialogPrompt];
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -30,23 +30,23 @@ export default class SimulationDialog extends Dialog {
         // instantiate the client
         const apiClient = new ApiClient(this.config, stepContext);
 
-        // videogames data
-        const games = await apiClient.getSimulation();
+        // videogames categories data
+        const games = await apiClient.getIndie();
 
         const screenData: GameScreenData = {
-            title: 'SIMULATION VIDEOGAMES',
-            games,
+            title: 'INDIE VIDEOGAMES',
+            games: games['results'],
         };
 
         // answer for the webapp
-        const message = new ScreenMessage(Screen.ADVENTURE, screenData);
+        const message = new ScreenMessage(Screen.INDIE, screenData);
 
         await sdk.messaging.send(stepContext, message);
         // user choices operations
         const choices: string[] = [
             Intent.BACK, // go back
         ];
-        return await sdk.messaging.prompt(stepContext, SimulationDialog.dialogPrompt, choices);
+        return await sdk.messaging.prompt(stepContext, IndieDialog.dialogPrompt, choices);
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {

@@ -35,7 +35,7 @@ export default class AdventureDialog extends Dialog {
 
         const screenData: GameScreenData = {
             title: 'ADVENTURE VIDEOGAMES',
-            games,
+            games: games['results'],
         };
 
         // answer for the webapp

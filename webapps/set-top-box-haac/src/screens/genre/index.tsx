@@ -1,6 +1,6 @@
 import './genre.scss';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { screenReady, NavigableButton, Footer } from '@telefonica/la-web-sdk';
 import { Intent, Game, GameScreenData } from '../../../../../dialogs/src/models';
 import { useAura } from '@telefonica/la-web-sdk';
@@ -16,7 +16,7 @@ const GameScreen: React.FC<GameScreenData> = (gameData: GameScreenData) => {
 
     return (
         <div className="genre-screen">
-            <h1 className="title">GAMES - CATEGORY {gameData.title.toUpperCase()} </h1>
+            <h1 className="title">CATEGORY {gameData.title.toUpperCase()} </h1>
             <div className="games">
                 {gameList.map((game: Game) => (
                     <div className="game" key={game.id}>
