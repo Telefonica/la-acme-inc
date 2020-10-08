@@ -11,6 +11,7 @@ const configurationSchema: joi.SchemaMap = {
     LA_ACME_INC_API_GET_ADVENTURE: joi.string().default('games?page_size=4&genres=adventure'),
     LA_ACME_INC_API_GET_INDIE: joi.string().default('games?page_size=4&genres=indie'),
     LA_ACME_INC_API_GET_RPG: joi.string().default('games?page_size=4&genres=role-playing-games-rpg'),
+    LA_ACME_INC_API_GET_GAMEINFO: joi.string().default('games/'),
 };
 
 export default configurationSchema;

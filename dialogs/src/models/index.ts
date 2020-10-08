@@ -68,8 +68,14 @@ export interface Game {
     background_image: string;
     name: string;
     slug: string;
-    platforms: Array<any>;
+    platforms: Platform[];
     released: string;
     metacritic: number;
     playtime: number;
+    description: string;
+}
+
+export interface Platform {
+    id: string;
+    name: string;
 }

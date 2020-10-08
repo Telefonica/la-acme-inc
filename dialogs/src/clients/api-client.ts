@@ -13,7 +13,7 @@ export class ApiClient extends BaseApiClient {
     // to obtain video game categories data
     async getCategories(): Promise<Category[]> {
         const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_CATEGORIES}`;
-        const msg = 'Fetching genre videogames from mock data';
+        const msg = 'Fetching genre videogames data';
         const fetch: () => Promise<any> = () =>
             this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
 
@@ -23,7 +23,7 @@ export class ApiClient extends BaseApiClient {
     // to obtain video game action data
     async getAction(): Promise<Game[]> {
         const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_ACTION}`;
-        const msg = 'Fetching action videogames from mock data';
+        const msg = 'Fetching action videogames data';
         const fetch: () => Promise<any> = () =>
             this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
 
@@ -33,7 +33,7 @@ export class ApiClient extends BaseApiClient {
     // to obtain video game action data
     async getAdventure(): Promise<Game[]> {
         const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_ADVENTURE}`;
-        const msg = 'Fetching adventure videogames from mock data';
+        const msg = 'Fetching adventure videogames data';
         const fetch: () => Promise<any> = () =>
             this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
 
@@ -43,7 +43,7 @@ export class ApiClient extends BaseApiClient {
     // to obtain video game rpg data
     async getRPG(): Promise<Game[]> {
         const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_RPG}`;
-        const msg = 'Fetching rpg videogames from mock data';
+        const msg = 'Fetching rpg videogames data';
         const fetch: () => Promise<any> = () =>
             this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
 
@@ -53,10 +53,20 @@ export class ApiClient extends BaseApiClient {
     // to obtain video game indies data
     async getIndie(): Promise<Game[]> {
         const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_INDIE}`;
-        const msg = 'Fetching indie videogames from mock data';
+        const msg = 'Fetching indie videogames data';
         const fetch: () => Promise<any> = () =>
             this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
 
         return sdk.cacheGet<any>('indie.games', fetch, 3600, this.stepContext);
+    }
+
+    // to get detailed information about a game
+    async getGameInfo(title: string): Promise<Game[]> {
+        const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_GAMEINFO}${title}`;
+        const msg = `Fetching ${title} videogame data`;
+        const fetch: () => Promise<any> = () =>
+            this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
+
+        return sdk.cacheGet<any>('gameinfo.games', fetch, 3600, this.stepContext);
     }
 }

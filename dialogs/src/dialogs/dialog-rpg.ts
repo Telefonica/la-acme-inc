@@ -2,7 +2,7 @@ import { Configuration, Dialog, PromptCase, RouteAction, ScreenMessage } from '@
 import { ApiClient } from '../clients/api-client';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, Intent, GameScreenData, Screen } from '../models';
+import { DialogId, LIBRARY_NAME, Intent, GameScreenData, Screen, Game } from '../models';
 
 /* dialog rpg child of HOME */
 
@@ -31,13 +31,21 @@ export default class RPGDialog extends Dialog {
         const apiClient = new ApiClient(this.config, stepContext);
 
         // videogames categories data
-        const games = await apiClient.getRPG();
+        let games = await apiClient.getRPG();
 
-        console.log('games[results]', games['results']);
+        // TODO mapear en el cliente results
+        games = games['results'];
+
+        // add description field in game
+        for (let index = 0; index < games.length; index++) {
+            const game: Game = games[index];
+            const gameInfo = await apiClient.getGameInfo(game.slug);
+            game.description = gameInfo['description'];
+        }
 
         const screenData: GameScreenData = {
             title: 'RPG VIDEOGAMES',
-            games: games['results'],
+            games,
         };
 
         // answer for the webapp
