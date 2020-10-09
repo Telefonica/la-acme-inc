@@ -34,20 +34,20 @@
       "triggerConditions": [
         {
           "contextFilters": [],
-          "intent": "intent.la-acme-inc.simulation"
+          "intent": "intent.la-acme-inc.indie"
         }
       ],
-      "id": "la-acme-inc-simulation",
+      "id": "la-acme-inc-indie",
       "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
     },
     {
       "triggerConditions": [
         {
           "contextFilters": [],
-          "intent": "intent.la-acme-inc.sports"
+          "intent": "intent.la-acme-inc.rpg"
         }
       ],
-      "id": "la-acme-inc-sports",
+      "id": "la-acme-inc-rpg",
       "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
     },
     {

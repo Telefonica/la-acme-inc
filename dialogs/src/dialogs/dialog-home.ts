@@ -50,7 +50,7 @@ export default class HomeDialog extends Dialog {
 
         const screenData: HomeScreenData = {
             title: 'VIDEOGAMES CATEGORIES',
-            categories,
+            categories: categories['results'],
             suggestions: Suggestion.getSuggestions(stepContext, 'home.suggestion', { name }), // TODO config para usar locale (LANGUAGES)
         };
 
@@ -63,8 +63,8 @@ export default class HomeDialog extends Dialog {
         const choices: string[] = [
             Intent.ADVENTURE, // go to adventure Dialog
             Intent.ACTION, // go to action dialog
-            Intent.SIMULATION, // go to simulation dialog
-            Intent.SPORTS, // go to sports dialog
+            Intent.INDIE, // go to indie dialog
+            Intent.RPG, // go to rpg dialog
         ];
 
         return await sdk.messaging.prompt(stepContext, HomeDialog.dialogPrompt, choices);
@@ -91,12 +91,12 @@ export default class HomeDialog extends Dialog {
                 action: [RouteAction.PUSH, DialogId.ACTION],
             },
             {
-                operation: Intent.SIMULATION,
-                action: [RouteAction.PUSH, DialogId.SIMULATION],
+                operation: Intent.INDIE,
+                action: [RouteAction.PUSH, DialogId.INDIE],
             },
             {
-                operation: Intent.SPORTS,
-                action: [RouteAction.PUSH, DialogId.SPORTS],
+                operation: Intent.RPG,
+                action: [RouteAction.PUSH, DialogId.RPG],
             },
             {
                 operation: Intent.NAME,

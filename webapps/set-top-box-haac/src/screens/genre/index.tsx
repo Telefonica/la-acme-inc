@@ -1,42 +1,36 @@
 import './genre.scss';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { screenReady, NavigableButton, Footer } from '@telefonica/la-web-sdk';
 import { Intent, Game, GameScreenData } from '../../../../../dialogs/src/models';
 import { useAura } from '@telefonica/la-web-sdk';
 
 const GameScreen: React.FC<GameScreenData> = (gameData: GameScreenData) => {
     const { sendCommand } = useAura();
-    const gameList = useRef(gameData.games);
+
+    const gameList = gameData.games;
 
     const goToHome = () => {
         sendCommand({ intent: Intent.HOME, entities: [] });
     };
 
-    const getImage = (filename: string | undefined): string => {
-        if (filename) {
-            return `${process.env.PUBLIC_URL}/assets/imgs/${filename}`;
-        }
-
-        return `${process.env.PUBLIC_URL}/assets/imgs/notfound.png`;
-    };
-
     return (
         <div className="genre-screen">
-            <h1 className="title">GAMES - CATEGORY {gameData.title.toUpperCase()} </h1>
+            <h1 className="title">CATEGORY {gameData.title.toUpperCase()} </h1>
             <div className="games">
-                {gameList.current.map((game: Game) => (
+                {gameList.map((game: Game) => (
                     <div className="game" key={game.id}>
                         <div className="upper-container">
-                            <img src={getImage(game.img)} alt={game.title} />
+                            <img src={game.background_image} alt={game.name} />
                             <div className="right-container">
-                                <b>Name: {game.title}</b>
-                                <p>Platform: {game.platform}</p>
-                                <p>Year: {game.year}</p>
+                                <b>Name: {game.name}</b>
+                                <p>PlayTime: {game.playtime}</p>
+                                <p>Released: {game.released}</p>
+                                <p>Metacritic: {game.metacritic}</p>
                             </div>
                         </div>
                         <div className="lower-container">
-                            <p>Description: {game.description}</p>
+                            <p>{game.description.replace('<p>', '').substr(0, 120) + ' ...'}</p>
                         </div>
                     </div>
                 ))}

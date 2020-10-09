@@ -18,8 +18,8 @@ init({
         [Screen.HOME]: () => HomeScreen,
         [Screen.ADVENTURE]: () => GenreScreen,
         [Screen.ACTION]: () => GenreScreen,
-        [Screen.SIMULATION]: () => GenreScreen,
-        [Screen.SPORTS]: () => GenreScreen,
+        [Screen.INDIE]: () => GenreScreen,
+        [Screen.RPG]: () => GenreScreen,
     },
     buildNumber: process.env.BUILD_NUMBER,
     auraMockClient:

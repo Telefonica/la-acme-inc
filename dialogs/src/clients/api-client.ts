@@ -1,75 +1,72 @@
 import { ApiClient as BaseApiClient, Configuration, HTTPMethod } from '@telefonica/la-bot-sdk';
 import { WaterfallStepContext } from 'botbuilder-dialogs';
+import * as sdk from '@telefonica/la-bot-sdk';
 import { Category, Game } from '../models';
 
-// mock data from jsons
-import * as categories from './mocks/categories.json';
-import * as action from './mocks/action.json';
-import * as adventure from './mocks/adventure.json';
-import * as simulation from './mocks/simulation.json';
-import * as sports from './mocks/sports.json';
-
 export class ApiClient extends BaseApiClient {
-    constructor(private readonly config: Configuration, stepContext: WaterfallStepContext) {
-        super(stepContext, config.LA_ACME_INC_API_MOCK);
+    private config: Configuration;
+
+    constructor(config: Configuration, stepContext: WaterfallStepContext) {
+        super(stepContext, config.LA_EXAMPLE_API_MOCK);
+        this.config = config;
     }
     // to obtain video game categories data
     async getCategories(): Promise<Category[]> {
-        // import mock data
         const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_CATEGORIES}`;
-        const msg = 'Fetching genre videogames from mock data';
-        return this.setupRequest(HTTPMethod.GET, url, msg)
-            .withMock(categories)
-            .withTimeout(10000)
-            .execute<any>()
-            .then((categoriesObject) => categoriesObject.categories);
+        const msg = 'Fetching genre videogames data';
+        const fetch: () => Promise<any> = () =>
+            this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
+
+        return sdk.cacheGet<any>('categories.items', fetch, 3600, this.stepContext);
     }
 
     // to obtain video game action data
     async getAction(): Promise<Game[]> {
-        // import mock data
         const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_ACTION}`;
-        const msg = 'Fetching action videogames from mock data';
-        return this.setupRequest(HTTPMethod.GET, url, msg)
-            .withMock(action)
-            .withTimeout(10000)
-            .execute<any>()
-            .then((actionObject) => actionObject.games);
+        const msg = 'Fetching action videogames data';
+        const fetch: () => Promise<any> = () =>
+            this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
+
+        return sdk.cacheGet<any>('action.games', fetch, 3600, this.stepContext);
     }
 
     // to obtain video game action data
     async getAdventure(): Promise<Game[]> {
-        // import mock data
         const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_ADVENTURE}`;
-        const msg = 'Fetching adventure videogames from mock data';
-        return this.setupRequest(HTTPMethod.GET, url, msg)
-            .withMock(adventure)
-            .withTimeout(10000)
-            .execute<any>()
-            .then((adventureObject) => adventureObject.games);
+        const msg = 'Fetching adventure videogames data';
+        const fetch: () => Promise<any> = () =>
+            this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
+
+        return sdk.cacheGet<any>('adventure.games', fetch, 3600, this.stepContext);
     }
 
-    // to obtain video game simulation data
-    async getSimulation(): Promise<Game[]> {
-        // import mock data
-        const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_SIMULATION}`;
-        const msg = 'Fetching simulation videogames from mock data';
-        return this.setupRequest(HTTPMethod.GET, url, msg)
-            .withMock(simulation)
-            .withTimeout(10000)
-            .execute<any>()
-            .then((adventureObject) => adventureObject.games);
+    // to obtain video game rpg data
+    async getRPG(): Promise<Game[]> {
+        const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_RPG}`;
+        const msg = 'Fetching rpg videogames data';
+        const fetch: () => Promise<any> = () =>
+            this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
+
+        return sdk.cacheGet<any>('rpg.games', fetch, 3600, this.stepContext);
     }
 
-    // to obtain video game sports data
-    async getSports(): Promise<Game[]> {
-        // import mock data
-        const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_SPORTS}`;
-        const msg = 'Fetching sports videogames from mock data';
-        return this.setupRequest(HTTPMethod.GET, url, msg)
-            .withMock(sports)
-            .withTimeout(10000)
-            .execute<any>()
-            .then((sportsObject) => sportsObject.games);
+    // to obtain video game indies data
+    async getIndie(): Promise<Game[]> {
+        const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_INDIE}`;
+        const msg = 'Fetching indie videogames data';
+        const fetch: () => Promise<any> = () =>
+            this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
+
+        return sdk.cacheGet<any>('indie.games', fetch, 3600, this.stepContext);
+    }
+
+    // to get detailed information about a game
+    async getGameInfo(title: string): Promise<Game[]> {
+        const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_GAMEINFO}${title}`;
+        const msg = `Fetching ${title} videogame data`;
+        const fetch: () => Promise<any> = () =>
+            this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
+
+        return sdk.cacheGet<any>('gameinfo.games', fetch, 3600, this.stepContext);
     }
 }

@@ -2,15 +2,15 @@ import { Configuration, Dialog, PromptCase, RouteAction, ScreenMessage } from '@
 import { ApiClient } from '../clients/api-client';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, Intent, GameScreenData, Screen } from '../models';
+import { DialogId, LIBRARY_NAME, Intent, GameScreenData, Screen, Game } from '../models';
 
-/* dialog sports child of HOME */
+/* dialog indie child of HOME */
 
-export default class SportsDialog extends Dialog {
-    static readonly dialogPrompt = `${DialogId.SPORTS}-prompt`;
+export default class IndieDialog extends Dialog {
+    static readonly dialogPrompt = `${DialogId.INDIE}-prompt`;
 
     constructor(config: Configuration) {
-        super(LIBRARY_NAME, DialogId.SPORTS, config);
+        super(LIBRARY_NAME, DialogId.INDIE, config);
     }
 
     protected dialogStages(): WaterfallStep[] {
@@ -18,7 +18,7 @@ export default class SportsDialog extends Dialog {
     }
 
     protected prompts(): string[] {
-        return [SportsDialog.dialogPrompt];
+        return [IndieDialog.dialogPrompt];
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -30,23 +30,33 @@ export default class SportsDialog extends Dialog {
         // instantiate the client
         const apiClient = new ApiClient(this.config, stepContext);
 
-        // videogames data
-        const games = await apiClient.getSports();
+        // videogames categories data
+        let games = await apiClient.getIndie();
+
+        // TODO mapear en el cliente results
+        games = games['results'];
+
+        // add description field in game
+        for (let index = 0; index < games.length; index++) {
+            const game: Game = games[index];
+            const gameInfo = await apiClient.getGameInfo(game.slug);
+            game.description = gameInfo['description'];
+        }
 
         const screenData: GameScreenData = {
-            title: 'SPORTS VIDEOGAMES',
+            title: 'INDIE VIDEOGAMES',
             games,
         };
 
         // answer for the webapp
-        const message = new ScreenMessage(Screen.ADVENTURE, screenData);
+        const message = new ScreenMessage(Screen.INDIE, screenData);
 
         await sdk.messaging.send(stepContext, message);
         // user choices operations
         const choices: string[] = [
             Intent.BACK, // go back
         ];
-        return await sdk.messaging.prompt(stepContext, SportsDialog.dialogPrompt, choices);
+        return await sdk.messaging.prompt(stepContext, IndieDialog.dialogPrompt, choices);
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
