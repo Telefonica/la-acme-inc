@@ -1,7 +1,7 @@
 import * as joi from '@hapi/joi';
 
 const configurationSchema: joi.SchemaMap = {
-    LA_ACME_INC_API_MOCK: joi.boolean().default(false), // to use mock
+    LA_ACME_INC_API_MOCK: joi.boolean().default(false),
     LA_ACME_INC_API_BASE_URL: joi
         .string()
         .uri({ scheme: ['http', 'https'] })
@@ -11,7 +11,6 @@ const configurationSchema: joi.SchemaMap = {
     LA_ACME_INC_API_GET_ADVENTURE: joi.string().default('games?page_size=4&genres=adventure'),
     LA_ACME_INC_API_GET_INDIE: joi.string().default('games?page_size=4&genres=indie'),
     LA_ACME_INC_API_GET_RPG: joi.string().default('games?page_size=4&genres=role-playing-games-rpg'),
-    LA_ACME_INC_API_GET_GAMEINFO: joi.string().default('games/'),
 };
 
 export default configurationSchema;

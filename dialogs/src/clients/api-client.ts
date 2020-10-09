@@ -59,14 +59,4 @@ export class ApiClient extends BaseApiClient {
 
         return sdk.cacheGet<any>('indie.games', fetch, 3600, this.stepContext);
     }
-
-    // to get detailed information about a game
-    async getGameInfo(title: string): Promise<Game[]> {
-        const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_GAMEINFO}${title}`;
-        const msg = `Fetching ${title} videogame data`;
-        const fetch: () => Promise<any> = () =>
-            this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
-
-        return sdk.cacheGet<any>('gameinfo.games', fetch, 3600, this.stepContext);
-    }
 }

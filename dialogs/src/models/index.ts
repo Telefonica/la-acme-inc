@@ -71,7 +71,6 @@ export interface Game {
     released: string;
     metacritic: number;
     playtime: number;
-    description: string;
     clips: unknown;
     short_screenshots: ShortScreenshots[];
     stores: Stores[];

@@ -24,13 +24,12 @@ const GameScreen: React.FC<GameScreenData> = (gameData: GameScreenData) => {
                             <img src={game.background_image} alt={game.name} />
                             <div className="right-container">
                                 <b>Name: {game.name}</b>
-                                <p>PlayTime: {game.playtime}</p>
-                                <p>Released: {game.released}</p>
-                                <p>Metacritic: {game.metacritic}</p>
                             </div>
                         </div>
                         <div className="lower-container">
-                            <p>{game.description.replace('<p>', '').substr(0, 120) + ' ...'}</p>
+                            <p>Metacritic: {game.metacritic}</p>
+                            <p>PlayTime: {game.playtime}</p>
+                            <p>Released: {game.released}</p>
                         </div>
                     </div>
                 ))}
