@@ -44,7 +44,6 @@ export enum Entity {
 
 export interface HomeScreenData {
     title: string;
-    screen: Screen;
     categories: Category[];
     suggestions?: Suggestion[];
 }
