@@ -2,7 +2,6 @@ import { Suggestion } from '@telefonica/la-bot-sdk';
 
 export const LIBRARY_NAME = 'la-acme-inc';
 
-// user data session
 export interface SessionData {
     name: string;
 }
@@ -45,6 +44,7 @@ export enum Entity {
 
 export interface HomeScreenData {
     title: string;
+    screen: Screen;
     categories: Category[];
     suggestions?: Suggestion[];
 }
@@ -73,9 +73,33 @@ export interface Game {
     metacritic: number;
     playtime: number;
     description: string;
+    clips: unknown;
+    short_screenshots: ShortScreenshots[];
+    stores: Stores[];
+    tags: Tags[];
+}
+
+export interface ShortScreenshots {
+    id: string;
+    image: string;
 }
 
 export interface Platform {
     id: string;
     name: string;
+}
+
+export interface Stores {
+    id: string;
+    name: string;
+    slug: string;
+}
+
+export interface Tags {
+    id: string;
+    name: string;
+    games_count: number;
+    language: string;
+    slug: string;
+    image_background: string;
 }
