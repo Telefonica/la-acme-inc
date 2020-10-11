@@ -1,5 +1,5 @@
 import { ApiClient } from '../clients/api-client';
-import { Configuration, Dialog, PromptCase, ScreenMessage, RouteAction, Suggestion } from '@telefonica/la-bot-sdk';
+import { Configuration, Dialog, PromptCase, ScreenMessage, RouteAction } from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
 import { DialogId, LIBRARY_NAME, Screen, SessionData, Intent, Entity, HomeScreenData } from '../models';
@@ -34,13 +34,6 @@ export default class HomeDialog extends Dialog {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private async _dialogStage(stepContext: WaterfallStepContext<any>): Promise<DialogTurnResult> {
-        // get the session data from sdk
-        const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-
-        // getting the persistent data from sdk
-        const context = await sdk.persistence.getStoredData(stepContext);
-
-        const name = sessionData.name || context.name;
 
         // instantiate the client
         const apiClient = new ApiClient(this.config, stepContext);
@@ -51,11 +44,10 @@ export default class HomeDialog extends Dialog {
         const screenData: HomeScreenData = {
             title: 'VIDEOGAMES CATEGORIES',
             categories: categories['results'],
-            suggestions: Suggestion.getSuggestions(stepContext, 'home.suggestion', { name }), // TODO config para usar locale (LANGUAGES)
         };
 
         // answer for the webapp
-        const message = new ScreenMessage(Screen.HOME, screenData).withText('home.welcome').withSpeak('home.welcome');
+        const message = new ScreenMessage(Screen.HOME, screenData);
 
         await sdk.messaging.send(stepContext, message);
 

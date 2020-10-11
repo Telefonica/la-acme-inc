@@ -6,8 +6,8 @@ import { useAura } from '@telefonica/la-web-sdk';
 import React, { useEffect, useCallback, useState } from 'react';
 import { Intent } from '../../../../../dialogs/src/models';
 
-const HomeScreen: React.FC<HomeScreenData> = (data: HomeScreenData) => {
-    const { categories, title } = data;
+const HomeScreen: React.FC<HomeScreenData> = (data: any) => {
+    const {title, categories} = data.screenData;
     const background = useBackground();
     const { sendCommand } = useAura();
     const [currentIndex, setCurrentIndex] = useState<number>(0);

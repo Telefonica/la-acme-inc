@@ -7,7 +7,7 @@ import { init, Channel } from '@telefonica/la-web-sdk';
 import SplashScreen from './screens/splash';
 import ErrorScreen from './screens/error';
 import HomeScreen from './screens/home';
-import GenreScreen from './screens/genre';
+import GenreScreen from './screens/game';
 
 init({
     channel: Channel.STB,
