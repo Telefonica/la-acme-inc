@@ -10,7 +10,6 @@ interface Test {
 }
 
 const HomeScreen: React.FC<Test> = (data: Test) => {
-    console.log(data);
     const { categories, title } = data.screenData;
 
     const { clearBackground, setBackground } = useBackground();
@@ -29,19 +28,17 @@ const HomeScreen: React.FC<Test> = (data: Test) => {
 
     return (
         <div className="home-screen">
-            <h1 className="title">{title}</h1>
+            <h1 className="home-screen__title">{title}</h1>
             {categories.map((category: Category, index: number) => (
                 <NavigableWrapper
                     key={`navigatable-button-${index}`}
-                    onClick={() => {
-                        setCurrentIndex(index);
-                        goToCategory(category.name);
-                    }}
-                    focusedClass="focus"
+                    onClick={() => goToCategory(category.name)}
+                    onFocus={() => setCurrentIndex(index)}
+                    focusedClass="home-screen__navigable-card__focused"
                     defaultFocused={index === 0}
                     id={category.id}
                 >
-                    <div className={`navigable-card navigable-card__${category.name}`}>
+                    <div className={`home-screen__navigable-card home-screen__navigable-card__${category.name}`}>
                         <p>{category.name}</p>
                     </div>
                 </NavigableWrapper>
