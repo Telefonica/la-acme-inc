@@ -1,86 +1,50 @@
 import './home.scss';
 
-import { KeyCode, KeyEvent, NavigableButton, screenReady, useBackground, useInput } from '@telefonica/la-web-sdk';
+import { NavigableWrapper, screenReady, useBackground, useAura } from '@telefonica/la-web-sdk';
 import { HomeScreenData, Category } from '../../../../../dialogs/src/models';
-import { useAura } from '@telefonica/la-web-sdk';
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Intent } from '../../../../../dialogs/src/models';
 
-const HomeScreen: React.FC<HomeScreenData> = (data: HomeScreenData) => {
-    const { categories, title } = data;
-    const background = useBackground();
+interface Test {
+    screenData: HomeScreenData;
+}
+
+const HomeScreen: React.FC<Test> = (data: Test) => {
+    console.log(data);
+    const { categories, title } = data.screenData;
+
+    const { clearBackground, setBackground } = useBackground();
     const { sendCommand } = useAura();
     const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-    useEffect(() => {
-        background.clearBackground();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const onKeyPressed = useCallback(
-        (e: KeyEvent) => {
-            switch (e.data.keyCode) {
-                case KeyCode.KEY_LEFT:
-                    if (currentIndex > 0) {
-                        setCurrentIndex(currentIndex - 1);
-                    }
-                    break;
-                case KeyCode.KEY_RIGHT:
-                    if (currentIndex < categories.length - 1) {
-                        setCurrentIndex(currentIndex + 1);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [currentIndex],
-    );
-    useInput(onKeyPressed);
+    useEffect(() => clearBackground, [clearBackground]);
 
     useEffect(() => {
-        background.setBackground(categories[currentIndex].image_background);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentIndex]);
+        setBackground(categories[currentIndex].image_background);
+    }, [currentIndex, setBackground, categories]);
 
     const goToCategory = (genre: string) => {
-        switch (genre.toLowerCase()) {
-            case 'adventure':
-                sendCommand({ intent: Intent.ADVENTURE, entities: [] });
-                break;
-            case 'action':
-                sendCommand({ intent: Intent.ACTION, entities: [] });
-                break;
-            case 'indie':
-                sendCommand({ intent: Intent.INDIE, entities: [] });
-                break;
-            case 'rpg':
-                sendCommand({ intent: Intent.RPG, entities: [] });
-                break;
-            default:
-                break;
-        }
+        sendCommand({ intent: Intent[genre.toUpperCase() as keyof typeof Intent], entities: [] });
     };
 
     return (
         <div className="home-screen">
             <h1 className="title">{title}</h1>
             {categories.map((category: Category, index: number) => (
-                <div className="home-section" key={category.id}>
-                    <NavigableButton
-                        onClick={() => {
-                            setCurrentIndex(index);
-                            goToCategory(category.name);
-                        }}
-                        defaultClass="button"
-                        focusedClass="focus"
-                        defaultFocused={index === 0}
-                        id={category.id}
-                    >
-                        Go to {category.name}
-                    </NavigableButton>
-                </div>
+                <NavigableWrapper
+                    key={`navigatable-button-${index}`}
+                    onClick={() => {
+                        setCurrentIndex(index);
+                        goToCategory(category.name);
+                    }}
+                    focusedClass="focus"
+                    defaultFocused={index === 0}
+                    id={category.id}
+                >
+                    <div className={`navigable-card navigable-card__${category.name}`}>
+                        <p>{category.name}</p>
+                    </div>
+                </NavigableWrapper>
             ))}
         </div>
     );
