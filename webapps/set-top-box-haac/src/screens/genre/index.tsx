@@ -5,10 +5,14 @@ import { screenReady, NavigableButton, Footer } from '@telefonica/la-web-sdk';
 import { Intent, Game, GameScreenData } from '../../../../../dialogs/src/models';
 import { useAura } from '@telefonica/la-web-sdk';
 
-const GameScreen: React.FC<GameScreenData> = (gameData: GameScreenData) => {
+interface Test {
+    screenData: GameScreenData;
+}
+
+const GameScreen: React.FC<Test> = (data: Test) => {
     const { sendCommand } = useAura();
 
-    const gameList = gameData.games;
+    const { games, title } = data.screenData;
 
     const goToHome = () => {
         sendCommand({ intent: Intent.HOME, entities: [] });
@@ -16,9 +20,9 @@ const GameScreen: React.FC<GameScreenData> = (gameData: GameScreenData) => {
 
     return (
         <div className="genre-screen">
-            <h1 className="title">CATEGORY {gameData.title.toUpperCase()} </h1>
+            <h1 className="title">CATEGORY {title.toUpperCase()} </h1>
             <div className="games">
-                {gameList.map((game: Game) => (
+                {games.map((game: Game) => (
                     <div className="game" key={game.id}>
                         <div className="upper-container">
                             <img src={game.background_image} alt={game.name} />
