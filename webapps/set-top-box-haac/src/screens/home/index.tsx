@@ -12,11 +12,9 @@ interface Test {
 const HomeScreen: React.FC<Test> = (data: Test) => {
     const { categories, title } = data.screenData;
 
-    const { clearBackground, setBackground } = useBackground();
+    const { setBackground } = useBackground();
     const { sendCommand } = useAura();
     const [currentIndex, setCurrentIndex] = useState<number>(0);
-
-    useEffect(() => clearBackground, [clearBackground]);
 
     useEffect(() => {
         setBackground(categories[currentIndex].image_background);
