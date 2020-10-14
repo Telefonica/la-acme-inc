@@ -30,18 +30,20 @@ const GameScreen: React.FC<Test> = (data: Test) => {
                 </div>
             </div>
 
-            <div className="genre-screen__wrapper">
+            <div className="genre-screen__wrapper-out">
                 <h1 className="genre-screen__title">CATEGORY {title.toUpperCase()} </h1>
-                {games.map((game: Game, index: number) => (
-                    <GameCard
-                        onClick={() => console.log('test')}
-                        onFocus={() => console.log('test')}
-                        game={game}
-                        key={`game-card-${index}`}
-                        focused={index === 0}
-                        navigableId={`${index + 6}`}
-                    />
-                ))}
+                <div className="genre-screen__wrapper">
+                    {games.map((game: Game, index: number) => (
+                        <GameCard
+                            onClick={() => console.log('test')}
+                            onFocus={() => console.log('test')}
+                            game={game}
+                            key={`game-card-${index}`}
+                            focused={index === 0}
+                            navigableId={`${index + 6}`}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
