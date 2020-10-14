@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './metacritic.scss';
+import './Metacritic.scss';
 
 type MetacriticProps = {
     score: number;

@@ -1,0 +1,59 @@
+.game-card {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+
+    width: 550px;
+    height: 400px;
+    margin-left: 10px;
+
+
+    &__focused {
+        height: 500px;
+        min-width: 600px;
+    }
+
+    &__image {
+        width: 100%;
+        height: 75%;
+        border-radius: 5px 5px 0px 0px;
+    }
+
+    &__info {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        width: 100%;
+        height: 25%;
+        border-radius: 0px 0px 5px 5px;
+
+        text-transform: uppercase;
+
+        &__text {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            padding-left: 10px;
+            font-weight: bold;
+
+            &__title {
+                width: 400px;
+                font-size: 24px;
+                margin: 0px;
+            }
+
+            &__company {
+                font-size: 20px;
+                margin: 0px;
+            }
+        }
+
+        &__price {
+            width: 50px;
+            font-size: 24px;
+        }
+    }
+}
