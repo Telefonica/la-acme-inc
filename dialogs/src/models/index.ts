@@ -66,16 +66,11 @@ export interface Game {
     id: string;
     background_image: string;
     name: string;
-    slug: string;
-    platforms: Platform[];
-    released: string;
+    dominant_color: string;
     metacritic: number;
-    playtime: number;
-    description: string;
-    clips: unknown;
-    short_screenshots: ShortScreenshots[];
-    stores: Stores[];
-    tags: Tags[];
+    description?: string;
+    price: number;
+    company: string;
 }
 
 export interface ShortScreenshots {

@@ -6,7 +6,7 @@ import { Screen } from '../../../dialogs/src/models';
 import { init, Channel } from '@telefonica/la-web-sdk';
 import SplashScreen from './screens/splash';
 import ErrorScreen from './screens/error';
-import HomeScreen from './screens/home';
+//import HomeScreen from './screens/home';
 import GenreScreen from './screens/genre';
 
 init({
@@ -15,7 +15,7 @@ init({
     screens: {
         [Screen.SPLASH]: () => SplashScreen,
         [Screen.ERROR]: () => ErrorScreen,
-        [Screen.HOME]: () => HomeScreen,
+        [Screen.HOME]: () => GenreScreen,
         [Screen.ADVENTURE]: () => GenreScreen,
         [Screen.ACTION]: () => GenreScreen,
         [Screen.INDIE]: () => GenreScreen,
