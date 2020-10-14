@@ -38,7 +38,7 @@ const mockedValues: mocks = {
         title: 'Action',
         games: [
             {
-                id: '1',
+                id: 1,
                 background_image: 'https://media.rawg.io/media/games/84d/84da2ac3fdfc6507807a1808595afb12.jpg',
                 name: 'Grand Thef Auto 5',
                 dominant_color: '#826882',
@@ -47,7 +47,7 @@ const mockedValues: mocks = {
                 company: 'Rockstar',
             },
             {
-                id: '2',
+                id: 2,
                 background_image: 'https://media.rawg.io/media/games/328/3283617cb7d75d67257fc58339188742.jpg',
                 name: 'Portal 2',
                 dominant_color: '#25578C',
@@ -56,7 +56,7 @@ const mockedValues: mocks = {
                 company: 'Valve',
             },
             {
-                id: '3',
+                id: 3,
                 background_image: 'https://media.rawg.io/media/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg',
                 name: 'The Witcher 3: Wild Hunt',
                 dominant_color: '#302E31',
@@ -65,7 +65,7 @@ const mockedValues: mocks = {
                 company: 'CD Proyekt',
             },
             {
-                id: '4',
+                id: 4,
                 background_image: 'https://media.rawg.io/media/games/ad2/ad2ffdf80ba993654f31da045bc02456.jpg',
                 name: 'Tomb Raider',
                 dominant_color: '#B5492F',
@@ -74,7 +74,7 @@ const mockedValues: mocks = {
                 company: 'Crystal Dynamics',
             },
             {
-                id: '5',
+                id: 5,
                 background_image: 'https://media.rawg.io/media/games/7cf/7cfc9220b401b7a300e409e539c9afd5.jpg',
                 name: 'The Elder Scrolls: Skyrim',
                 dominant_color: '#263031',
@@ -83,7 +83,7 @@ const mockedValues: mocks = {
                 company: 'Bethesda',
             },
             {
-                id: '6',
+                id: 6,
                 background_image: 'https://media.rawg.io/media/games/d58/d588947d4286e7b5e0e12e1bea7d9844.jpg',
                 name: 'Left 4 Dead 2',
                 dominant_color: '#284925',
