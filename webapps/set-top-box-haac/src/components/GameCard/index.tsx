@@ -20,6 +20,8 @@ const GameCard: React.FC<GameCardProps> = ({ game, focused, onClick, onFocus, na
             focusedClass="game-card__focused"
             defaultFocused={focused}
             id={navigableId}
+            keyRight={`${parseInt(navigableId, 10) + 1}`}
+            keyLeft={`${parseInt(navigableId, 10) - 1}`}
         >
             <div className="game-card" key={game.id}>
                 <img className="game-card__image" src={game.background_image} alt={game.name} />
