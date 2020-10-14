@@ -4,13 +4,13 @@ import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
 import { DialogId, LIBRARY_NAME, Intent, GameScreenData, Screen } from '../models';
 
-/* dialog adventure child of HOME */
+/* dialog sports child of HOME */
 
-export default class AdventureDialog extends Dialog {
-    static readonly dialogPrompt = `${DialogId.ADVENTURE}-prompt`;
+export default class SportsDialog extends Dialog {
+    static readonly dialogPrompt = `${DialogId.SPORTS}-prompt`;
 
     constructor(config: Configuration) {
-        super(LIBRARY_NAME, DialogId.ADVENTURE, config);
+        super(LIBRARY_NAME, DialogId.SPORTS, config);
     }
 
     protected dialogStages(): WaterfallStep[] {
@@ -18,7 +18,7 @@ export default class AdventureDialog extends Dialog {
     }
 
     protected prompts(): string[] {
-        return [AdventureDialog.dialogPrompt];
+        return [SportsDialog.dialogPrompt];
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,25 +31,22 @@ export default class AdventureDialog extends Dialog {
         const apiClient = new ApiClient(this.config, stepContext);
 
         // videogames categories data
-        let games = await apiClient.getAdventure();
-
-        // TODO mapear en el cliente results
-        games = games['results'];
+        let games = await apiClient.getSports();
 
         const screenData: GameScreenData = {
-            title: 'ADVENTURE VIDEOGAMES',
+            title: 'Sports',
             games,
         };
 
         // answer for the webapp
-        const message = new ScreenMessage(Screen.ADVENTURE, screenData);
+        const message = new ScreenMessage(Screen.SPORTS, screenData);
 
         await sdk.messaging.send(stepContext, message);
         // user choices operations
         const choices: string[] = [
             Intent.BACK, // go back
         ];
-        return await sdk.messaging.prompt(stepContext, AdventureDialog.dialogPrompt, choices);
+        return await sdk.messaging.prompt(stepContext, SportsDialog.dialogPrompt, choices);
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {

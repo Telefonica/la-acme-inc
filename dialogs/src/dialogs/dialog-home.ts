@@ -42,8 +42,8 @@ export default class HomeDialog extends Dialog {
         const categories = await apiClient.getCategories();
 
         const screenData: HomeScreenData = {
-            title: 'VIDEOGAMES CATEGORIES',
-            categories: categories['results'],
+            title: 'Video Game Categories',
+            categories,
         };
 
         // answer for the webapp
@@ -53,7 +53,7 @@ export default class HomeDialog extends Dialog {
 
         // possible operations
         const choices: string[] = [
-            Intent.ADVENTURE, // go to adventure Dialog
+            Intent.SPORTS, // go to sports Dialog
             Intent.ACTION, // go to action dialog
             Intent.INDIE, // go to indie dialog
             Intent.RPG, // go to rpg dialog
@@ -75,8 +75,8 @@ export default class HomeDialog extends Dialog {
 
         const cases: PromptCase[] = [
             {
-                operation: Intent.ADVENTURE,
-                action: [RouteAction.PUSH, DialogId.ADVENTURE],
+                operation: Intent.SPORTS,
+                action: [RouteAction.PUSH, DialogId.SPORTS],
             },
             {
                 operation: Intent.ACTION,

@@ -30,14 +30,14 @@ export class ApiClient extends BaseApiClient {
         return sdk.cacheGet<any>('action.games', fetch, 3600, this.stepContext);
     }
 
-    // to obtain video game action data
-    async getAdventure(): Promise<Game[]> {
-        const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_ADVENTURE}`;
-        const msg = 'Fetching adventure videogames data';
+    // to obtain video game sports data
+    async getSports(): Promise<Game[]> {
+        const url = `${this.config.LA_ACME_INC_API_BASE_URL}${this.config.LA_ACME_INC_API_GET_SPORTS}`;
+        const msg = 'Fetching sports videogames data';
         const fetch: () => Promise<any> = () =>
             this.setupRequest(HTTPMethod.GET, url, msg).withMock({}).withTimeout(10000).execute<any>();
 
-        return sdk.cacheGet<any>('adventure.games', fetch, 3600, this.stepContext);
+        return sdk.cacheGet<any>('sports.games', fetch, 3600, this.stepContext);
     }
 
     // to obtain video game rpg data

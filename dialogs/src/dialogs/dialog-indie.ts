@@ -31,13 +31,10 @@ export default class IndieDialog extends Dialog {
         const apiClient = new ApiClient(this.config, stepContext);
 
         // videogames categories data
-        let games = await apiClient.getIndie();
-
-        // TODO mapear en el cliente results
-        games = games['results'];
+        let games = await apiClient.getIndie();      
 
         const screenData: GameScreenData = {
-            title: 'INDIE VIDEOGAMES',
+            title: 'Indie',
             games,
         };
 

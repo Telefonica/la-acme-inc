@@ -8,7 +8,7 @@ export interface SessionData {
 
 export enum DialogId {
     HOME = 'la-acme-inc-home',
-    ADVENTURE = 'la-acme-inc-adventure',
+    SPORTS = 'la-acme-inc-sports',
     ACTION = 'la-acme-inc-action',
     INDIE = 'la-acme-inc-indie',
     RPG = 'la-acme-inc-rpg',
@@ -18,7 +18,7 @@ export enum Screen {
     HOME = 'home',
     ERROR = 'error',
     SPLASH = 'splash',
-    ADVENTURE = 'adventure',
+    SPORTS = 'sports',
     ACTION = 'action',
     INDIE = 'indie',
     RPG = 'rpg',
@@ -26,7 +26,7 @@ export enum Screen {
 
 export enum Intent {
     HOME = 'intent.la-acme-inc.home',
-    ADVENTURE = 'intent.la-acme-inc.adventure',
+    SPORTS = 'intent.la-acme-inc.sports',
     ACTION = 'intent.la-acme-inc.action',
     INDIE = 'intent.la-acme-inc.indie',
     RPG = 'intent.la-acme-inc.rpg',
@@ -57,7 +57,6 @@ export interface GameScreenData {
 export interface Category {
     id: string;
     name: string;
-    slug: string;
     games_count: number;
     image_background: string;
 }
@@ -66,38 +65,15 @@ export interface Game {
     id: string;
     background_image: string;
     name: string;
-    slug: string;
     platforms: Platform[];
-    released: string;
     metacritic: number;
     playtime: number;
-    clips: unknown;
-    short_screenshots: ShortScreenshots[];
-    stores: Stores[];
-    tags: Tags[];
-}
-
-export interface ShortScreenshots {
-    id: string;
-    image: string;
+    video_url: string;
+    price: number;
+    dominant_color: string;
 }
 
 export interface Platform {
     id: string;
     name: string;
-}
-
-export interface Stores {
-    id: string;
-    name: string;
-    slug: string;
-}
-
-export interface Tags {
-    id: string;
-    name: string;
-    games_count: number;
-    language: string;
-    slug: string;
-    image_background: string;
 }

@@ -16,7 +16,7 @@ init({
         [Screen.SPLASH]: () => SplashScreen,
         [Screen.ERROR]: () => ErrorScreen,
         [Screen.HOME]: () => HomeScreen,
-        [Screen.ADVENTURE]: () => GenreScreen,
+        [Screen.SPORTS]: () => GenreScreen,
         [Screen.ACTION]: () => GenreScreen,
         [Screen.INDIE]: () => GenreScreen,
         [Screen.RPG]: () => GenreScreen,

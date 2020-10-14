@@ -31,13 +31,10 @@ export default class RPGDialog extends Dialog {
         const apiClient = new ApiClient(this.config, stepContext);
 
         // videogames categories data
-        let games = await apiClient.getRPG();
-
-        // TODO mapear en el cliente results
-        games = games['results'];
+        let games = await apiClient.getRPG();     
 
         const screenData: GameScreenData = {
-            title: 'RPG VIDEOGAMES',
+            title: 'Rpg',
             games,
         };
 

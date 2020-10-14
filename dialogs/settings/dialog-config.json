@@ -14,10 +14,10 @@
       "triggerConditions": [
         {
           "contextFilters": [],
-          "intent": "intent.la-acme-inc.adventure"
+          "intent": "intent.la-acme-inc.sports"
         }
       ],
-      "id": "la-acme-inc-adventure",
+      "id": "la-acme-inc-sports",
       "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
     },
     {

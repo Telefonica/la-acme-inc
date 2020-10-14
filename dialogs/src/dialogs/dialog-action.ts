@@ -32,13 +32,11 @@ export default class ActionDialog extends Dialog {
 
         // videogames categories data
         let games = await apiClient.getAction();
-
-        // TODO mapear en el cliente results
-        games = games['results'];
+ 
 
         const screenData: GameScreenData = {
-            title: 'ACTION VIDEOGAMES',
-            games,
+            title: 'Action',
+            games
         };
 
         // answer for the webapp
