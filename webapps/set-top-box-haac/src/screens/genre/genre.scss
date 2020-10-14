@@ -2,9 +2,18 @@
   height: 100vh;
   display: flex;
   align-items: center;
+  flex-direction: column;
+
+  &__wrapper {
+    display: flex;
+  }
+
+  &__wrapper-out {
+    display: flex;
+    flex-direction: column;
+  }
 
   &__title {
-    position: absolute;
     font-size: 52px !important;
     top: 6vw;
     left: 6vw;

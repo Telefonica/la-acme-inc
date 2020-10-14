@@ -63,7 +63,7 @@ export interface Category {
 }
 
 export interface Game {
-    id: string;
+    id: number;
     background_image: string;
     name: string;
     dominant_color: string;
