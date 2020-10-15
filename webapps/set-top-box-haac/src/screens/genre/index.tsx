@@ -22,9 +22,9 @@ const GameScreen: React.FC<Test> = (data: Test) => {
                             onClick={() => console.log('test')}
                             onFocus={() => console.log('test')}
                             game={game}
-                            key={`game-card-${index}`}
+                            key={`game-card-0-${index}`}
                             focused={index === 0}
-                            navigableId={`${index}`}
+                            navigableId={`0-${index}`}
                         />
                     ))}
                 </div>
@@ -38,9 +38,9 @@ const GameScreen: React.FC<Test> = (data: Test) => {
                             onClick={() => console.log('test')}
                             onFocus={() => console.log('test')}
                             game={game}
-                            key={`game-card-${index}`}
-                            focused={index === 0}
-                            navigableId={`${index + 6}`}
+                            key={`game-card-1-${index}`}
+                            focused={false}
+                            navigableId={`1-${index}`}
                         />
                     ))}
                 </div>
