@@ -8,6 +8,10 @@
 
   &__wrapper {
     display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 500px;
   }
 
   &__wrapper-out {
@@ -31,7 +35,7 @@
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
-    
+
     width: 550px;
     height: 400px;
     margin-left: 10px;
@@ -41,7 +45,7 @@
       height: 300px;
       border-radius: 5px 5px 0px 0px;
     }
-  
+
     &__info {
       display: flex;
       justify-content: space-around;
@@ -56,6 +60,7 @@
       &__wrapper {
         display: flex;
         justify-content: center;
+        align-items: center;
         flex-direction: column;
 
         padding-left: 10px;

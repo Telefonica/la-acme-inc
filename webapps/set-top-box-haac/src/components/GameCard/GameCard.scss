@@ -6,12 +6,11 @@
 
     width: 550px;
     height: 400px;
-    margin-left: 10px;
-
+    margin-left: 60px;
 
     &__focused {
         height: 500px;
-        min-width: 600px;
+        width: 600px;
     }
 
     &__image {
