@@ -40,7 +40,10 @@ const GameScreen: React.FC<Test> = (data: Test) => {
 
                 <div className="genre-screen__wrapper-out">
                     <h1 className="genre-screen__title">CATEGORY {title.toUpperCase()} </h1>
-                    <div className="genre-screen__wrapper"style={{ transform: `translate(-${focusedIndexSecond * 580}px)` }}>
+                    <div
+                        className="genre-screen__wrapper"
+                        style={{ transform: `translate(-${focusedIndexSecond * 580}px)` }}
+                    >
                         {games.map((game: Game, index: number) => (
                             <GameCard
                                 onClick={() => console.log('test')}

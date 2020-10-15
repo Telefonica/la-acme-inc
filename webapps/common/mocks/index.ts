@@ -39,7 +39,7 @@ const mockedValues: mocks = {
         games: [
             {
                 id: 1,
-                background_image: 'https://media.rawg.io/media/games/84d/84da2ac3fdfc6507807a1808595afb12.jpg',
+                background_image: 'https://i.imgur.com/EO4eB3G.jpg',
                 name: 'Grand Thef Auto 5',
                 dominant_color: '#826882',
                 metacritic: 97,
@@ -48,7 +48,7 @@ const mockedValues: mocks = {
             },
             {
                 id: 2,
-                background_image: 'https://media.rawg.io/media/games/328/3283617cb7d75d67257fc58339188742.jpg',
+                background_image: 'https://imgur.com/iqtL3bg.jpg',
                 name: 'Portal 2',
                 dominant_color: '#25578C',
                 metacritic: 90,
@@ -57,7 +57,7 @@ const mockedValues: mocks = {
             },
             {
                 id: 3,
-                background_image: 'https://media.rawg.io/media/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg',
+                background_image: 'https://imgur.com/tNoW7i4.jpg',
                 name: 'The Witcher 3: Wild Hunt',
                 dominant_color: '#302E31',
                 metacritic: 90,
@@ -66,7 +66,7 @@ const mockedValues: mocks = {
             },
             {
                 id: 4,
-                background_image: 'https://media.rawg.io/media/games/ad2/ad2ffdf80ba993654f31da045bc02456.jpg',
+                background_image: 'https://imgur.com/VjcgDES.jpg',
                 name: 'Tomb Raider',
                 dominant_color: '#B5492F',
                 metacritic: 90,
@@ -75,7 +75,7 @@ const mockedValues: mocks = {
             },
             {
                 id: 5,
-                background_image: 'https://media.rawg.io/media/games/7cf/7cfc9220b401b7a300e409e539c9afd5.jpg',
+                background_image: 'https://imgur.com/M1abEVh.jpg',
                 name: 'The Elder Scrolls: Skyrim',
                 dominant_color: '#263031',
                 metacritic: 90,
@@ -84,7 +84,7 @@ const mockedValues: mocks = {
             },
             {
                 id: 6,
-                background_image: 'https://media.rawg.io/media/games/d58/d588947d4286e7b5e0e12e1bea7d9844.jpg',
+                background_image: 'https://imgur.com/HsXBEwz.jpg',
                 name: 'Left 4 Dead 2',
                 dominant_color: '#284925',
                 metacritic: 90,
