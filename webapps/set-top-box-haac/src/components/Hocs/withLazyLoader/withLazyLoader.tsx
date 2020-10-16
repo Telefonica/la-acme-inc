@@ -1,13 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react';
 
-export const withLazyLoader = (Comp: React.ComponentType<any>): React.FC<any> => {
-    const Hoc: React.FC<any> = (props: any) => {
+export type LazyProps<R extends React.HTMLAttributes<T>, T> = React.DetailedHTMLProps<R, T>;
+
+export const withLazyLoader = <R extends React.HTMLAttributes<T>, T extends HTMLElement>(
+    Comp: React.ComponentType<LazyProps<R, T>>,
+): React.FC<LazyProps<R, T>> => {
+    const Hoc: React.FC<LazyProps<R, T>> = ({ ...props }: LazyProps<R, T>) => {
         const [show, setShow] = useState(true);
 
-        const observableObjectRef: any = useRef(null);
+        const observableObjectRef: React.Ref<HTMLDivElement> = useRef(null);
 
         useEffect(() => {
-            const onChange = (entries: any) => {
+            const onChange = (entries: IntersectionObserverEntry[]) => {
                 const el = entries[0];
                 setShow(el.isIntersecting);
             };
@@ -15,7 +19,7 @@ export const withLazyLoader = (Comp: React.ComponentType<any>): React.FC<any> =>
                 rootMargin: '100px',
             });
 
-            observer.observe(observableObjectRef.current);
+            observableObjectRef.current && observer.observe(observableObjectRef.current);
         });
         return <div ref={observableObjectRef}>{show && <Comp {...props} />}</div>;
     };

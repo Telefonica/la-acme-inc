@@ -1,14 +1,8 @@
 import React from 'react';
-import withLazyLoader from '../withLazyLoader';
+import withLazyLoader, { LazyProps } from '../withLazyLoader';
 
-type LazyImagesProps = {
-    src: string;
-    className: string;
-    alt: string;
-};
+type LazyImageProps = LazyProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
 
-const LazyImages: React.FC<LazyImagesProps> = ({ src, className, alt }: LazyImagesProps) => (
-    <img src={src} className={className} alt={alt} />
-);
+const LazyImages: React.FC<LazyImageProps> = ({ ...props }: LazyImageProps) => <img {...props} />;
 
 export default withLazyLoader(LazyImages);
