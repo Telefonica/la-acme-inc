@@ -17,10 +17,10 @@ const GameScreen: React.FC<Test> = (data: Test) => {
 
     return (
         <div className="genre-screen">
-            <div className="vertical-focusable" style={{ transform: `translateY(-${focusedIndexVertical * 640}px)` }}>
+            <div className="vertical-focusable" style={{ transform: `translateY(-${focusedIndexVertical * 530}px)` }}>
                 <div className="genre-screen__wrapper-out">
                     <h1 className="genre-screen__title">CATEGORY {title.toUpperCase()} </h1>
-                    <div className="genre-screen__wrapper" style={{ transform: `translate(-${focusedIndex * 580}px)` }}>
+                    <div className="genre-screen__wrapper" style={{ transform: `translate(-${focusedIndex * 490}px)` }}>
                         {games.map((game: Game, index: number) => (
                             <GameCard
                                 onClick={(e: any) => console.log(e.target.parentNode)}
