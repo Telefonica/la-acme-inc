@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { screenReady } from '@telefonica/la-web-sdk';
 import { Game, GameScreenData } from '../../../../../dialogs/src/models';
 import GameCard from '../../components/GameCard';
-
 interface Test {
     screenData: GameScreenData;
 }
