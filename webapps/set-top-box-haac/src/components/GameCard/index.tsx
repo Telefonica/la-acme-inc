@@ -4,6 +4,8 @@ import React from 'react';
 import { Game } from '../../../../../dialogs/src/models';
 import { NavigableWrapper } from '@telefonica/la-web-sdk';
 
+import LazyImages from '../Hocs/withLazyLoader/LazyImage';
+
 interface GameCardProps {
     game: Game;
     focused: boolean;
@@ -22,7 +24,7 @@ const GameCard: React.FC<GameCardProps> = ({ game, focused, onClick, onFocus, na
             id={navigableId}
         >
             <div className="game-card" key={game.id}>
-                <img className="game-card__image" src={game.background_image} alt={game.name} />
+                <LazyImages className="game-card__image" src={game.background_image} alt={game.name} />
                 <div
                     className="game-card__info"
                     style={{
