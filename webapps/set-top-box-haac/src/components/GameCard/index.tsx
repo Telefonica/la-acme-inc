@@ -39,7 +39,7 @@ const GameCard: React.FC<GameCardProps> = ({
         <NavigableWrapper
             onClick={onClick}
             onFocus={onFocus}
-            focusedClass="game-card__focused"//
+            focusedClass="game-card__focused"
             defaultFocused={focused}
             id={navigableId}
         >

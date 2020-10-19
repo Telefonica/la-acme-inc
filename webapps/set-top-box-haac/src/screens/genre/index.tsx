@@ -32,7 +32,7 @@ const GameScreen: React.FC<Test> = (data: Test) => {
                                 onClick={() => {}}
                                 onFocus={() => {
                                     setFocusedIndex(() => index);
-                                    setFocusedIndexVertical(0);
+                                    setFocusedIndexVertical(() => 0);
                                 }}
                                 game={game}
                                 key={`game-card-0-${index}`}
@@ -56,7 +56,7 @@ const GameScreen: React.FC<Test> = (data: Test) => {
                                 onClick={() => {}}
                                 onFocus={() => {
                                     setFocusedIndexSecond(() => index);
-                                    setFocusedIndexVertical(1);
+                                    setFocusedIndexVertical(() => 1);
                                 }}
                                 game={game}
                                 key={`game-card-1-${index}`}
@@ -80,7 +80,7 @@ const GameScreen: React.FC<Test> = (data: Test) => {
                                 onClick={() => {}}
                                 onFocus={() => {
                                     setFocusedIndexThird(() => index);
-                                    setFocusedIndexVertical(2);
+                                    setFocusedIndexVertical(() => 2);
                                 }}
                                 game={game}
                                 key={`game-card-2-${index}`}
@@ -104,7 +104,7 @@ const GameScreen: React.FC<Test> = (data: Test) => {
                                 onClick={() => {}}
                                 onFocus={() => {
                                     setFocusedIndexFourth(() => index);
-                                    setFocusedIndexVertical(3);
+                                    setFocusedIndexVertical(() => 3);
                                 }}
                                 game={game}
                                 key={`game-card-3-${index}`}
