@@ -9,12 +9,32 @@ import LazyImages from '../Hocs/withLazyLoader/LazyImage';
 interface GameCardProps {
     game: Game;
     focused: boolean;
+    isFocused: boolean;
     onClick: Function;
     onFocus: Function;
     navigableId: string;
+    indexY: number;
+    indexX: number;
 }
 
-const GameCard: React.FC<GameCardProps> = ({ game, focused, onClick, onFocus, navigableId }: GameCardProps) => {
+const GameCard: React.FC<GameCardProps> = ({
+    game,
+    focused,
+    isFocused,
+    onClick,
+    onFocus,
+    navigableId,
+    indexY,
+    indexX,
+}: GameCardProps) => {
+    const Ypx = 417;
+    const Xpx = 360;
+    const movementStyle = {
+        transform: isFocused
+            ? `translate(-${indexX * Xpx}px, -${indexY * Ypx}px) scale(1.1)`
+            : `translate(-${indexX * Xpx}px, -${indexY * Ypx}px)`,
+    };
+
     return (
         <NavigableWrapper
             onClick={onClick}
@@ -23,7 +43,7 @@ const GameCard: React.FC<GameCardProps> = ({ game, focused, onClick, onFocus, na
             defaultFocused={focused}
             id={navigableId}
         >
-            <div className="game-card" key={game.id}>
+            <div className="game-card" key={game.id} style={movementStyle}>
                 <LazyImages className="game-card__image" src={game.background_image} alt={game.name} />
                 <div
                     className="game-card__info"
@@ -35,7 +55,7 @@ const GameCard: React.FC<GameCardProps> = ({ game, focused, onClick, onFocus, na
                         <p className="game-card__info__text__title">{game.name}</p>
                         <p className="game-card__info__text__company">{game.company}</p>
                     </div>
-                    <p className="game-card__info__price">{navigableId}</p>
+                    <p className="game-card__info__price">{game.price}</p>
                 </div>
             </div>
         </NavigableWrapper>

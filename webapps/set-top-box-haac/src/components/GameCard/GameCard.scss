@@ -5,9 +5,9 @@
     flex-direction: column;
     min-height: 320px;
     margin-left: 30px;
+    will-change: transform;
 
     &__focused {
-        transform: scale(1.1);
     }
 
     &__image {
