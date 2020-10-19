@@ -2,7 +2,8 @@ import { ApiClient } from '../clients/api-client';
 import { Configuration, Dialog, PromptCase, ScreenMessage, RouteAction } from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, Screen, SessionData, Intent, Entity, HomeScreenData } from '../models';
+import { DialogId, LIBRARY_NAME, Screen, Intent, Entity, HomeScreenData } from '../models';
+import { helper } from '../helpers/helpers';
 
 /*
 This dialog is the parent of the action, adventure, simulation and sport dialogs
@@ -26,24 +27,33 @@ export default class HomeDialog extends Dialog {
     /*
       method to clear the state of the dialogs, for example session data of a dialog
     */
-    protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {
-        const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-        delete sessionData.name;
+    protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {       
         return;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private async _dialogStage(stepContext: WaterfallStepContext<any>): Promise<DialogTurnResult> {
-
-        // instantiate the client
         const apiClient = new ApiClient(this.config, stepContext);
 
-        // videogames categories data
         const categories = await apiClient.getCategories();
+        const games = await apiClient.getGames();
+        const platforms = await apiClient.getPlatforms();
+
+        // show pc data by default
+        const pcGamesByCat = await helper.getGamesByPl(categories, games, 'pc');
+
+        console.log('test 2', pcGamesByCat);
 
         const screenData: HomeScreenData = {
-            title: 'Video Game Categories',
+            title: 'Video Game Shop Home',
+            platforms,
             categories,
+            gameList: {
+                action: pcGamesByCat[0],
+                indie: pcGamesByCat[1],
+                sports: pcGamesByCat[2],
+                rpg: pcGamesByCat[3],
+            },
         };
 
         // answer for the webapp
@@ -53,21 +63,13 @@ export default class HomeDialog extends Dialog {
 
         // possible operations
         const choices: string[] = [
-            Intent.SPORTS, // go to sports Dialog
-            Intent.ACTION, // go to action dialog
-            Intent.INDIE, // go to indie dialog
-            Intent.RPG, // go to rpg dialog
+            Intent.GAME, // go to game Dialog
         ];
 
         return await sdk.messaging.prompt(stepContext, HomeDialog.dialogPrompt, choices);
     }
 
-    private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
-        // session data from user
-        const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-
-        // getting the persistent data from sdk
-        const context = await sdk.persistence.getStoredData(stepContext);
+    private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {      
 
         /*
             RouteAction.PUSH to control the navigation routing between dialogs
@@ -75,29 +77,14 @@ export default class HomeDialog extends Dialog {
 
         const cases: PromptCase[] = [
             {
-                operation: Intent.SPORTS,
-                action: [RouteAction.PUSH, DialogId.SPORTS],
+                operation: Intent.GAME,
+                action: [RouteAction.PUSH, DialogId.GAME],
             },
             {
-                operation: Intent.ACTION,
-                action: [RouteAction.PUSH, DialogId.ACTION],
-            },
-            {
-                operation: Intent.INDIE,
-                action: [RouteAction.PUSH, DialogId.INDIE],
-            },
-            {
-                operation: Intent.RPG,
-                action: [RouteAction.PUSH, DialogId.RPG],
-            },
-            {
-                operation: Intent.NAME,
+                operation: Intent.PLTID,
                 logic: async () => {
-                    const name = sdk.lifecycle.getCallingEntity(stepContext, Entity.NAME);
-                    if (name) {
-                        sessionData.name = name;
-                        await sdk.persistence.storeData(stepContext, { ...context, name });
-                    }
+                    const pltId = sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID);
+                    console.log('pltId ', pltId);                    
                 },
             },
         ];

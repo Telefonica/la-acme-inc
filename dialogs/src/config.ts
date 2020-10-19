@@ -7,10 +7,8 @@ const configurationSchema: joi.SchemaMap = {
         .uri({ scheme: ['http', 'https'] })
         .default('https://acme-la-test.firebaseio.com'),
     LA_ACME_INC_API_GET_CATEGORIES: joi.string().default('/categories.json'),
-    LA_ACME_INC_API_GET_ACTION: joi.string().default('/action.json'),
-    LA_ACME_INC_API_GET_SPORTS: joi.string().default('/sports.json'),
-    LA_ACME_INC_API_GET_INDIE: joi.string().default('/indie.json'),
-    LA_ACME_INC_API_GET_RPG: joi.string().default('/rpg.json'),
+    LA_ACME_INC_API_GET_GAMES: joi.string().default('/games.json'),
+    LA_ACME_INC_API_GET_PLATFORMS: joi.string().default('/platforms.json')    
 };
 
 export default configurationSchema;

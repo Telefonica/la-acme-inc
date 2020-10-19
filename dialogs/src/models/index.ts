@@ -8,30 +8,22 @@ export interface SessionData {
 
 export enum DialogId {
     HOME = 'la-acme-inc-home',
-    SPORTS = 'la-acme-inc-sports',
-    ACTION = 'la-acme-inc-action',
-    INDIE = 'la-acme-inc-indie',
-    RPG = 'la-acme-inc-rpg',
+    GAME = 'la-acme-inc-game',
 }
 
 export enum Screen {
     HOME = 'home',
     ERROR = 'error',
     SPLASH = 'splash',
-    SPORTS = 'sports',
-    ACTION = 'action',
-    INDIE = 'indie',
-    RPG = 'rpg',
+    GAME = 'game',
 }
 
 export enum Intent {
     HOME = 'intent.la-acme-inc.home',
-    SPORTS = 'intent.la-acme-inc.sports',
-    ACTION = 'intent.la-acme-inc.action',
-    INDIE = 'intent.la-acme-inc.indie',
-    RPG = 'intent.la-acme-inc.rpg',
+    GAME = 'intent.la-acme-inc.game',
     BACK = 'intent.la-acme-inc.back',
-    NAME = 'intent.la-acme-inc.name',
+    PLTID = 'intent.la-acme-inc.pltid',
+    GAMEID = 'intent.la-acme-inc.gameid',
 }
 
 export enum Operation {
@@ -39,25 +31,32 @@ export enum Operation {
 }
 
 export enum Entity {
-    NAME = 'ent.name',
+    PLTID = 'ent.pltid',
+    GAMEID = 'ent.gameid',
 }
 
 export interface HomeScreenData {
     title: string;
+    platforms: Platform[];
     categories: Category[];
+    gameList: {
+        action: Game[];
+        indie: Game[];
+        rpg: Game[];
+        sports: Game[];
+    };
     suggestions?: Suggestion[];
 }
 
 export interface GameScreenData {
     title: string;
-    games: Game[];
+    game: Game;
     suggestions?: Suggestion[];
 }
 
 export interface Category {
     id: string;
     name: string;
-    games_count: number;
     image_background: string;
 }
 
@@ -65,12 +64,13 @@ export interface Game {
     id: string;
     background_image: string;
     name: string;
-    platforms: Platform[];
     metacritic: number;
-    playtime: number;
+    company: string;
     video_url: string;
     price: number;
     dominant_color: string;
+    platforms: string[];
+    category: string;
 }
 
 export interface Platform {

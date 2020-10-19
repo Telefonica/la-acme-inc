@@ -1,69 +1,35 @@
 {
-  "dialogs": [
-    {
-      "triggerConditions": [
+    "dialogs": [
         {
-          "contextFilters": [],
-          "intent": "intent.la-acme-inc.home"
-        }
-      ],
-      "id": "la-acme-inc-home",
-      "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
-    },
-    {
-      "triggerConditions": [
+            "triggerConditions": [
+                {
+                    "contextFilters": [],
+                    "intent": "intent.la-acme-inc.home"
+                }
+            ],
+            "id": "la-acme-inc-home",
+            "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
+        },
         {
-          "contextFilters": [],
-          "intent": "intent.la-acme-inc.sports"
-        }
-      ],
-      "id": "la-acme-inc-sports",
-      "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
-    },
-    {
-      "triggerConditions": [
+            "triggerConditions": [
+                {
+                    "contextFilters": [],
+                    "intent": "intent.la-acme-inc.game"
+                }
+            ],
+            "id": "la-acme-inc-game",
+            "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
+        },
         {
-          "contextFilters": [],
-          "intent": "intent.la-acme-inc.action"
+            "triggerConditions": [
+                {
+                    "context_filters": [],
+                    "intent": "intent.la-acme-inc.back"
+                }
+            ],
+            "id": "la-acme-inc-back",
+            "only_in": ["movistar-home", "set-top-box", "set-top-box-haac"]
         }
-      ],
-      "id": "la-acme-inc-action",
-      "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
-    },
-    {
-      "triggerConditions": [
-        {
-          "contextFilters": [],
-          "intent": "intent.la-acme-inc.indie"
-        }
-      ],
-      "id": "la-acme-inc-indie",
-      "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
-    },
-    {
-      "triggerConditions": [
-        {
-          "contextFilters": [],
-          "intent": "intent.la-acme-inc.rpg"
-        }
-      ],
-      "id": "la-acme-inc-rpg",
-      "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
-    },
-    {
-      "triggerConditions": [
-        {
-          "context_filters": [],
-          "intent": "intent.la-acme-inc.back"
-        }
-      ],
-      "id": "la-acme-inc-back",
-      "only_in": [
-        "movistar-home",
-        "set-top-box",
-        "set-top-box-haac"
-      ]
-    }
-  ],
-  "name": "la-acme-inc"
+    ],
+    "name": "la-acme-inc"
 }
