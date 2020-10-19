@@ -16,18 +16,17 @@ const GameScreen: React.FC<Test> = (data: Test) => {
     const [focusedIndexThird, setFocusedIndexThird] = useState(0);
     const [focusedIndexFourth, setFocusedIndexFourth] = useState(0);
     const [focusedIndexVertical, setFocusedIndexVertical] = useState(0);
-    const horizontalValue = 417;
-    const verticalValue = 360;
+
+    const movementStyle = { transform: `translateY(-${focusedIndexVertical * 417}px)` };
 
     return (
         <div className="genre-screen">
-            <div style={{ transform: `translateY(-${focusedIndexVertical * verticalValue}px)` }}>
+            <div>
                 <div>
-                    <h1 className="genre-screen__title">CATEGORY 1</h1>
-                    <div
-                        className="genre-screen__wrapper"
-                        style={{ transform: `translate(-${focusedIndex * horizontalValue}px)` }}
-                    >
+                    <h1 className="genre-screen__title" style={movementStyle}>
+                        CATEGORY 1
+                    </h1>
+                    <div className="genre-screen__wrapper">
                         {games.map((game: Game, index: number) => (
                             <GameCard
                                 onClick={() => {}}
@@ -38,18 +37,20 @@ const GameScreen: React.FC<Test> = (data: Test) => {
                                 game={game}
                                 key={`game-card-0-${index}`}
                                 focused={index === 0}
+                                isFocused={index === focusedIndex && focusedIndexVertical === 0}
                                 navigableId={`0-${index}`}
+                                indexX={focusedIndex}
+                                indexY={focusedIndexVertical}
                             />
                         ))}
                     </div>
                 </div>
 
                 <div>
-                    <h1 className="genre-screen__title">CATEGORY 2</h1>
-                    <div
-                        className="genre-screen__wrapper"
-                        style={{ transform: `translate(-${focusedIndexSecond * horizontalValue}px)` }}
-                    >
+                    <h1 className="genre-screen__title" style={movementStyle}>
+                        CATEGORY 2
+                    </h1>
+                    <div className="genre-screen__wrapper">
                         {games.map((game: Game, index: number) => (
                             <GameCard
                                 onClick={() => {}}
@@ -60,18 +61,20 @@ const GameScreen: React.FC<Test> = (data: Test) => {
                                 game={game}
                                 key={`game-card-1-${index}`}
                                 focused={false}
+                                isFocused={index === focusedIndexSecond && focusedIndexVertical === 1}
                                 navigableId={`1-${index}`}
+                                indexX={focusedIndexSecond}
+                                indexY={focusedIndexVertical}
                             />
                         ))}
                     </div>
                 </div>
 
                 <div>
-                    <h1 className="genre-screen__title">CATEGORY 3</h1>
-                    <div
-                        className="genre-screen__wrapper"
-                        style={{ transform: `translate(-${focusedIndexThird * horizontalValue}px)` }}
-                    >
+                    <h1 className="genre-screen__title" style={movementStyle}>
+                        CATEGORY 3
+                    </h1>
+                    <div className="genre-screen__wrapper">
                         {games.map((game: Game, index: number) => (
                             <GameCard
                                 onClick={() => {}}
@@ -82,18 +85,20 @@ const GameScreen: React.FC<Test> = (data: Test) => {
                                 game={game}
                                 key={`game-card-2-${index}`}
                                 focused={false}
+                                isFocused={index === focusedIndexThird && focusedIndexVertical === 2}
                                 navigableId={`2-${index}`}
+                                indexX={focusedIndexThird}
+                                indexY={focusedIndexVertical}
                             />
                         ))}
                     </div>
                 </div>
 
                 <div>
-                    <h1 className="genre-screen__title">CATEGORY 4</h1>
-                    <div
-                        className="genre-screen__wrapper"
-                        style={{ transform: `translate(-${focusedIndexFourth * horizontalValue}px)` }}
-                    >
+                    <h1 className="genre-screen__title" style={movementStyle}>
+                        CATEGORY 4
+                    </h1>
+                    <div className="genre-screen__wrapper">
                         {games.map((game: Game, index: number) => (
                             <GameCard
                                 onClick={() => {}}
@@ -104,7 +109,10 @@ const GameScreen: React.FC<Test> = (data: Test) => {
                                 game={game}
                                 key={`game-card-3-${index}`}
                                 focused={false}
+                                isFocused={index === focusedIndexFourth && focusedIndexVertical === 3}
                                 navigableId={`3-${index}`}
+                                indexX={focusedIndexFourth}
+                                indexY={focusedIndexVertical}
                             />
                         ))}
                     </div>
