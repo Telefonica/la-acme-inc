@@ -24,6 +24,7 @@ const getLastScreen = () => breadcrumbs.pop() && breadcrumbs[breadcrumbs.length 
 const script = {
     [START]: () => changeScreenWithBreadcrumbs(Screen.SPLASH),
     [Intent.HOME]: () => changeScreenWithBreadcrumbs(Screen.HOME),
+    [Intent.GAME]: () => changeScreenWithBreadcrumbs(Screen.GAME),
     [Intent.BACK]: () => changeScreenWithBreadcrumbs(getLastScreen() || Screen.HOME),
 };
 
@@ -35,7 +36,7 @@ interface mocks {
 
 const mockedValues: mocks = {
     home: {
-        title: 'Action',
+        title: 'PC',
         games: [
             {
                 id: 1,
@@ -93,6 +94,7 @@ const mockedValues: mocks = {
             },
         ],
     },
+    game: {},
     error: {},
     splash: {},
 };

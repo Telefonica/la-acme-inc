@@ -1,46 +1,158 @@
 import './home.scss';
 
-import { NavigableWrapper, screenReady, useBackground, useAura } from '@telefonica/la-web-sdk';
-import { HomeScreenData, Category } from '../../../../../dialogs/src/models';
-import React, { useEffect, useState } from 'react';
-import { Intent } from '../../../../../dialogs/src/models';
-
+import React, { useState } from 'react';
+import { screenReady, NavigableWrapper, useAura } from '@telefonica/la-web-sdk';
+import { Game, GameScreenData, Intent } from '../../../../../dialogs/src/models';
+import GameCard from '../../components/GameCard';
+import MusicCard from '../../components/MusicCard';
 interface Test {
-    screenData: HomeScreenData;
+    screenData: GameScreenData;
 }
 
 const HomeScreen: React.FC<Test> = (data: Test) => {
-    const { categories, title } = data.screenData;
-
-    const { setBackground } = useBackground();
+    const { games } = data.screenData;
     const { sendCommand } = useAura();
-    const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-    useEffect(() => {
-        setBackground(categories[currentIndex].image_background);
-    }, [currentIndex, setBackground, categories]);
+    const [focusedIndex, setFocusedIndex] = useState(0);
+    const [focusedIndexSecond, setFocusedIndexSecond] = useState(0);
+    const [focusedIndexThird, setFocusedIndexThird] = useState(0);
+    const [focusedIndexFourth, setFocusedIndexFourth] = useState(0);
+    const [focusedIndexVertical, setFocusedIndexVertical] = useState(0);
 
-    const goToCategory = (genre: string) => {
-        sendCommand({ intent: Intent[genre.toUpperCase() as keyof typeof Intent], entities: [] });
+    const movementStyle = { transform: `translateY(-${focusedIndexVertical * 417}px)` };
+
+    const goToGame = (gameId: number) => {
+        sendCommand({ intent: Intent.GAME, entities: [{ type: 'gameId', entity: gameId }] });
     };
 
     return (
         <div className="home-screen">
-            <h1 className="home-screen__title">{title}</h1>
-            {categories.map((category: Category, index: number) => (
-                <NavigableWrapper
-                    key={`navigatable-button-${index}`}
-                    onClick={() => goToCategory(category.name)}
-                    onFocus={() => setCurrentIndex(index)}
-                    focusedClass="home-screen__navigable-card__focused"
-                    defaultFocused={index === 0}
-                    id={category.id}
-                >
-                    <div className={`home-screen__navigable-card home-screen__navigable-card__${category.name}`}>
-                        <p>{category.name}</p>
+            <div className="home-screen__menu">
+                <ul>
+                    <NavigableWrapper id="pc" focusedClass="home-screen__menu-focused">
+                        <li className="home-screen__menu-item">PC</li>
+                    </NavigableWrapper>
+
+                    <NavigableWrapper id="ps4" focusedClass="home-screen__menu-focused">
+                        <li className="home-screen__menu-item">PS4</li>
+                    </NavigableWrapper>
+
+                    <NavigableWrapper id="xbox" focusedClass="home-screen__menu-focused">
+                        <li className="home-screen__menu-item">XBOX</li>
+                    </NavigableWrapper>
+
+                    <NavigableWrapper id="switch" focusedClass="home-screen__menu-focused">
+                        <li className="home-screen__menu-item">SWITCH</li>
+                    </NavigableWrapper>
+                </ul>
+            </div>
+            <div className="home-screen__games">
+                <div className="home-screen__top-menu">
+                    <div className="home-screen__top-platform">PLATAFORMA</div>
+                    <NavigableWrapper id="trolley" focusedClass="home-screen__menu-focused">
+                        <div className="home-screen__top-trolley">CARRITO</div>
+                    </NavigableWrapper>
+                </div>
+                <div className="home-screen__games-wrapper">
+                    <div>
+                        <h1 className="home-screen__title" style={movementStyle}>
+                            CATEGORY 1
+                        </h1>
+                        <div className="home-screen__wrapper">
+                            {games.map((game: Game, index: number) => (
+                                <MusicCard
+                                    onClick={() => goToGame(game.id)}
+                                    onFocus={() => {
+                                        setFocusedIndex(() => index);
+                                        setFocusedIndexVertical(() => 0);
+                                    }}
+                                    game={game}
+                                    key={`game-card-0-${index}`}
+                                    focused={index === 0}
+                                    isFocused={index === focusedIndex && focusedIndexVertical === 0}
+                                    navigableId={`0-${index}`}
+                                    indexX={focusedIndex}
+                                    indexY={focusedIndexVertical}
+                                    border
+                                    scale
+                                />
+                            ))}
+                        </div>
                     </div>
-                </NavigableWrapper>
-            ))}
+
+                    <div>
+                        <h1 className="home-screen__title" style={movementStyle}>
+                            CATEGORY 2
+                        </h1>
+                        <div className="home-screen__wrapper">
+                            {games.map((game: Game, index: number) => (
+                                <GameCard
+                                    onClick={() => goToGame(game.id)}
+                                    onFocus={() => {
+                                        setFocusedIndexSecond(() => index);
+                                        setFocusedIndexVertical(() => 1);
+                                    }}
+                                    game={game}
+                                    key={`game-card-1-${index}`}
+                                    focused={false}
+                                    isFocused={index === focusedIndexSecond && focusedIndexVertical === 1}
+                                    navigableId={`1-${index}`}
+                                    indexX={focusedIndexSecond}
+                                    indexY={focusedIndexVertical}
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h1 className="home-screen__title" style={movementStyle}>
+                            CATEGORY 3
+                        </h1>
+                        <div className="home-screen__wrapper">
+                            {games.map((game: Game, index: number) => (
+                                <GameCard
+                                    onClick={() => goToGame(game.id)}
+                                    onFocus={() => {
+                                        setFocusedIndexThird(() => index);
+                                        setFocusedIndexVertical(() => 2);
+                                    }}
+                                    game={game}
+                                    key={`game-card-2-${index}`}
+                                    focused={false}
+                                    isFocused={index === focusedIndexThird && focusedIndexVertical === 2}
+                                    navigableId={`2-${index}`}
+                                    indexX={focusedIndexThird}
+                                    indexY={focusedIndexVertical}
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h1 className="home-screen__title" style={movementStyle}>
+                            CATEGORY 4
+                        </h1>
+                        <div className="home-screen__wrapper">
+                            {games.map((game: Game, index: number) => (
+                                <GameCard
+                                    onClick={() => goToGame(game.id)}
+                                    onFocus={() => {
+                                        setFocusedIndexFourth(() => index);
+                                        setFocusedIndexVertical(() => 3);
+                                    }}
+                                    game={game}
+                                    key={`game-card-3-${index}`}
+                                    focused={false}
+                                    isFocused={index === focusedIndexFourth && focusedIndexVertical === 3}
+                                    navigableId={`3-${index}`}
+                                    indexX={focusedIndexFourth}
+                                    indexY={focusedIndexVertical}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
