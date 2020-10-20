@@ -5,9 +5,9 @@ import script from '../../common/mocks';
 import { Screen } from '../../../dialogs/src/models';
 import { init, Channel } from '@telefonica/la-web-sdk';
 import SplashScreen from './screens/splash';
+import HomeScreen from './screens/home';
 import ErrorScreen from './screens/error';
-//import HomeScreen from './screens/home';
-import GenreScreen from './screens/genre';
+import GameScreen from './screens/game';
 
 init({
     channel: Channel.STB,
@@ -15,11 +15,8 @@ init({
     screens: {
         [Screen.SPLASH]: () => SplashScreen,
         [Screen.ERROR]: () => ErrorScreen,
-        [Screen.HOME]: () => GenreScreen,
-        [Screen.ADVENTURE]: () => GenreScreen,
-        [Screen.ACTION]: () => GenreScreen,
-        [Screen.INDIE]: () => GenreScreen,
-        [Screen.RPG]: () => GenreScreen,
+        [Screen.HOME]: () => HomeScreen,
+        [Screen.GAME]: () => GameScreen,
     },
     buildNumber: process.env.BUILD_NUMBER,
     auraMockClient:

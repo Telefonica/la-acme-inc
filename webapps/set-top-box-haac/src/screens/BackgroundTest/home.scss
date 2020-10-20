@@ -1,0 +1,66 @@
+.home-screen {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-shadow: 5px 3px 0px black;
+
+    &__title {
+        position: absolute;
+        font-size: 52px !important;
+        top: 6vw;
+        left: 6vw;
+    }
+
+    &__navigable-card {
+        $self: &;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        height: 400px;
+        width: 300px;
+        background-image: linear-gradient(rgb(58, 60, 74), rgb(36, 38, 50));
+        border: 4px solid rgba(150, 158, 171, 0.3);
+        border-radius: 5px;
+    
+        text-transform: uppercase;
+        font-size: 30px;
+    
+        -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+
+        &__focused {
+            background-size: cover !important;
+            background-position: center center !important;
+            border: 4px solid rgb(249, 249, 249) !important;
+            font-size: 42px !important;
+            height: 460px;
+            width: 360px;
+    
+            &.home-screen__navigable-card__Action {
+                background: url('https://steamuserimages-a.akamaihd.net/ugc/784125475682681577/A5FAA475B9EA77DB0D6846A177E50BF24AB141AC/') !important;
+                background-position: center center !important;
+                background-size: 660px 460px !important;
+            }
+            &.home-screen__navigable-card__Indie {
+                background: url('https://media0.giphy.com/media/606oTFhwkp72M/source.gif') !important;
+                background-position: center center !important;
+                background-size: 660px 460px !important;
+            }
+            &.home-screen__navigable-card__Adventure {
+                background: url('https://24.media.tumblr.com/2cc51356045a1834adf8f235cef23725/tumblr_mgbag3hdxJ1repg2ho1_250.gif') !important;
+                background-position: center center !important;
+                background-size: 660px 460px !important;
+            }
+            &.home-screen__navigable-card__RPG {
+                background: url('https://media1.tenor.com/images/8cee90607d5b01ded412eb5b75c51f59/tenor.gif?itemid=13713252') !important;
+                background-position: center center !important;
+                background-size: 660px 460px !important;
+            }
+        }
+    }
+    
+}

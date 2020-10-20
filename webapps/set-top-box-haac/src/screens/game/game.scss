@@ -1,0 +1,60 @@
+.game-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #172D41;
+
+    &__container{
+        display: flex;
+        height: 80%;
+    }
+
+    &__data {
+        margin: 60px 0px 0px 100px;
+        width: 50%;
+    }
+
+    &__image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        height: 100%;
+
+        > img {
+            height: 300px;
+            width: 600px;
+        }
+    }
+
+    &__top-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__info {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+    }
+
+    &__pegi {
+        font-size: 25px;
+        margin-right: 40px;
+    }
+
+    &__title {
+        font-size: 70px;
+    }
+    &__description {
+        margin-top: 200px;
+        font-size: 30px;
+    }
+
+    &__button {
+        width: 200px;
+        font-size: 30px;
+    }
+}

@@ -16,22 +16,15 @@ export enum DialogId {
 
 export enum Screen {
     HOME = 'home',
+    GAME = 'game',
     ERROR = 'error',
     SPLASH = 'splash',
-    ADVENTURE = 'adventure',
-    ACTION = 'action',
-    INDIE = 'indie',
-    RPG = 'rpg',
 }
 
 export enum Intent {
     HOME = 'intent.la-acme-inc.home',
-    ADVENTURE = 'intent.la-acme-inc.adventure',
-    ACTION = 'intent.la-acme-inc.action',
-    INDIE = 'intent.la-acme-inc.indie',
-    RPG = 'intent.la-acme-inc.rpg',
+    GAME = 'intent.la-acme-inc.game',
     BACK = 'intent.la-acme-inc.back',
-    NAME = 'intent.la-acme-inc.name',
 }
 
 export enum Operation {
