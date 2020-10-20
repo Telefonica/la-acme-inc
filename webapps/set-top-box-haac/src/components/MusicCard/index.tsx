@@ -1,6 +1,6 @@
 import './MusicCard.scss';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { Game } from '../../../../../dialogs/src/models';
 import { NavigableWrapper } from '@telefonica/la-web-sdk';
 
@@ -12,6 +12,7 @@ interface MusicCardProps {
     isFocused: boolean;
     onClick: Function;
     onFocus: Function;
+    onBlur: Function;
     navigableId: string;
     indexY: number;
     indexX: number;
@@ -25,6 +26,7 @@ const MusicCard: React.FC<MusicCardProps> = ({
     isFocused,
     onClick,
     onFocus,
+    onBlur,
     navigableId,
     indexY,
     indexX,
@@ -33,13 +35,13 @@ const MusicCard: React.FC<MusicCardProps> = ({
 }: MusicCardProps) => {
     const Ypx = 417;
     const Xpx = 360;
+
     const movementStyle = {
         transform:
             isFocused && scale
                 ? `translate(-${indexX * Xpx}px, -${indexY * Ypx}px) scale(1.05)`
                 : `translate(-${indexX * Xpx}px, -${indexY * Ypx}px)`,
     };
-
     const borderStyle = {
         opacity: isFocused && border ? 1 : 0,
     };
@@ -48,12 +50,13 @@ const MusicCard: React.FC<MusicCardProps> = ({
         <NavigableWrapper
             onClick={onClick}
             onFocus={onFocus}
-            //focusedClass="music-card__focused"
+            onBlur={onBlur}
+            focusedClass="music-card__focused"
             defaultFocused={focused}
             id={navigableId}
         >
             <div className="music-card" key={game.id} style={movementStyle}>
-                <div className="music-card__border" style={borderStyle}></div>
+                <div className="music-card__border" style={borderStyle} />
                 <img className="music-card__image" src={game.background_image} alt={game.name} />
                 <div
                     className="music-card__info"

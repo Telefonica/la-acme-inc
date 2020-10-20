@@ -13,6 +13,8 @@ const HomeScreen: React.FC<Test> = (data: Test) => {
     const { games } = data.screenData;
     const { sendCommand } = useAura();
 
+    const [cardFocused, setCardFocused] = useState(false);
+
     const [focusedIndex, setFocusedIndex] = useState(0);
     const [focusedIndexSecond, setFocusedIndexSecond] = useState(0);
     const [focusedIndexThird, setFocusedIndexThird] = useState(0);
@@ -65,11 +67,13 @@ const HomeScreen: React.FC<Test> = (data: Test) => {
                                     onFocus={() => {
                                         setFocusedIndex(() => index);
                                         setFocusedIndexVertical(() => 0);
+                                        setCardFocused((isFocused) => !isFocused);
                                     }}
+                                    onBlur={() => setCardFocused((isFocused) => !isFocused)}
                                     game={game}
                                     key={`game-card-0-${index}`}
                                     focused={index === 0}
-                                    isFocused={index === focusedIndex && focusedIndexVertical === 0}
+                                    isFocused={index === focusedIndex && focusedIndexVertical === 0 && cardFocused}
                                     navigableId={`0-${index}`}
                                     indexX={focusedIndex}
                                     indexY={focusedIndexVertical}
