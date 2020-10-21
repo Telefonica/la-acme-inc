@@ -77,8 +77,6 @@ const HomeScreen: React.FC<Test> = (data: Test) => {
                                     navigableId={`0-${index}`}
                                     indexX={focusedIndex}
                                     indexY={focusedIndexVertical}
-                                    border
-                                    scale
                                 />
                             ))}
                         </div>
@@ -95,11 +93,15 @@ const HomeScreen: React.FC<Test> = (data: Test) => {
                                     onFocus={() => {
                                         setFocusedIndexSecond(() => index);
                                         setFocusedIndexVertical(() => 1);
+                                        setCardFocused((isFocused) => !isFocused);
                                     }}
+                                    onBlur={() => setCardFocused((isFocused) => !isFocused)}
                                     game={game}
                                     key={`game-card-1-${index}`}
                                     focused={false}
-                                    isFocused={index === focusedIndexSecond && focusedIndexVertical === 1}
+                                    isFocused={
+                                        index === focusedIndexSecond && focusedIndexVertical === 1 && cardFocused
+                                    }
                                     navigableId={`1-${index}`}
                                     indexX={focusedIndexSecond}
                                     indexY={focusedIndexVertical}
@@ -119,11 +121,13 @@ const HomeScreen: React.FC<Test> = (data: Test) => {
                                     onFocus={() => {
                                         setFocusedIndexThird(() => index);
                                         setFocusedIndexVertical(() => 2);
+                                        setCardFocused((isFocused) => !isFocused);
                                     }}
+                                    onBlur={() => setCardFocused((isFocused) => !isFocused)}
                                     game={game}
                                     key={`game-card-2-${index}`}
                                     focused={false}
-                                    isFocused={index === focusedIndexThird && focusedIndexVertical === 2}
+                                    isFocused={index === focusedIndexThird && focusedIndexVertical === 2 && cardFocused}
                                     navigableId={`2-${index}`}
                                     indexX={focusedIndexThird}
                                     indexY={focusedIndexVertical}
@@ -143,11 +147,15 @@ const HomeScreen: React.FC<Test> = (data: Test) => {
                                     onFocus={() => {
                                         setFocusedIndexFourth(() => index);
                                         setFocusedIndexVertical(() => 3);
+                                        setCardFocused((isFocused) => !isFocused);
                                     }}
+                                    onBlur={() => setCardFocused((isFocused) => !isFocused)}
                                     game={game}
                                     key={`game-card-3-${index}`}
                                     focused={false}
-                                    isFocused={index === focusedIndexFourth && focusedIndexVertical === 3}
+                                    isFocused={
+                                        index === focusedIndexFourth && focusedIndexVertical === 3 && cardFocused
+                                    }
                                     navigableId={`3-${index}`}
                                     indexX={focusedIndexFourth}
                                     indexY={focusedIndexVertical}
