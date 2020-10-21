@@ -4,8 +4,31 @@ import React from 'react';
 import { Game } from '../../../../../dialogs/src/models';
 import { NavigableWrapper } from '@telefonica/la-web-sdk';
 
+import styled from 'styled-components';
+
 //import LazyImages from '../Hocs/withLazyLoader/LazyImage';
 
+interface GameCardContainerProps {
+    isFocused: boolean;
+    indexY: number;
+    indexX: number;
+    Xpx: number;
+    Ypx: number;
+}
+
+const GameCardContainer = styled.div<GameCardContainerProps>`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    min-height: 320px;
+    margin-left: 30px;
+    will-change: transform;
+    transform: ${(props) =>
+        props.isFocused
+            ? `translate(-${props.indexX * props.Xpx}px, -${props.indexY * props.Ypx}px) scale(1.1)`
+            : `translate(-${props.indexX * props.Xpx}px, -${props.indexY * props.Ypx}px)`};
+`;
 interface GameCardProps {
     game: Game;
     focused: boolean;
@@ -46,7 +69,15 @@ const GameCard: React.FC<GameCardProps> = ({
             defaultFocused={focused}
             id={navigableId}
         >
-            <div className="game-card" key={game.id} style={movementStyle}>
+            <GameCardContainer
+                className="game-card"
+                key={game.id}
+                isFocused={isFocused}
+                indexX={indexX}
+                indexY={indexY}
+                Ypx={417}
+                Xpx={360}
+            >
                 <img className="game-card__image" src={game.background_image} alt={game.name} />
                 <div
                     className="game-card__info"
@@ -60,7 +91,7 @@ const GameCard: React.FC<GameCardProps> = ({
                     </div>
                     <p className="game-card__info__price">{game.price}</p>
                 </div>
-            </div>
+            </GameCardContainer>
         </NavigableWrapper>
     );
 };
