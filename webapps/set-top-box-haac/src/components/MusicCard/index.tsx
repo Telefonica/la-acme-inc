@@ -1,6 +1,6 @@
 import './MusicCard.scss';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { Game } from '../../../../../dialogs/src/models';
 import { NavigableWrapper } from '@telefonica/la-web-sdk';
 
@@ -16,8 +16,6 @@ interface MusicCardProps {
     navigableId: string;
     indexY: number;
     indexX: number;
-    scale?: boolean;
-    border?: boolean;
 }
 
 const MusicCard: React.FC<MusicCardProps> = ({
@@ -30,20 +28,17 @@ const MusicCard: React.FC<MusicCardProps> = ({
     navigableId,
     indexY,
     indexX,
-    scale,
-    border,
 }: MusicCardProps) => {
     const Ypx = 417;
     const Xpx = 360;
 
     const movementStyle = {
-        transform:
-            isFocused && scale
-                ? `translate(-${indexX * Xpx}px, -${indexY * Ypx}px) scale(1.05)`
-                : `translate(-${indexX * Xpx}px, -${indexY * Ypx}px)`,
+        transform: isFocused
+            ? `translate(-${indexX * Xpx}px, -${indexY * Ypx}px) scale(1.05)`
+            : `translate(-${indexX * Xpx}px, -${indexY * Ypx}px)`,
     };
     const borderStyle = {
-        opacity: isFocused && border ? 1 : 0,
+        opacity: isFocused ? 1 : 0,
     };
 
     return (

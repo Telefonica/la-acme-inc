@@ -9,13 +9,15 @@
   },
   "dependencies": {
     "@telefonica/la-web-sdk": "beta",
+    "@types/styled-components": "^5.1.4",
     "classnames": "^2.2.6",
     "jss": "^10.4.0",
     "jss-plugin-camel-case": "^10.4.0",
     "jss-plugin-default-unit": "^10.4.0",
     "jss-plugin-nested": "^10.4.0",
     "jss-plugin-vendor-prefixer": "^10.4.0",
-    "react-jss": "^10.4.0"
+    "react-jss": "^10.4.0",
+    "styled-components": "^5.2.0"
   },
   "devDependencies": {
     "@types/react": "^16.9.22",

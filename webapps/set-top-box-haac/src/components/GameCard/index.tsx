@@ -12,6 +12,7 @@ interface GameCardProps {
     isFocused: boolean;
     onClick: Function;
     onFocus: Function;
+    onBlur: Function;
     navigableId: string;
     indexY: number;
     indexX: number;
@@ -23,6 +24,7 @@ const GameCard: React.FC<GameCardProps> = ({
     isFocused,
     onClick,
     onFocus,
+    onBlur,
     navigableId,
     indexY,
     indexX,
@@ -39,6 +41,7 @@ const GameCard: React.FC<GameCardProps> = ({
         <NavigableWrapper
             onClick={onClick}
             onFocus={onFocus}
+            onBlur={onBlur}
             //focusedClass="game-card__focused"
             defaultFocused={focused}
             id={navigableId}
