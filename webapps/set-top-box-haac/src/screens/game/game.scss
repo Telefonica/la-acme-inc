@@ -4,7 +4,8 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #172D41;
+    text-shadow: white 0px 0px 10px;
+    background-color: rgba(0, 0, 0, 0.6);
 
     &__container{
         display: flex;
@@ -49,8 +50,10 @@
         font-size: 70px;
     }
     &__description {
-        margin-top: 200px;
+        font-size: 32px!important;
+        padding: 30px;
         font-size: 30px;
+        border-radius: 5px;
     }
 
     &__button {
