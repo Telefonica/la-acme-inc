@@ -8,15 +8,14 @@ export interface SessionData {
 
 export enum DialogId {
     HOME = 'la-acme-inc-home',
-    ADVENTURE = 'la-acme-inc-adventure',
-    ACTION = 'la-acme-inc-action',
-    INDIE = 'la-acme-inc-indie',
-    RPG = 'la-acme-inc-rpg',
+    GAME = 'la-acme-inc-game',
+    STORE = 'la-acme-inc-store',
 }
 
 export enum Screen {
     HOME = 'home',
     GAME = 'game',
+    STORE = 'store',
     ERROR = 'error',
     SPLASH = 'splash',
 }
@@ -25,45 +24,70 @@ export enum Intent {
     HOME = 'intent.la-acme-inc.home',
     GAME = 'intent.la-acme-inc.game',
     BACK = 'intent.la-acme-inc.back',
+    CHART = 'intent.la-acme-inc.chart',
+    ADD_CHART = 'intent.la-acme-inc.add_chart',
+    REMOVE_CHART = 'intent.la-acme-inc.remove_chart',
 }
-
 export enum Operation {
     BACK = 'intent.operation.sdk.back',
 }
-
 export enum Entity {
-    NAME = 'ent.name',
+    PLTID = 'ent.pltid',
+    GAMEID = 'ent.gameid',
+}
+
+export interface GameCard {
+    id: string;
+    image: string;
+    name: string;
+    dominantColor: string;
+    company: string;
+    price: number;
+}
+
+export interface GameCards {
+    [key: string]: GameCard[];
+}
+
+export enum Categories {
+    cat01 = 'action',
+    cat02 = 'adventure',
+    cat03 = 'rpg',
+    cat04 = 'sports',
+    cat05 = 'indie',
 }
 
 export interface HomeScreenData {
-    title: string;
-    categories: Category[];
+    platformTitle: string;
+    platforms: Platform[];
+    games: GameCards;
+    backgrounds: string[];
     suggestions?: Suggestion[];
 }
 
 export interface GameScreenData {
-    title: string;
-    games: Game[];
+    game: Game;
     suggestions?: Suggestion[];
 }
 
 export interface Category {
     id: string;
     name: string;
-    slug: string;
-    games_count: number;
-    image_background: string;
+    imageBackground: string;
 }
 
 export interface Game {
-    id: number;
-    background_image: string;
+    id: string;
+    image: string;
     name: string;
-    dominant_color: string;
     metacritic: number;
-    description?: string;
-    price: number;
     company: string;
+    videoUrl: string;
+    price: number;
+    dominantColor: string;
+    platforms: string[];
+    category: string;
+    description: string;
 }
 
 export interface ShortScreenshots {
@@ -74,19 +98,4 @@ export interface ShortScreenshots {
 export interface Platform {
     id: string;
     name: string;
-}
-
-export interface Stores {
-    id: string;
-    name: string;
-    slug: string;
-}
-
-export interface Tags {
-    id: string;
-    name: string;
-    games_count: number;
-    language: string;
-    slug: string;
-    image_background: string;
 }

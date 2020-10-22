@@ -1,35 +1,68 @@
 import './game.scss';
 
-import React from 'react';
-import { screenReady, NavigableButton } from '@telefonica/la-web-sdk';
+import React, { useEffect } from 'react';
+import { screenReady, NavigableButton, useBackground, useAura, Preloadable } from '@telefonica/la-web-sdk';
 import Metacritic from '../../components/Metacritic';
+import { Entity, Intent, GameScreenData } from '../../../../../dialogs/src/models';
 
-const GameScreen: React.FC = () => {
+const GameScreen: React.FC<Preloadable> = ({ screenData }: { screenData: GameScreenData }) => {
+    const { sendCommand } = useAura();
+    const { setBackground, clearBackground } = useBackground();
+
+    const { game } = screenData;
+    const { videoUrl, image, name, metacritic, company, price, dominantColor, category, description } = game;
+
+    const goToHome = (platformId: string) => {
+        sendCommand({ intent: Intent.HOME, entities: [{ type: 'platformId', entity: platformId }] });
+    };
+
+    const addToCard = () => {
+        console.log('ADDED');
+    };
+
+    useEffect(() => {
+        setBackground(image);
+    }, [setBackground, clearBackground, image]);
+
     return (
         <div className="game-screen">
             <div className="game-screen__container">
                 <div className="game-screen__data">
                     <div className="game-screen__top-wrapper">
-                        <div className="game-screen__title">Gran thief auto V</div>
+                        <div className="game-screen__title">{name}</div>
                         <div className="game-screen__info">
-                            <div className="game-screen__pegi">Pegi 18</div>
-                            <Metacritic score={20} />
+                            <div className="game-screen__company">{company}</div>
+                            <div className="game-screen__category">{category}€</div>
+                            <div className="game-screen__price">{price}€</div>
+                            <Metacritic score={metacritic} />
                         </div>
                     </div>
-                    <div className="game-screen__description">
-                        Rockstar Games: Los Santos: una metrópolis llena de gurús de autoayuda, actrices y celebridades
-                        desvaneciendo que luchan por mantenerse a flote en una época de incertidumbre económica y TV por
-                        cable barata. En medio de la confusión, tres delincuentes muy diferentes arriesgando todo en una
-                        serie de robos audaces y peligrosos que puedan ponerlos en marcha por la vida.
-                    </div>
+                    <div className="game-screen__description" dangerouslySetInnerHTML={{ __html: description }} />
                 </div>
                 <div className="game-screen__image">
-                    <img src="https://media.rawg.io/media/games/84d/84da2ac3fdfc6507807a1808595afb12.jpg" />
+                    <video width="640" height="480" autoPlay muted>
+                        <source src={videoUrl} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
             <div className="game-screen__buttons">
-                <NavigableButton id="back" makeFocused={true} defaultClass="game-screen__button">BACK</NavigableButton>
-                <NavigableButton id="buy" makeFocused={true} defaultClass="game-screen__button">BUY</NavigableButton>
+                <NavigableButton
+                    id="back"
+                    onClick={() => goToHome('plat01')}
+                    makeFocused={true}
+                    defaultClass="game-screen__button"
+                >
+                    BACK
+                </NavigableButton>
+                <NavigableButton
+                    id="buy"
+                    onClick={() => addToCard()}
+                    makeFocused={true}
+                    defaultClass="game-screen__button"
+                >
+                    BUY
+                </NavigableButton>
             </div>
         </div>
     );

@@ -1,13 +1,13 @@
 import './MusicCard.scss';
 
 import React from 'react';
-import { Game } from '../../../../../dialogs/src/models';
+import { GameCard } from '../../../../../dialogs/src/models';
 import { NavigableWrapper } from '@telefonica/la-web-sdk';
 
 //import LazyImages from '../Hocs/withLazyLoader/LazyImage';
 
 interface MusicCardProps {
-    game: Game;
+    game: GameCard;
     focused: boolean;
     isFocused: boolean;
     onClick: Function;
@@ -52,11 +52,11 @@ const MusicCard: React.FC<MusicCardProps> = ({
         >
             <div className="music-card" key={game.id} style={movementStyle}>
                 <div className="music-card__border" style={borderStyle} />
-                <img className="music-card__image" src={game.background_image} alt={game.name} />
+                <img className="music-card__image" src={game.image} alt={game.name} />
                 <div
                     className="music-card__info"
                     style={{
-                        backgroundColor: game.dominant_color,
+                        backgroundColor: game.dominantColor,
                     }}
                 >
                     <div className="music-card__info__text">

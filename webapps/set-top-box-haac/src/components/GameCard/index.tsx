@@ -52,13 +52,13 @@ const GameCard: React.FC<GameCardProps> = ({
     indexY,
     indexX,
 }: GameCardProps) => {
-    const Ypx = 417;
+    /*const Ypx = 417;
     const Xpx = 360;
     const movementStyle = {
         transform: isFocused
             ? `translate(-${indexX * Xpx}px, -${indexY * Ypx}px) scale(1.1)`
             : `translate(-${indexX * Xpx}px, -${indexY * Ypx}px)`,
-    };
+    };*/
 
     return (
         <NavigableWrapper
@@ -78,11 +78,11 @@ const GameCard: React.FC<GameCardProps> = ({
                 Ypx={417}
                 Xpx={360}
             >
-                <img className="game-card__image" src={game.background_image} alt={game.name} />
+                <img className="game-card__image" src={game.image} alt={game.name} />
                 <div
                     className="game-card__info"
                     style={{
-                        backgroundColor: game.dominant_color,
+                        backgroundColor: game.dominantColor,
                     }}
                 >
                     <div className="game-card__info__text">
