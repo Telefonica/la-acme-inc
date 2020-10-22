@@ -23,6 +23,16 @@
         {
             "triggerConditions": [
                 {
+                    "contextFilters": [],
+                    "intent": "intent.la-acme-inc.chart"
+                }
+            ],
+            "id": "la-acme-inc-chart",
+            "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
+        },
+        {
+            "triggerConditions": [
+                {
                     "context_filters": [],
                     "intent": "intent.la-acme-inc.back"
                 }

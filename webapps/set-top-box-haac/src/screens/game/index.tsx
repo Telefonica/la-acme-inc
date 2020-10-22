@@ -6,6 +6,7 @@ import { Intent, GameScreenData } from '../../../../../dialogs/src/models';
 import { useAura } from '@telefonica/la-web-sdk';
 
 const GameScreen: React.FC<GameScreenData> = (data: GameScreenData) => {
+    console.log('Game data ', data)
     const { sendCommand } = useAura();
 
     const { title, game } = data;
@@ -16,20 +17,7 @@ const GameScreen: React.FC<GameScreenData> = (data: GameScreenData) => {
 
     return (
         <div className="genre-screen">
-            <h1 className="title">{title.toUpperCase()} </h1>
-            <div className="games">
-                <div className="game" key={game.id}>
-                    <div className="upper-container">
-                        <img src={game.background_image} alt={game.name} />
-                        <div className="right-container">
-                            <b>Name: {game.name}</b>
-                        </div>
-                    </div>
-                    <div className="lower-container">
-                        <p>Metacritic: {game.metacritic}</p>
-                    </div>
-                </div>
-            </div>
+            <h1 className="title">{title.toUpperCase()} </h1>           
             <Footer>
                 <NavigableButton onClick={() => goToHome()} defaultClass="" focusedClass="" id="categories-button">
                     BACK

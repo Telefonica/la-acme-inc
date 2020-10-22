@@ -2,7 +2,7 @@ import { ApiClient } from '../clients/api-client';
 import { Configuration, Dialog, PromptCase, ScreenMessage, RouteAction } from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, Screen, Intent, Entity, HomeScreenData } from '../models';
+import { DialogId, LIBRARY_NAME, Screen, Intent, Entity, HomeScreenData, SessionData } from '../models';
 import { helper } from '../helpers/helpers';
 
 /*
@@ -27,7 +27,9 @@ export default class HomeDialog extends Dialog {
     /*
       method to clear the state of the dialogs, for example session data of a dialog
     */
-    protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {       
+    protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> { 
+        const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
+        delete sessionData.name;      
         return;
     }
 
@@ -36,23 +38,22 @@ export default class HomeDialog extends Dialog {
         const apiClient = new ApiClient(this.config, stepContext);
 
         const categories = await apiClient.getCategories();
-        const games = await apiClient.getGames();
+        const games = await apiClient.getGameCards();
         const platforms = await apiClient.getPlatforms();
 
-        // show pc data by default
-        const pcGamesByCat = await helper.getGamesByPl(categories, games, 'pc');
+        const pltId = sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID) || 'pc';
 
-        console.log('test 2', pcGamesByCat);
+        // show pc data by default
+        const gamesByCat = await helper.getGamesByPl(categories, games, pltId);
 
         const screenData: HomeScreenData = {
-            title: 'Video Game Shop Home',
+            platformTitle: 'Video Game Shop Home',
             platforms,
-            categories,
-            gameList: {
-                action: pcGamesByCat[0],
-                indie: pcGamesByCat[1],
-                sports: pcGamesByCat[2],
-                rpg: pcGamesByCat[3],
+            games: {
+                action: gamesByCat[0],
+                indie: gamesByCat[1],
+                sports: gamesByCat[2],
+                rpg: gamesByCat[3],
             },
         };
 
@@ -79,14 +80,7 @@ export default class HomeDialog extends Dialog {
             {
                 operation: Intent.GAME,
                 action: [RouteAction.PUSH, DialogId.GAME],
-            },
-            {
-                operation: Intent.PLTID,
-                logic: async () => {
-                    const pltId = sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID);
-                    console.log('pltId ', pltId);                    
-                },
-            },
+            }
         ];
 
         return super.promptHandler(stepContext, cases);

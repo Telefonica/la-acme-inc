@@ -11,7 +11,8 @@ export = function setup(options: any, imports: any, register: (err: Error, resul
         './dialogs/dialog-la-start',
         './dialogs/dialog-la-close',
         './dialogs/dialog-home',
-        './dialogs/dialog-game'
+        './dialogs/dialog-game',
+        './dialogs/dialog-chart'
     ];
 
     sdk.loader.excludeDialogs(dialogs, options);

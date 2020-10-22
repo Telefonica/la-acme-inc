@@ -5,15 +5,11 @@ import { DialogId, LIBRARY_NAME, GameScreenData, Intent, Entity, Screen, Session
 import { ApiClient } from '../clients/api-client';
 import { helper } from '../helpers/helpers';
 
-/*
-This dialog is the parent of the Home dialog
-*/
-
-export default class GameDialog extends Dialog {
-    static readonly dialogPrompt = `${DialogId.GAME}-prompt`;
+export default class ChartDialog extends Dialog {
+    static readonly dialogPrompt = `${DialogId.CHART}-prompt`;
 
     constructor(config: Configuration) {
-        super(LIBRARY_NAME, DialogId.GAME, config);
+        super(LIBRARY_NAME, DialogId.CHART, config);
     }
 
     protected dialogStages(): WaterfallStep[] {
@@ -21,7 +17,7 @@ export default class GameDialog extends Dialog {
     }
 
     protected prompts(): string[] {
-        return [GameDialog.dialogPrompt];
+        return [ChartDialog.dialogPrompt];
     }
 
     /*
@@ -58,7 +54,7 @@ export default class GameDialog extends Dialog {
             Intent.HOME, // go to home Dialog
         ];
 
-        return await sdk.messaging.prompt(stepContext, GameDialog.dialogPrompt, choices);
+        return await sdk.messaging.prompt(stepContext, ChartDialog.dialogPrompt, choices);
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
@@ -66,15 +62,31 @@ export default class GameDialog extends Dialog {
             RouteAction.PUSH to control the navigation routing between dialogs
         */
 
+        const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
+        const context = await sdk.persistence.getStoredData(stepContext);
+
         const cases: PromptCase[] = [
             {
-                operation: Intent.HOME,
+                operation: Intent.GAME,
                 action: [RouteAction.PUSH, DialogId.GAME],
             },
             {
-                operation: Intent.GAME,
+                operation: Intent.ADD_CHART,
                 logic: async () => {
-            
+                    const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
+                    if (gameId) {
+                        sessionData.gameId = gameId;
+                        await sdk.persistence.storeData(stepContext, { ...context, gameId });
+                    }
+                },
+            },
+            {
+                operation: Intent.REMOVE_CHART,
+                logic: async () => {
+                    const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
+                    if (sessionData.gameId) {
+                        delete sessionData.gameId;
+                    }
                 },
             },
         ];
