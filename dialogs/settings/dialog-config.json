@@ -24,10 +24,10 @@
             "triggerConditions": [
                 {
                     "contextFilters": [],
-                    "intent": "intent.la-acme-inc.chart"
+                    "intent": "intent.la-acme-inc.cart"
                 }
             ],
-            "id": "la-acme-inc-chart",
+            "id": "la-acme-inc-cart",
             "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
         },
         {

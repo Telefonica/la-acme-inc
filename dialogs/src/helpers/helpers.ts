@@ -19,6 +19,6 @@ export class helper {
         const game = games.filter((game) => {
             return game.id === gameId;
         });
-        return game;
+        return game[0];
     }
 }

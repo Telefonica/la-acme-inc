@@ -3,20 +3,19 @@ import { Suggestion } from '@telefonica/la-bot-sdk';
 export const LIBRARY_NAME = 'la-acme-inc';
 
 export interface SessionData {
-    name: string;
-    gameId: string;
+    items: CartItem[];
 }
 
 export enum DialogId {
     HOME = 'la-acme-inc-home',
     GAME = 'la-acme-inc-game',
-    CHART = 'la-acme-inc-chart',
+    CART = 'la-acme-inc-cart',
 }
 
 export enum Screen {
     HOME = 'home',
     GAME = 'game',
-    CHART = 'chart',
+    CART = 'cart',
     ERROR = 'error',
     SPLASH = 'splash',
 }
@@ -25,9 +24,9 @@ export enum Intent {
     HOME = 'intent.la-acme-inc.home',
     GAME = 'intent.la-acme-inc.game',
     BACK = 'intent.la-acme-inc.back',
-    CHART = 'intent.la-acme-inc.chart',
-    ADD_CHART = 'intent.la-acme-inc.add_chart',
-    REMOVE_CHART = 'intent.la-acme-inc.remove_chart',
+    CART = 'intent.la-acme-inc.cart',
+    ADD_CART = 'intent.la-acme-inc.add_cart',
+    REMOVE_CART = 'intent.la-acme-inc.remove_cart',
 }
 
 export enum Operation {
@@ -37,6 +36,8 @@ export enum Operation {
 export enum Entity {
     PLTID = 'ent.pltid',
     GAMEID = 'ent.gameid',
+    GAMENAME = 'ent.gamename',
+    QUANTITY = 'ent.quantity',
 }
 export interface GameCard {
     id: string;
@@ -47,11 +48,11 @@ export interface GameCard {
     platforms: string[];
     category: string;
 }
-export enum CATEGORIES {
-    action = 'cat01',
-    rpg = 'cat02',
-    sports = 'cat03',
-    indie = 'cat04',
+export enum Categories {
+    cat01 = 'action',
+    cat02 = 'rpg',
+    cat03 = 'sports',
+    cat04 = 'indie',
 }
 export interface GameCards {
     [key: string]: GameCard[];
@@ -63,19 +64,26 @@ export interface HomeScreenData {
     suggestions?: Suggestion[];
 }
 export interface GameScreenData {
-    title: string;
-    game: Game[];
+    game: Game;
     suggestions?: Suggestion[];
+}
+export interface CartScreenData {
+    items: CartItem[];   
 }
 export interface Category {
     id: string;
     name: string;
-    backgroundImage: string;
+    imageBackground: string;
+}
+export interface CartItem {
+    name: string;
+    quantity?: number;
 }
 export interface Game {
     id: string;
-    backgroundImage: string;
+    image: string;
     name: string;
+    description: string;
     metacritic: number;
     company: string;
     videoUrl: string;

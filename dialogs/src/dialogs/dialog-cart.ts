@@ -1,15 +1,13 @@
-import { Configuration, Dialog, PromptCase, RouteAction, ScreenMessage } from '@telefonica/la-bot-sdk';
+import { Configuration, Dialog, PromptCase, RouteAction } from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, GameScreenData, Intent, Entity, Screen, SessionData } from '../models';
-import { ApiClient } from '../clients/api-client';
-import { helper } from '../helpers/helpers';
+import { DialogId, LIBRARY_NAME, Intent, Entity, SessionData } from '../models';
 
 export default class ChartDialog extends Dialog {
-    static readonly dialogPrompt = `${DialogId.CHART}-prompt`;
+    static readonly dialogPrompt = `${DialogId.CART}-prompt`;
 
     constructor(config: Configuration) {
-        super(LIBRARY_NAME, DialogId.CHART, config);
+        super(LIBRARY_NAME, DialogId.CART, config);
     }
 
     protected dialogStages(): WaterfallStep[] {
@@ -25,33 +23,16 @@ export default class ChartDialog extends Dialog {
     */
     protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {
         const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-        delete sessionData.name;
+        delete sessionData.items;
         return;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private async _dialogStage(stepContext: WaterfallStepContext<any>): Promise<DialogTurnResult> {
-        const apiClient = new ApiClient(this.config, stepContext);
-
-        const games = await apiClient.getGames();
-
-        const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
-
-        const gameById = await helper.getGameById(games, gameId);
-
-        const screenData: GameScreenData = {
-            title: 'Video Game Info',
-            game: gameById,
-        };
-
-        // answer for the webapp
-        const message = new ScreenMessage(Screen.GAME, screenData);
-
-        await sdk.messaging.send(stepContext, message);
-
         // possible operations
         const choices: string[] = [
             Intent.HOME, // go to home Dialog
+            Intent.GAME, // go to game Dialog
         ];
 
         return await sdk.messaging.prompt(stepContext, ChartDialog.dialogPrompt, choices);
@@ -68,25 +49,30 @@ export default class ChartDialog extends Dialog {
         const cases: PromptCase[] = [
             {
                 operation: Intent.GAME,
-                action: [RouteAction.PUSH, DialogId.GAME],
+                action: [RouteAction.PUSH, DialogId.CART],
             },
             {
-                operation: Intent.ADD_CHART,
+                operation: Intent.HOME,
+                action: [RouteAction.PUSH, DialogId.CART],
+            },
+            {
+                operation: Intent.ADD_CART,
                 logic: async () => {
-                    const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
-                    if (gameId) {
-                        sessionData.gameId = gameId;
-                        await sdk.persistence.storeData(stepContext, { ...context, gameId });
-                    }
+                    const name = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMENAME);
+                    const quantity = sdk.lifecycle.getCallingEntity(stepContext, Entity.QUANTITY);
+
+                    sessionData.items.push({
+                        name,
+                        quantity,
+                    });
+
+                    await sdk.persistence.storeData(stepContext, { ...context, sessionData });
                 },
             },
             {
-                operation: Intent.REMOVE_CHART,
+                operation: Intent.REMOVE_CART,
                 logic: async () => {
-                    const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-                    if (sessionData.gameId) {
-                        delete sessionData.gameId;
-                    }
+                    // TODO delete game in items array of cart
                 },
             },
         ];

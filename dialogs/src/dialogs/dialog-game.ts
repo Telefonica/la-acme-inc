@@ -29,7 +29,7 @@ export default class GameDialog extends Dialog {
     */
     protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {
         const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-        delete sessionData.name;
+        delete sessionData.items;
         return;
     }
 
@@ -44,7 +44,6 @@ export default class GameDialog extends Dialog {
         const gameById = await helper.getGameById(games, gameId);
 
         const screenData: GameScreenData = {
-            title: 'Video Game Info',
             game: gameById,
         };
 
@@ -56,6 +55,7 @@ export default class GameDialog extends Dialog {
         // possible operations
         const choices: string[] = [
             Intent.HOME, // go to home Dialog
+            Intent.CART, // go to chart Dialog
         ];
 
         return await sdk.messaging.prompt(stepContext, GameDialog.dialogPrompt, choices);
@@ -72,10 +72,8 @@ export default class GameDialog extends Dialog {
                 action: [RouteAction.PUSH, DialogId.GAME],
             },
             {
-                operation: Intent.GAME,
-                logic: async () => {
-            
-                },
+                operation: Intent.CART,
+                action: [RouteAction.PUSH, DialogId.GAME],
             },
         ];
 

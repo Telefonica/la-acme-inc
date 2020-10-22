@@ -9,7 +9,7 @@ const GameScreen: React.FC<GameScreenData> = (data: GameScreenData) => {
     console.log('Game data ', data)
     const { sendCommand } = useAura();
 
-    const { title, game } = data;
+    const { game } = data;
 
     const goToHome = () => {
         sendCommand({ intent: Intent.HOME, entities: [] });
@@ -17,7 +17,7 @@ const GameScreen: React.FC<GameScreenData> = (data: GameScreenData) => {
 
     return (
         <div className="genre-screen">
-            <h1 className="title">{title.toUpperCase()} </h1>           
+            <h1 className="title">title</h1>           
             <Footer>
                 <NavigableButton onClick={() => goToHome()} defaultClass="" focusedClass="" id="categories-button">
                     BACK

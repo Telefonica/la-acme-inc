@@ -27,9 +27,9 @@ export default class HomeDialog extends Dialog {
     /*
       method to clear the state of the dialogs, for example session data of a dialog
     */
-    protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> { 
+    protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {
         const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-        delete sessionData.name;      
+        delete sessionData.items;
         return;
     }
 
@@ -50,10 +50,10 @@ export default class HomeDialog extends Dialog {
             platformTitle: 'Video Game Shop Home',
             platforms,
             games: {
-                action: gamesByCat[0],
-                indie: gamesByCat[1],
-                sports: gamesByCat[2],
-                rpg: gamesByCat[3],
+                cat01: gamesByCat[0],
+                cat04: gamesByCat[1],
+                cat03: gamesByCat[2],
+                cat02: gamesByCat[3],
             },
         };
 
@@ -70,8 +70,7 @@ export default class HomeDialog extends Dialog {
         return await sdk.messaging.prompt(stepContext, HomeDialog.dialogPrompt, choices);
     }
 
-    private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {      
-
+    private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
         /*
             RouteAction.PUSH to control the navigation routing between dialogs
         */
@@ -79,8 +78,8 @@ export default class HomeDialog extends Dialog {
         const cases: PromptCase[] = [
             {
                 operation: Intent.GAME,
-                action: [RouteAction.PUSH, DialogId.GAME],
-            }
+                action: [RouteAction.PUSH, DialogId.HOME],
+            },
         ];
 
         return super.promptHandler(stepContext, cases);
