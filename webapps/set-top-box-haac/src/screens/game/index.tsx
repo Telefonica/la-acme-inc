@@ -9,15 +9,23 @@ const GameScreen: React.FC<Preloadable> = ({ screenData }: { screenData: GameScr
     const { sendCommand } = useAura();
     const { setBackground, clearBackground } = useBackground();
 
-    const { game } = screenData;
-    const { videoUrl, image, name, metacritic, company, price, dominantColor, category, description } = game;
+    const { game, platformId } = screenData;
+    const { id, videoUrl, image, name, metacritic, company, price, category, description } = game;
 
     const goToHome = (platformId: string) => {
-        sendCommand({ intent: Intent.HOME, entities: [{ type: 'platformId', entity: platformId }] });
+        sendCommand({ intent: Intent.HOME, entities: [{ type: Entity.PLTID, entity: platformId }] });
     };
 
-    const addToCard = () => {
-        console.log('ADDED');
+    const addToCard = (platformId: string, gameId: string, name: string, quantity = 1) => {
+        sendCommand({
+            intent: Intent.ADD_CART,
+            entities: [
+                { type: Entity.PLTID, entity: platformId },
+                { type: Entity.GAMEID, entity: gameId },
+                { type: Entity.GAMENAME, entity: name },
+                { type: Entity.QUANTITY, entity: quantity },
+            ],
+        });
     };
 
     useEffect(() => {
@@ -49,7 +57,7 @@ const GameScreen: React.FC<Preloadable> = ({ screenData }: { screenData: GameScr
             <div className="game-screen__buttons">
                 <NavigableButton
                     id="back"
-                    onClick={() => goToHome('plat01')}
+                    onClick={() => goToHome(platformId)}
                     makeFocused={true}
                     defaultClass="game-screen__button"
                 >
@@ -57,7 +65,7 @@ const GameScreen: React.FC<Preloadable> = ({ screenData }: { screenData: GameScr
                 </NavigableButton>
                 <NavigableButton
                     id="buy"
-                    onClick={() => addToCard()}
+                    onClick={() => addToCard(platformId, id, name)}
                     makeFocused={true}
                     defaultClass="game-screen__button"
                 >

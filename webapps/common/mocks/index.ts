@@ -160,6 +160,7 @@ const mockedValues: mocks = {
         },
     },
     game: {
+        platformId: 'plat01',
         game: {
             image: 'https://media.rawg.io/media/games/78d/78dfae12fb8c5b16cd78648553071e0a.jpg',
             company: 'Codemasters',
@@ -167,7 +168,7 @@ const mockedValues: mocks = {
             id: '92726',
             metacritic: 67,
             name: 'DiRT Rally',
-            platforms: ['pc', 'xbox'],
+            platforms: ['plat01', 'plat02'],
             category: 'cat03',
             price: 30,
             videoUrl: 'https://media.rawg.io/media/stories/caa/caab2afd3282b164431f22730c1bc0a8.mp4',

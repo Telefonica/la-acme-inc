@@ -24,9 +24,9 @@ export enum Intent {
     HOME = 'intent.la-acme-inc.home',
     GAME = 'intent.la-acme-inc.game',
     BACK = 'intent.la-acme-inc.back',
-    CHART = 'intent.la-acme-inc.chart',
-    ADD_CHART = 'intent.la-acme-inc.add_chart',
-    REMOVE_CHART = 'intent.la-acme-inc.remove_chart',
+    CART = 'intent.la-acme-inc.cart',
+    ADD_CART = 'intent.la-acme-inc.add_cart',
+    REMOVE_CART = 'intent.la-acme-inc.remove_cart',
 }
 export enum Operation {
     BACK = 'intent.operation.sdk.back',
@@ -34,6 +34,8 @@ export enum Operation {
 export enum Entity {
     PLTID = 'ent.pltid',
     GAMEID = 'ent.gameid',
+    QUANTITY = 'ent.quantity',
+    GAMENAME = 'ent.gamename',
 }
 
 export interface GameCard {
@@ -67,7 +69,18 @@ export interface HomeScreenData {
 
 export interface GameScreenData {
     game: Game;
+    platformId: string;
     suggestions?: Suggestion[];
+}
+
+export interface CartGame {
+    name: string;
+    id: string;
+    quantity?: number;
+}
+
+export interface CartScreenData {
+    games: CartGame[];
 }
 
 export interface Category {
