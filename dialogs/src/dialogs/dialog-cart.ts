@@ -56,13 +56,10 @@ export default class ChartDialog extends Dialog {
             {
                 operation: Intent.ADD_CART,
                 logic: async () => {
-                    const name = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMENAME);
-                    const quantity = sdk.lifecycle.getCallingEntity(stepContext, Entity.QUANTITY);
+                    // const name = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMENAME);
+                    // const quantity = sdk.lifecycle.getCallingEntity(stepContext, Entity.QUANTITY);
 
-                    sessionData.items.push({
-                        name,
-                        quantity,
-                    });
+                  
 
                     await sdk.persistence.storeData(stepContext, { ...context, sessionData });
                 },
