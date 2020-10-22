@@ -29,6 +29,8 @@ export default class ChartDialog extends Dialog {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private async _dialogStage(stepContext: WaterfallStepContext<any>): Promise<DialogTurnResult> {
+        // TODO comprobar si hay items en el carro
+
         // possible operations
         const choices: string[] = [
             Intent.HOME, // go to home Dialog
@@ -39,10 +41,6 @@ export default class ChartDialog extends Dialog {
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
-        /*
-            RouteAction.PUSH to control the navigation routing between dialogs
-        */
-
         const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
         const context = await sdk.persistence.getStoredData(stepContext);
 

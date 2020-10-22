@@ -3,7 +3,7 @@ import { Suggestion } from '@telefonica/la-bot-sdk';
 export const LIBRARY_NAME = 'la-acme-inc';
 
 export interface SessionData {
-    items: CartItem[];
+    items: CartGame[];
 }
 
 export enum DialogId {
@@ -68,15 +68,16 @@ export interface GameScreenData {
     suggestions?: Suggestion[];
 }
 export interface CartScreenData {
-    items: CartItem[];   
+    items: CartGame[];   
 }
 export interface Category {
     id: string;
     name: string;
     imageBackground: string;
 }
-export interface CartItem {
+export interface CartGame {
     name: string;
+    id: string;
     quantity?: number;
 }
 export interface Game {
