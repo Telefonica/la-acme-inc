@@ -22,7 +22,7 @@ export class helper {
         });
 
         return Test.reduce((obj, item) => {
-            obj[Object.keys(item)[0]] = item[0];
+            obj[Object.keys(item)[0]] = item[Object.keys(item)[0]];
             return obj;
         }, {});
     };

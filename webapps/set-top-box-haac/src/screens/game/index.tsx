@@ -5,7 +5,7 @@ import { screenReady, NavigableButton, useBackground, useAura, Preloadable } fro
 import Metacritic from '../../components/Metacritic';
 import { Entity, Intent, GameScreenData } from '../../../../../dialogs/src/models';
 
-const GameScreen: React.FC<Preloadable> = ({ screenData }: { screenData: GameScreenData }) => {
+const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
     const { sendCommand } = useAura();
     const { setBackground, clearBackground } = useBackground();
 

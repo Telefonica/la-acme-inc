@@ -41,7 +41,7 @@ export default class HomeDialog extends Dialog {
         const games = await apiClient.getGames();
         const platforms = await apiClient.getPlatforms();
 
-        const pltId = sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID) || 'pc';
+        const pltId = sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID) || 'ptl01';
 
         // show pc data by default
         const gamesByCat = helper.getGamesByPlatform(categories, games, pltId);
@@ -50,12 +50,7 @@ export default class HomeDialog extends Dialog {
             platformTitle: 'Video Game Shop Home',
             backgrounds: ['', ''], //TODO: GIVE BACKGROUNDS FOR EACH CATERGORY.
             platforms,
-            games: {
-                cat01: gamesByCat[0],
-                cat04: gamesByCat[1],
-                cat03: gamesByCat[2],
-                cat02: gamesByCat[3],
-            },
+            games: gamesByCat,
         };
 
         // answer for the webapp

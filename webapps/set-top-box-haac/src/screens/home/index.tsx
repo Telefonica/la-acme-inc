@@ -5,7 +5,8 @@ import { screenReady, NavigableWrapper, useAura, Preloadable, useBackground } fr
 import { HomeScreenData, Intent, GameCard, Entity, Categories } from '../../../../../dialogs/src/models';
 import MusicCard from '../../components/MusicCard';
 
-const HomeScreen: React.FC<Preloadable> = ({ screenData }: { screenData: HomeScreenData }) => {
+
+const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     const { platformTitle, platforms, games, backgrounds } = screenData;
     const { sendCommand } = useAura();
     const { setBackground, clearBackground } = useBackground();
