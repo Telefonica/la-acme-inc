@@ -10,19 +10,19 @@ const GameScreen: React.FC<Preloadable> = ({ screenData }: { screenData: GameScr
     const { setBackground, clearBackground } = useBackground();
 
     const { game, platformId } = screenData;
-    const { id, videoUrl, image, name, metacritic, company, price, category, description } = game;
+    const { id, videoUrl, image, title, metacritic, company, price, category, description } = game;
 
     const goToHome = (platformId: string) => {
         sendCommand({ intent: Intent.HOME, entities: [{ type: Entity.PLTID, entity: platformId }] });
     };
 
-    const addToCard = (platformId: string, gameId: string, name: string, quantity = 1) => {
+    const addToCard = (platformId: string, gameId: string, title: string, quantity = 1) => {
         sendCommand({
             intent: Intent.ADD_CART,
             entities: [
                 { type: Entity.PLTID, entity: platformId },
                 { type: Entity.GAMEID, entity: gameId },
-                { type: Entity.GAMENAME, entity: name },
+                { type: Entity.GAMETITLE, entity: title },
                 { type: Entity.QUANTITY, entity: quantity },
             ],
         });
@@ -37,7 +37,7 @@ const GameScreen: React.FC<Preloadable> = ({ screenData }: { screenData: GameScr
             <div className="game-screen__container">
                 <div className="game-screen__data">
                     <div className="game-screen__top-wrapper">
-                        <div className="game-screen__title">{name}</div>
+                        <div className="game-screen__title">{title}</div>
                         <div className="game-screen__info">
                             <div className="game-screen__company">{company}</div>
                             <div className="game-screen__category">{category}€</div>
@@ -65,7 +65,7 @@ const GameScreen: React.FC<Preloadable> = ({ screenData }: { screenData: GameScr
                 </NavigableButton>
                 <NavigableButton
                     id="buy"
-                    onClick={() => addToCard(platformId, id, name)}
+                    onClick={() => addToCard(platformId, id, title)}
                     makeFocused={true}
                     defaultClass="game-screen__button"
                 >

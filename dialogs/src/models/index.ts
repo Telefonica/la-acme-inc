@@ -3,19 +3,19 @@ import { Suggestion } from '@telefonica/la-bot-sdk';
 export const LIBRARY_NAME = 'la-acme-inc';
 
 export interface SessionData {
-    name: string;
+    items: CartGame[];
 }
 
 export enum DialogId {
     HOME = 'la-acme-inc-home',
     GAME = 'la-acme-inc-game',
-    STORE = 'la-acme-inc-store',
+    CART = 'la-acme-inc-cart',
 }
 
 export enum Screen {
     HOME = 'home',
     GAME = 'game',
-    STORE = 'store',
+    CART = 'cart',
     ERROR = 'error',
     SPLASH = 'splash',
 }
@@ -32,33 +32,28 @@ export enum Operation {
     BACK = 'intent.operation.sdk.back',
 }
 export enum Entity {
-    PLTID = 'ent.pltid',
-    GAMEID = 'ent.gameid',
+    PLTID = 'ent.plt-id',
+    GAMEID = 'ent.game-id',
+    GAMETITLE = 'ent.game-title',
     QUANTITY = 'ent.quantity',
-    GAMENAME = 'ent.gamename',
 }
-
 export interface GameCard {
     id: string;
-    image: string;
-    name: string;
-    dominantColor: string;
     company: string;
     price: number;
+    image: string;
+    title: string;
+    dominantColor: string;
 }
-
+export enum Categories {
+    cat01 = 'action',
+    cat02 = 'rpg',
+    cat03 = 'sports',
+    cat04 = 'indie',
+}
 export interface GameCards {
     [key: string]: GameCard[];
 }
-
-export enum Categories {
-    cat01 = 'action',
-    cat02 = 'adventure',
-    cat03 = 'rpg',
-    cat04 = 'sports',
-    cat05 = 'indie',
-}
-
 export interface HomeScreenData {
     platformTitle: string;
     platforms: Platform[];
@@ -66,7 +61,6 @@ export interface HomeScreenData {
     backgrounds: string[];
     suggestions?: Suggestion[];
 }
-
 export interface GameScreenData {
     game: Game;
     platformId: string;
@@ -74,7 +68,7 @@ export interface GameScreenData {
 }
 
 export interface CartGame {
-    name: string;
+    title: string;
     id: string;
     quantity?: number;
 }
@@ -92,7 +86,8 @@ export interface Category {
 export interface Game {
     id: string;
     image: string;
-    name: string;
+    title: string;
+    description: string;
     metacritic: number;
     company: string;
     videoUrl: string;
@@ -100,14 +95,7 @@ export interface Game {
     dominantColor: string;
     platforms: string[];
     category: string;
-    description: string;
 }
-
-export interface ShortScreenshots {
-    id: string;
-    image: string;
-}
-
 export interface Platform {
     id: string;
     name: string;
