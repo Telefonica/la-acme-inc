@@ -45,10 +45,11 @@ export default class HomeDialog extends Dialog {
 
         // show pc data by default
         const gamesByCat = helper.getGamesByPlatform(categories, games, pltId);
+        const backgrounds = helper.getCategoriesBackgrounds(categories);
 
         const screenData: HomeScreenData = {
             platformTitle: 'Video Game Shop Home',
-            backgrounds: ['', ''], //TODO: GIVE BACKGROUNDS FOR EACH CATERGORY.
+            backgrounds,
             platforms,
             games: gamesByCat,
         };

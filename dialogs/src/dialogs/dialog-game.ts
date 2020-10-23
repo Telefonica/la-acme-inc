@@ -40,12 +40,13 @@ export default class GameDialog extends Dialog {
         const games = await apiClient.getGames();
 
         const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
+        const platformId = sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID);
 
         const gameById = await helper.getGameById(games, gameId);
 
         const screenData: GameScreenData = {
             game: gameById,
-            platformId: '', // TODO: PONER PLATFORM
+            platformId
         };
 
         // answer for the webapp
