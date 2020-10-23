@@ -78,7 +78,7 @@ const GameCard: React.FC<GameCardProps> = ({
                 Ypx={417}
                 Xpx={360}
             >
-                <img className="game-card__image" src={game.image} alt={game.name} />
+                <img className="game-card__image" src={game.image} alt={game.title} />
                 <div
                     className="game-card__info"
                     style={{
@@ -86,7 +86,7 @@ const GameCard: React.FC<GameCardProps> = ({
                     }}
                 >
                     <div className="game-card__info__text">
-                        <p className="game-card__info__text__title">{game.name}</p>
+                        <p className="game-card__info__text__title">{game.title}</p>
                         <p className="game-card__info__text__company">{game.company}</p>
                     </div>
                     <p className="game-card__info__price">{game.price}</p>

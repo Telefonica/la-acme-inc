@@ -52,7 +52,7 @@ const MusicCard: React.FC<MusicCardProps> = ({
         >
             <div className="music-card" key={game.id} style={movementStyle}>
                 <div className="music-card__border" style={borderStyle} />
-                <img className="music-card__image" src={game.image} alt={game.name} />
+                <img className="music-card__image" src={game.image} alt={game.title} />
                 <div
                     className="music-card__info"
                     style={{
@@ -60,7 +60,7 @@ const MusicCard: React.FC<MusicCardProps> = ({
                     }}
                 >
                     <div className="music-card__info__text">
-                        <p className="music-card__info__text__title">{game.name}</p>
+                        <p className="music-card__info__text__title">{game.title}</p>
                         <p className="music-card__info__text__company">
                             {game.company} / this is an example of other type of card
                         </p>

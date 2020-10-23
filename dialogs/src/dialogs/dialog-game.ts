@@ -1,19 +1,19 @@
-import { ApiClient } from '../clients/api-client';
-import { Configuration, Dialog, PromptCase, ScreenMessage, RouteAction } from '@telefonica/la-bot-sdk';
+import { Configuration, Dialog, PromptCase, RouteAction, ScreenMessage } from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, Screen, Intent, Entity, HomeScreenData, SessionData } from '../models';
+import { DialogId, LIBRARY_NAME, GameScreenData, Intent, Entity, Screen, SessionData } from '../models';
+import { ApiClient } from '../clients/api-client';
 import { helper } from '../helpers/helpers';
 
 /*
-This dialog is the parent of the action, adventure, simulation and sport dialogs
+This dialog is the parent of the Home dialog
 */
 
-export default class HomeDialog extends Dialog {
-    static readonly dialogPrompt = `${DialogId.HOME}-prompt`;
+export default class GameDialog extends Dialog {
+    static readonly dialogPrompt = `${DialogId.GAME}-prompt`;
 
     constructor(config: Configuration) {
-        super(LIBRARY_NAME, DialogId.HOME, config);
+        super(LIBRARY_NAME, DialogId.GAME, config);
     }
 
     protected dialogStages(): WaterfallStep[] {
@@ -21,7 +21,7 @@ export default class HomeDialog extends Dialog {
     }
 
     protected prompts(): string[] {
-        return [HomeDialog.dialogPrompt];
+        return [GameDialog.dialogPrompt];
     }
 
     /*
@@ -37,38 +37,29 @@ export default class HomeDialog extends Dialog {
     private async _dialogStage(stepContext: WaterfallStepContext<any>): Promise<DialogTurnResult> {
         const apiClient = new ApiClient(this.config, stepContext);
 
-        const categories = await apiClient.getCategories();
         const games = await apiClient.getGames();
-        const platforms = await apiClient.getPlatforms();
 
-        const pltId = sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID) || 'pc';
+        const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
 
-        // show pc data by default
-        const gamesByCat = helper.getGamesByPlatform(categories, games, pltId);
+        const gameById = await helper.getGameById(games, gameId);
 
-        const screenData: HomeScreenData = {
-            platformTitle: 'Video Game Shop Home',
-            backgrounds: ['', ''], //TODO: GIVE BACKGROUNDS FOR EACH CATERGORY.
-            platforms,
-            games: {
-                cat01: gamesByCat[0],
-                cat04: gamesByCat[1],
-                cat03: gamesByCat[2],
-                cat02: gamesByCat[3],
-            },
+        const screenData: GameScreenData = {
+            game: gameById,
+            platformId: '', // TODO: PONER PLATFORM
         };
 
         // answer for the webapp
-        const message = new ScreenMessage(Screen.HOME, screenData);
+        const message = new ScreenMessage(Screen.GAME, screenData);
 
         await sdk.messaging.send(stepContext, message);
 
         // possible operations
         const choices: string[] = [
-            Intent.GAME, // go to game Dialog
+            Intent.HOME, // go to home Dialog
+            Intent.CART, // go to chart Dialog
         ];
 
-        return await sdk.messaging.prompt(stepContext, HomeDialog.dialogPrompt, choices);
+        return await sdk.messaging.prompt(stepContext, GameDialog.dialogPrompt, choices);
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
@@ -78,8 +69,12 @@ export default class HomeDialog extends Dialog {
 
         const cases: PromptCase[] = [
             {
-                operation: Intent.GAME,
-                action: [RouteAction.PUSH, DialogId.HOME],
+                operation: Intent.HOME,
+                action: [RouteAction.PUSH, DialogId.GAME],
+            },
+            {
+                operation: Intent.CART,
+                action: [RouteAction.PUSH, DialogId.GAME],
             },
         ];
 

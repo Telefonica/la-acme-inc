@@ -61,7 +61,7 @@ const mockedValues: mocks = {
                 {
                     id: '1',
                     image: 'https://i.imgur.com/EO4eB3G.jpg',
-                    name: 'Grand Thef Auto 5',
+                    title: 'Grand Thef Auto 5',
                     dominantColor: '#826882',
                     price: 30,
                     company: 'Rockstar',
@@ -69,7 +69,7 @@ const mockedValues: mocks = {
                 {
                     id: '2',
                     image: 'https://imgur.com/iqtL3bg.jpg',
-                    name: 'Portal 2',
+                    title: 'Portal 2',
                     dominantColor: '#25578C',
                     price: 15,
                     company: 'Valve',
@@ -77,7 +77,7 @@ const mockedValues: mocks = {
                 {
                     id: '3',
                     image: 'https://imgur.com/tNoW7i4.jpg',
-                    name: 'The Witcher 3: Wild Hunt',
+                    title: 'The Witcher 3: Wild Hunt',
                     dominantColor: '#302E31',
                     price: 24,
                     company: 'CD Proyekt',
@@ -85,7 +85,7 @@ const mockedValues: mocks = {
                 {
                     id: '4',
                     image: 'https://imgur.com/VjcgDES.jpg',
-                    name: 'Tomb Raider',
+                    title: 'Tomb Raider',
                     dominantColor: '#B5492F',
                     price: 24,
                     company: 'Crystal Dynamics',
@@ -93,7 +93,7 @@ const mockedValues: mocks = {
                 {
                     id: '5',
                     image: 'https://imgur.com/M1abEVh.jpg',
-                    name: 'The Elder Scrolls: Skyrim',
+                    title: 'The Elder Scrolls: Skyrim',
                     dominantColor: '#263031',
                     price: 24,
                     company: 'Bethesda',
@@ -101,7 +101,7 @@ const mockedValues: mocks = {
                 {
                     id: '6',
                     image: 'https://imgur.com/HsXBEwz.jpg',
-                    name: 'Left 4 Dead 2',
+                    title: 'Left 4 Dead 2',
                     dominantColor: '#284925',
                     price: 24,
                     company: 'Valve',
@@ -111,7 +111,7 @@ const mockedValues: mocks = {
                 {
                     id: '1',
                     image: 'https://i.imgur.com/EO4eB3G.jpg',
-                    name: 'Grand Thef Auto 5',
+                    title: 'Grand Thef Auto 5',
                     dominantColor: '#826882',
                     price: 30,
                     company: 'Rockstar',
@@ -119,7 +119,7 @@ const mockedValues: mocks = {
                 {
                     id: '2',
                     image: 'https://imgur.com/iqtL3bg.jpg',
-                    name: 'Portal 2',
+                    title: 'Portal 2',
                     dominantColor: '#25578C',
                     price: 15,
                     company: 'Valve',
@@ -127,7 +127,7 @@ const mockedValues: mocks = {
                 {
                     id: '3',
                     image: 'https://imgur.com/tNoW7i4.jpg',
-                    name: 'The Witcher 3: Wild Hunt',
+                    title: 'The Witcher 3: Wild Hunt',
                     dominantColor: '#302E31',
                     price: 24,
                     company: 'CD Proyekt',
@@ -135,7 +135,7 @@ const mockedValues: mocks = {
                 {
                     id: '4',
                     image: 'https://imgur.com/VjcgDES.jpg',
-                    name: 'Tomb Raider',
+                    title: 'Tomb Raider',
                     dominantColor: '#B5492F',
                     price: 24,
                     company: 'Crystal Dynamics',
@@ -143,7 +143,7 @@ const mockedValues: mocks = {
                 {
                     id: '5',
                     image: 'https://imgur.com/M1abEVh.jpg',
-                    name: 'The Elder Scrolls: Skyrim',
+                    title: 'The Elder Scrolls: Skyrim',
                     dominantColor: '#263031',
                     price: 24,
                     company: 'Bethesda',
@@ -151,7 +151,7 @@ const mockedValues: mocks = {
                 {
                     id: '6',
                     image: 'https://imgur.com/HsXBEwz.jpg',
-                    name: 'Left 4 Dead 2',
+                    title: 'Left 4 Dead 2',
                     dominantColor: '#284925',
                     price: 24,
                     company: 'Valve',
