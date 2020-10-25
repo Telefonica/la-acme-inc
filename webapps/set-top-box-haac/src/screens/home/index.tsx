@@ -33,6 +33,10 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
         sendCommand({ intent: Intent.HOME, entities: [{ type: Entity.PLTID, entity: platformId }] });
     };
 
+    const goToCart = () => {
+        sendCommand({ intent: Intent.CART, entities: [] });
+    };
+
     interface switchObject<TValue> {
         [id: string]: TValue;
     }
@@ -73,7 +77,7 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
             <div className="home-screen__games">
                 <div className="home-screen__top-menu">
                     <div className="home-screen__top-platform">{platformTitle}</div>
-                    <NavigableWrapper id="trolley" focusedClass="home-screen__menu-focused">
+                    <NavigableWrapper onClick={() => goToCart()} id="trolley" focusedClass="home-screen__menu-focused">
                         <div className="home-screen__top-trolley">CARRITO</div>
                     </NavigableWrapper>
                 </div>
