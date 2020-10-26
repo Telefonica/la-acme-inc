@@ -10,6 +10,8 @@
     &__list {
         display: flex;
         flex-direction: column;
+        max-height: 900px;
+        overflow: hidden;
     }
 
     &__item {
@@ -36,5 +38,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    &__focused {
+        border: 12px solid red;
+        background-color: purple;
     }
 }

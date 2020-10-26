@@ -171,7 +171,7 @@ const mockedValues: mocks = {
             dominantColor: '#0f0f0f',
             id: '92726',
             metacritic: 67,
-            name: 'DiRT Rally',
+            title: 'DiRT Rally',
             platforms: ['plat01', 'plat02'],
             category: 'cat03',
             price: 30,
@@ -180,7 +180,85 @@ const mockedValues: mocks = {
                 'DiRT Rally for Mac is standing by for Metal<br />\nDiRT Rally is the most authentic and thrilling rally game ever made, road-tested over 80 million miles by the DiRT community. It perfectly captures that white knuckle feeling of racing on the edge as you hurtle along dangerous roads at breakneck speed, knowing that one crash could irreparably harm your stage time.<br />\nDiRT Rally also includes officially licensed World Rallycross content, allowing you to experience the breathless, high-speed thrills of some of the world’s fastest off-road cars as you trade paint with other drivers at some of the series’ best-loved circuits, in both singleplayer and high-intensity multiplayer races.',
         },
     },
-    cart: {},
+    cart: {
+        games: [
+            {
+                title: 'League of legends',
+                quantity: 1,
+                price: 20,
+            },
+            {
+                title: 'Rocket League',
+                quantity: 1,
+                price: 24,
+            },
+            {
+                title: 'Fifa 2020: Covid Edition',
+                quantity: 1,
+                price: 70,
+            },
+            {
+                title: 'Tomb Raider',
+                quantity: 1,
+                price: 26,
+            },
+            {
+                title: 'DiRT Rally',
+                quantity: 1,
+                price: 45,
+            },
+            {
+                title: 'Final Fantasy',
+                quantity: 1,
+                price: 20,
+            },
+            {
+                title: 'Metal Gear',
+                quantity: 1,
+                price: 24,
+            },
+            {
+                title: 'Pang',
+                quantity: 1,
+                price: 70,
+            },
+            {
+                title: 'Bomberman',
+                quantity: 1,
+                price: 26,
+            },
+            {
+                title: 'Crash Bandicoot',
+                quantity: 1,
+                price: 45,
+            },
+            {
+                title: 'Spyro The Dragon',
+                quantity: 1,
+                price: 45,
+            },
+            {
+                title: 'Portal 2',
+                quantity: 1,
+                price: 45,
+            },
+            {
+                title: 'Left 4 Dead 2',
+                quantity: 1,
+                price: 45,
+            },
+            {
+                title: 'Half Life 3: Confirmed',
+                quantity: 1,
+                price: 45,
+            },
+            {
+                title: 'Half Life: Alyx',
+                quantity: 1,
+                price: 45,
+            },
+        ],
+    },
     error: {},
     splash: {},
 };
