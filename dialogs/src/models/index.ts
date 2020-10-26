@@ -70,6 +70,7 @@ export interface GameScreenData {
 export interface CartGame {
     title: string;
     id: string;
+    price: number;
     quantity?: number;
 }
 
