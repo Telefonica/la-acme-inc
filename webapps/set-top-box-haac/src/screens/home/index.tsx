@@ -17,8 +17,8 @@ interface CarouselTitleProps {
 
 const CarouselTitle = styled.div<CarouselTitleProps>`
     font-size: 26px;
-    height: 30px;
-    transform: ${(props) => `translateY(-${props.focusedIndexVertical * 417}px)`};
+    height: 50px;
+    transform: ${(props) => `translateY(-${props.focusedIndexVertical * 400}px)`};
 `;
 const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     const { platformTitle, platforms, games, backgrounds } = screenData;
