@@ -3,7 +3,7 @@ import './game.scss';
 import React, { useEffect } from 'react';
 import { screenReady, NavigableButton, useBackground, useAura } from '@telefonica/la-web-sdk';
 import Metacritic from '../../components/Metacritic';
-import { Entity, Intent, GameScreenData } from '../../../../../dialogs/src/models';
+import { Entity, Intent, GameScreenData, Categories } from '../../../../../dialogs/src/models';
 
 const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
     const { sendCommand } = useAura();
@@ -40,18 +40,14 @@ const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
                         <div className="game-screen__title">{title}</div>
                         <div className="game-screen__info">
                             <div className="game-screen__company">{company}</div>
-                            <div className="game-screen__category">{category}€</div>
+                            <div className="game-screen__category">
+                                {Categories[category as keyof typeof Categories].toUpperCase()}
+                            </div>
                             <div className="game-screen__price">{price}€</div>
                             <Metacritic score={metacritic} />
                         </div>
                     </div>
                     <div className="game-screen__description" dangerouslySetInnerHTML={{ __html: description }} />
-                </div>
-                <div className="game-screen__image">
-                    <video width="640" height="480" autoPlay muted>
-                        <source src={videoUrl} type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
                 </div>
             </div>
             <div className="game-screen__buttons">
