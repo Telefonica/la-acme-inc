@@ -61,7 +61,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
                 isFocused={isFocused}
                 indexX={indexX}
                 indexY={indexY}
-                Ypx={417}
+                Ypx={400}
                 Xpx={456}
             >
                 <LazyImage className="game-card__image" src={game.image} alt={game.title} />
