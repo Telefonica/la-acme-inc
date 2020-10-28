@@ -3,9 +3,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 1080px;
+  width: 1920px;
   text-shadow: white 0px 0px 10px;
   background-color: rgba(0, 0, 0, 0.6);
+no 
 
   &__container{
       display: flex;
@@ -17,19 +19,6 @@
       width: 50%;
   }
 
-  &__image {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 50%;
-      height: 100%;
-
-      > img {
-          height: 300px;
-          width: 600px;
-      }
-  }
-
   &__top-wrapper {
       display: flex;
       flex-direction: column;
@@ -39,18 +28,24 @@
       display: flex;
       justify-content: left;
       align-items: center;
+      font-size: 24px;
   }
 
   &__price {
       font-size: 25px;
-      margin-right: 40px;
+      margin: 20px;
   }
 
   &__title {
       font-size: 70px;
   }
+
+  &__company {
+    margin: 20px;
+  }
+
   &__description {
-      font-size: 32px!important;
+      font-size: 32px;
       padding: 30px;
       font-size: 30px;
       border-radius: 5px;
