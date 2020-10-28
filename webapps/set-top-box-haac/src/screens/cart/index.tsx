@@ -3,12 +3,13 @@ import './cart.scss';
 import React, { useState } from 'react';
 import { NavigableWrapper, NavigableButton, screenReady } from '@telefonica/la-web-sdk';
 import { CartScreenData } from '../../../../../dialogs/src/models';
+import QuantitySelector from '../../components/QuantitySelector';
 
 const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
     const [navigationState, setNavigationState] = useState(false);
     const { games } = cart;
-    
-    const toggleNavigationState = () => setNavigationState((navigationState) => !navigationState)
+
+    const toggleNavigationState = () => setNavigationState((navigationState) => !navigationState);
 
     return (
         <div className="cart-screen">
@@ -27,17 +28,8 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                 )}
             </div>
             {!navigationState ? (
-                <NavigableWrapper
-                    id="list"
-                    focusedClass="cart-screen__focused"
-                    onClick={toggleNavigationState}
-                >
+                <NavigableWrapper id="list" focusedClass="cart-screen__focused" onClick={toggleNavigationState}>
                     <ul className="cart-screen__list">
-                        <li className="cart-screen__item">
-                            <div className="cart-screen__name">NAME</div>
-                            <div className="cart-screen__quantity">QUANTITY</div>
-                            <div className="cart-screen__price">PRICE</div>
-                        </li>
                         {games.map((game, index) => {
                             if (navigationState) {
                                 return (
@@ -48,8 +40,11 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                                     >
                                         <li className="cart-screen__item">
                                             <div className="cart-screen__name">{game.title}</div>
-                                            <div className="cart-screen__quantity">{game.quantity}</div>
-                                            <div className="cart-screen__price">{game.price}F</div>
+                                            <QuantitySelector
+                                                value={game.quantity}
+                                                onIncrement={() => {}}
+                                                onDecrement={() => {}}
+                                            />
                                         </li>
                                     </NavigableWrapper>
                                 );
@@ -58,7 +53,11 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                                     <li className="cart-screen__item">
                                         <div className="cart-screen__name">{game.title}</div>
                                         <div className="cart-screen__quantity">{game.quantity}</div>
-                                        <div className="cart-screen__price">{game.price}</div>
+                                        <QuantitySelector
+                                            value={game.quantity}
+                                            onIncrement={() => {}}
+                                            onDecrement={() => {}}
+                                        />
                                     </li>
                                 );
                             }
@@ -67,11 +66,6 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                 </NavigableWrapper>
             ) : (
                 <ul className="cart-screen__list">
-                    <li className="cart-screen__item">
-                        <div className="cart-screen__name">NAME</div>
-                        <div className="cart-screen__quantity">QUANTITY</div>
-                        <div className="cart-screen__price">PRICE</div>
-                    </li>
                     {games.map((game, index) => {
                         if (navigationState) {
                             return (
@@ -84,7 +78,11 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                                     <li className="cart-screen__item">
                                         <div className="cart-screen__name">{game.title}</div>
                                         <div className="cart-screen__quantity">{game.quantity}</div>
-                                        <div className="cart-screen__price">{game.price}</div>
+                                        <QuantitySelector
+                                            value={game.quantity}
+                                            onIncrement={() => {}}
+                                            onDecrement={() => {}}
+                                        />
                                     </li>
                                 </NavigableWrapper>
                             );
@@ -93,7 +91,11 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                                 <li className="cart-screen__item">
                                     <div className="cart-screen__name">{game.title}</div>
                                     <div className="cart-screen__quantity">{game.quantity}</div>
-                                    <div className="cart-screen__price">{game.price}</div>
+                                    <QuantitySelector
+                                        value={game.quantity}
+                                        onIncrement={() => {}}
+                                        onDecrement={() => {}}
+                                    />
                                 </li>
                             );
                         }

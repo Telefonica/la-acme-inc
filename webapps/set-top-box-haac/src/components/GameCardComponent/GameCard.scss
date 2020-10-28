@@ -1,14 +1,7 @@
 .game-card {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-    min-height: 320px;
-    margin-left: 30px;
-    will-change: transform;
-
     &__image {
-        width: 100%;
+        width: 426px;
+        height: 240px;
         border-radius: 5px 5px 0px 0px;
     }
 
@@ -16,6 +9,7 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
+        width: 426px;
         
         border-radius: 0px 0px 5px 5px;
 
@@ -27,12 +21,11 @@
             display: flex;
             justify-content: center;
             flex-direction: column;
-
+            min-width: 376px;
             padding-left: 10px;
             font-weight: bold;
 
             &__title {
-                width: 400px;
                 font-size: 24px;
                 margin: 0px;
             }

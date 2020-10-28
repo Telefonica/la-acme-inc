@@ -1,12 +1,11 @@
 import './GameCard.scss';
 
 import React from 'react';
-import { Game } from '../../../../../dialogs/src/models';
+import { GameCard } from '../../../../../dialogs/src/models';
 import { NavigableWrapper } from '@telefonica/la-web-sdk';
 
 import styled from 'styled-components';
-
-//import LazyImages from '../Hocs/withLazyLoader/LazyImage';
+import LazyImage from '../Hocs/withLazyLoader/LazyImage';
 
 interface GameCardContainerProps {
     isFocused: boolean;
@@ -18,10 +17,11 @@ interface GameCardContainerProps {
 
 const GameCardContainer = styled.div<GameCardContainerProps>`
     display: flex;
-    justify-content: space-around;
     align-items: center;
     flex-direction: column;
     min-height: 320px;
+    min-width: 426px;
+    will-change: transform;
     margin-left: 30px;
     will-change: transform;
     transform: ${(props) =>
@@ -29,8 +29,9 @@ const GameCardContainer = styled.div<GameCardContainerProps>`
             ? `translate(-${props.indexX * props.Xpx}px, -${props.indexY * props.Ypx}px) scale(1.1)`
             : `translate(-${props.indexX * props.Xpx}px, -${props.indexY * props.Ypx}px)`};
 `;
-interface GameCardProps {
-    game: Game;
+
+export interface GameCardProps {
+    game: GameCard;
     focused: boolean;
     isFocused: boolean;
     onClick: Function;
@@ -41,7 +42,7 @@ interface GameCardProps {
     indexX: number;
 }
 
-const GameCard: React.FC<GameCardProps> = ({
+const GameCardComponent: React.FC<GameCardProps> = ({
     game,
     focused,
     isFocused,
@@ -52,23 +53,8 @@ const GameCard: React.FC<GameCardProps> = ({
     indexY,
     indexX,
 }: GameCardProps) => {
-    /*const Ypx = 417;
-    const Xpx = 360;
-    const movementStyle = {
-        transform: isFocused
-            ? `translate(-${indexX * Xpx}px, -${indexY * Ypx}px) scale(1.1)`
-            : `translate(-${indexX * Xpx}px, -${indexY * Ypx}px)`,
-    };*/
-
     return (
-        <NavigableWrapper
-            onClick={onClick}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            //focusedClass="game-card__focused"
-            defaultFocused={focused}
-            id={navigableId}
-        >
+        <NavigableWrapper onClick={onClick} onFocus={onFocus} onBlur={onBlur} defaultFocused={focused} id={navigableId}>
             <GameCardContainer
                 className="game-card"
                 key={game.id}
@@ -76,9 +62,9 @@ const GameCard: React.FC<GameCardProps> = ({
                 indexX={indexX}
                 indexY={indexY}
                 Ypx={417}
-                Xpx={360}
+                Xpx={456}
             >
-                <img className="game-card__image" src={game.image} alt={game.title} />
+                <LazyImage className="game-card__image" src={game.image} alt={game.title} />
                 <div
                     className="game-card__info"
                     style={{
@@ -96,4 +82,4 @@ const GameCard: React.FC<GameCardProps> = ({
     );
 };
 
-export default GameCard;
+export default GameCardComponent;

@@ -1,7 +1,7 @@
 import './game.scss';
 
 import React, { useEffect } from 'react';
-import { screenReady, NavigableButton, useBackground, useAura, Preloadable } from '@telefonica/la-web-sdk';
+import { screenReady, NavigableButton, useBackground, useAura } from '@telefonica/la-web-sdk';
 import Metacritic from '../../components/Metacritic';
 import { Entity, Intent, GameScreenData } from '../../../../../dialogs/src/models';
 
