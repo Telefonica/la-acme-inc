@@ -16,9 +16,14 @@
 
     &__item {
         display: flex;
-        justify-content: left;
+        align-items: center;
+        justify-content: center;
         margin: 10px;
         font-size: 40px;
+        background-color: grey;
+        min-height: 100px;
+        border-radius: 5px;
+        padding: 50px;
     }
 
     &__name {

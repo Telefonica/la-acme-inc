@@ -1,30 +1,56 @@
 .home-screen {
   display: flex;
-  align-items: left;
-  height: 100vh;
+  height: 1080px;
+  width: 1920px;
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.6);
-  margin-top: -10px;
 
-  &__top-menu {
-    display: flex;
-    justify-content: space-between;
-    font-size: 50px;
-    margin-top: 40px;
-    height: 3vh;
-  }
-
-  &__top-cart {
-    margin-right: 20px;
-  }
-
+  // Left Side
   &__menu {
     display: flex;
     align-items: center;
     font-size: 30px;
-    width: 420px;
+    width: 460px;
   }
 
+  // Right side
+  &__games {
+    display: flex;
+    flex-direction: column;
+    width:1460px;
+  }
+
+  // Top of right side
+  &__top-menu {
+    font-size: 50px;
+    height: 100px;
+  }
+
+  // Bottom of right side
+  &__carousels-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 980px;
+    width: 1460px;
+    overflow: hidden;
+  }
+
+  &__carousel {
+    height: 400px;
+  }
+
+  &__carousel-title {
+    font-size: 26px;
+    height: 30px;
+  }
+
+  &__cards-wrapper {
+    display: flex;
+    align-items: center;
+    height: 350px;
+  }
+
+  //MENU: ENVIAR A SU SITIO//
   &__menu-item {
     display: flex;
     align-items: center;
@@ -38,31 +64,8 @@
     margin: 30px 0px;
   }
 
-  &__games {
-    width:1500px;
-  }
-
-  &__games-wrapper {
-    overflow: hidden;
-    height: 95vh;
-    padding-top: 60px;
-  }
-
   &__menu-focused {
     transform: scale(1.2);
-  }
-
-  &__title {
-    font-size: 26px;
-    height: 30px;
-    padding: 5px;
-  }
-
-  &__wrapper {
-    display: flex;
-    align-items: left;
-    justify-content: left;
-    padding-bottom: 30px;
   }
 
 }

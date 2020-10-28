@@ -1,0 +1,16 @@
+.home-top-menu {
+    display: flex;
+    justify-content: space-between;
+
+    &__platform{
+
+    }
+
+    &__cart{
+
+    }
+
+    &__cart-focused{
+        transform: scale(1.2);
+    }
+}

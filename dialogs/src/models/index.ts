@@ -71,7 +71,7 @@ export interface CartGame {
     title: string;
     id: string;
     price: number;
-    quantity?: number;
+    quantity: number;
 }
 
 export interface CartScreenData {

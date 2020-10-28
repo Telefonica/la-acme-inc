@@ -1,10 +1,13 @@
 import './home.scss';
 
 import React, { useState, useEffect } from 'react';
-import { screenReady, NavigableWrapper, useAura, Preloadable, useBackground } from '@telefonica/la-web-sdk';
+import { screenReady, useAura, useBackground } from '@telefonica/la-web-sdk';
 import { HomeScreenData, Intent, GameCard, Entity, Categories } from '../../../../../dialogs/src/models';
-import MusicCard from '../../components/MusicCard';
 
+import GameCardComponent from '../../components/GameCardComponent';
+
+import HomeMenu from './components/HomeMenu';
+import HomeTopMenu from './components/HomeTopMenu';
 
 const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     const { platformTitle, platforms, games, backgrounds } = screenData;
@@ -23,7 +26,7 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
         setBackground(backgrounds[focusedIndexVertical]);
     }, [setBackground, clearBackground, focusedIndexVertical, backgrounds]);
 
-    const movementStyle = { transform: `translateY(-${focusedIndexVertical * 417}px)` };
+    const movementStyle = { transform: `translateY(-${focusedIndexVertical * 417}px) scale(1.05)` };
 
     const goToGame = (gameId: string) => {
         sendCommand({ intent: Intent.GAME, entities: [{ type: Entity.GAMEID, entity: gameId }] });
@@ -61,35 +64,21 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     return (
         <div className="home-screen">
             <div className="home-screen__menu">
-                <ul>
-                    {platforms.map((platform) => (
-                        <NavigableWrapper
-                            onClick={() => goToHome(platform.id)}
-                            id={platform.id}
-                            key={platform.id}
-                            focusedClass="home-screen__menu-focused"
-                        >
-                            <li className="home-screen__menu-item">{platform.name}</li>
-                        </NavigableWrapper>
-                    ))}
-                </ul>
+                <HomeMenu goToHome={goToHome} platforms={platforms} />
             </div>
             <div className="home-screen__games">
                 <div className="home-screen__top-menu">
-                    <div className="home-screen__top-platform">{platformTitle}</div>
-                    <NavigableWrapper onClick={() => goToCart()} id="trolley" focusedClass="home-screen__menu-focused">
-                        <div className="home-screen__top-trolley">CARRITO</div>
-                    </NavigableWrapper>
+                    <HomeTopMenu platformTitle={platformTitle} goToCart={goToCart} />
                 </div>
-                <div className="home-screen__games-wrapper">
+                <div className="home-screen__carousels-wrapper">
                     {Object.keys(games).map((key, indexCategory) => (
-                        <div key={`game-carousel-0-${indexCategory}`}>
-                            <h1 className="home-screen__title" style={movementStyle}>
+                        <div className="home-screen__carousel" key={`game-carousel-0-${indexCategory}`}>
+                            <h1 className="home-screen__carousel-title">
                                 {Categories[key as keyof typeof Categories].toUpperCase()}
                             </h1>
-                            <div className="home-screen__wrapper">
+                            <div className="home-screen__cards-wrapper">
                                 {games[key as string].map((game: GameCard, indexCard: number) => (
-                                    <MusicCard
+                                    <GameCardComponent
                                         onClick={() => goToGame(game.id)}
                                         onFocus={() => {
                                             focusedIndexFunctions[indexCategory](() => indexCard);
