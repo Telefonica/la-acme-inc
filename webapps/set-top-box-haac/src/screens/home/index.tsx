@@ -9,6 +9,17 @@ import GameCardComponent from '../../components/GameCardComponent';
 import HomeMenu from './components/HomeMenu';
 import HomeTopMenu from './components/HomeTopMenu';
 
+import styled from 'styled-components';
+
+interface CarouselTitleProps {
+    focusedIndexVertical: number;
+}
+
+const CarouselTitle = styled.div<CarouselTitleProps>`
+    font-size: 26px;
+    height: 30px;
+    transform: ${(props) => `translateY(-${props.focusedIndexVertical * 417}px)`};
+`;
 const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     const { platformTitle, platforms, games, backgrounds } = screenData;
     const { sendCommand } = useAura();
@@ -25,8 +36,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     useEffect(() => {
         setBackground(backgrounds[focusedIndexVertical]);
     }, [setBackground, clearBackground, focusedIndexVertical, backgrounds]);
-
-    const movementStyle = { transform: `translateY(-${focusedIndexVertical * 417}px) scale(1.05)` };
 
     const goToGame = (gameId: string) => {
         sendCommand({ intent: Intent.GAME, entities: [{ type: Entity.GAMEID, entity: gameId }] });
@@ -61,6 +70,7 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     const isFocused = (indexCategory: number, indexCard: number) =>
         indexCard === focusedIndexes[indexCategory] && focusedIndexVertical === indexCategory && cardFocused;
 
+    console.log(focusedIndexVertical);
     return (
         <div className="home-screen">
             <div className="home-screen__menu">
@@ -73,9 +83,9 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                 <div className="home-screen__carousels-wrapper">
                     {Object.keys(games).map((key, indexCategory) => (
                         <div className="home-screen__carousel" key={`game-carousel-0-${indexCategory}`}>
-                            <h1 className="home-screen__carousel-title">
+                            <CarouselTitle focusedIndexVertical={focusedIndexVertical}>
                                 {Categories[key as keyof typeof Categories].toUpperCase()}
-                            </h1>
+                            </CarouselTitle>
                             <div className="home-screen__cards-wrapper">
                                 {games[key as string].map((game: GameCard, indexCard: number) => (
                                     <GameCardComponent
