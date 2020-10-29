@@ -1,15 +1,23 @@
 import './cart.scss';
 
 import React, { useState } from 'react';
-import { NavigableWrapper, NavigableButton, screenReady } from '@telefonica/la-web-sdk';
-import { CartScreenData } from '../../../../../dialogs/src/models';
-import QuantitySelector from '../../components/QuantitySelector';
+import { NavigableWrapper, NavigableButton, screenReady, useAura } from '@telefonica/la-web-sdk';
+import { CartScreenData, Entity, Intent } from '../../../../../dialogs/src/models';
 
 const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
     const [navigationState, setNavigationState] = useState(false);
     const { games } = cart;
+    const { sendCommand } = useAura();
 
     const toggleNavigationState = () => setNavigationState((navigationState) => !navigationState);
+
+    const deleteItem = (gameId: string) => {
+        sendCommand({ intent: Intent.CART, entities: [{ type: Entity.GAMEID, entity: gameId }] });
+    };
+
+    const goToHome = () => {
+        sendCommand({ intent: Intent.HOME, entities: [] });
+    };
 
     return (
         <div className="cart-screen">
@@ -17,14 +25,14 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                 {!navigationState ? (
                     <NavigableButton
                         id="back"
-                        onClick={() => console.log('aaaa')}
+                        onClick={() => goToHome()}
                         makeFocused={true}
                         defaultClass="game-screen__button"
                     >
                         BACK
                     </NavigableButton>
                 ) : (
-                    <button>BACK</button>
+                    <button onClick={() => goToHome()}>BACK</button>
                 )}
             </div>
             {!navigationState ? (
@@ -33,31 +41,28 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                         {games.map((game, index) => {
                             if (navigationState) {
                                 return (
-                                    <NavigableWrapper
-                                        id={`cart-item-${index}`}
-                                        defaultFocused={index === 0}
-                                        focusedClass="cart-screen__focused"
-                                    >
-                                        <li className="cart-screen__item">
-                                            <div className="cart-screen__name">{game.title}</div>
-                                            <QuantitySelector
-                                                value={game.quantity}
-                                                onIncrement={() => {}}
-                                                onDecrement={() => {}}
-                                            />
-                                        </li>
-                                    </NavigableWrapper>
+                                    <li className="cart-screen__item">
+                                        <div className="cart-screen__name">{game.title}</div>
+                                        <div className="cart-screen__quantity">{game.quantity}</div>
+                                        <NavigableWrapper
+                                            id={`cart-item-${index}`}
+                                            defaultFocused={index === 0}
+                                            focusedClass="cart-screen__focused"
+                                        >
+                                            <button className="cart-screen__delete" onClick={() => deleteItem(game.id)}>
+                                                X
+                                            </button>
+                                        </NavigableWrapper>
+                                    </li>
                                 );
                             } else {
                                 return (
                                     <li className="cart-screen__item">
                                         <div className="cart-screen__name">{game.title}</div>
                                         <div className="cart-screen__quantity">{game.quantity}</div>
-                                        <QuantitySelector
-                                            value={game.quantity}
-                                            onIncrement={() => {}}
-                                            onDecrement={() => {}}
-                                        />
+                                        <button className="cart-screen__delete" onClick={() => deleteItem(game.id)}>
+                                            X
+                                        </button>
                                     </li>
                                 );
                             }
@@ -69,33 +74,29 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                     {games.map((game, index) => {
                         if (navigationState) {
                             return (
-                                <NavigableWrapper
-                                    id={`cart-item-${index}`}
-                                    defaultFocused={index === 0}
-                                    leftPressed={toggleNavigationState}
-                                    focusedClass="cart-screen__focused"
-                                >
-                                    <li className="cart-screen__item">
-                                        <div className="cart-screen__name">{game.title}</div>
-                                        <div className="cart-screen__quantity">{game.quantity}</div>
-                                        <QuantitySelector
-                                            value={game.quantity}
-                                            onIncrement={() => {}}
-                                            onDecrement={() => {}}
-                                        />
-                                    </li>
-                                </NavigableWrapper>
+                                <li className="cart-screen__item">
+                                    <div className="cart-screen__name">{game.title}</div>
+                                    <div className="cart-screen__quantity">{game.quantity}</div>
+                                    <NavigableWrapper
+                                        id={`cart-item-${index}`}
+                                        defaultFocused={index === 0}
+                                        leftPressed={toggleNavigationState}
+                                        focusedClass="cart-screen__focused"
+                                    >
+                                        <button className="cart-screen__delete" onClick={() => deleteItem(game.id)}>
+                                            X
+                                        </button>
+                                    </NavigableWrapper>
+                                </li>
                             );
                         } else {
                             return (
                                 <li className="cart-screen__item">
                                     <div className="cart-screen__name">{game.title}</div>
                                     <div className="cart-screen__quantity">{game.quantity}</div>
-                                    <QuantitySelector
-                                        value={game.quantity}
-                                        onIncrement={() => {}}
-                                        onDecrement={() => {}}
-                                    />
+                                    <button className="cart-screen__delete" onClick={() => deleteItem(game.id)}>
+                                        X
+                                    </button>
                                 </li>
                             );
                         }
