@@ -29,7 +29,8 @@ export default class GameDialog extends Dialog {
     */
     protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {
         const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-        delete sessionData.items;
+        delete sessionData.games;
+        delete sessionData.platformId;
         return;
     }
 
