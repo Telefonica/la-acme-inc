@@ -77,9 +77,7 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                 <HomeMenu goToHome={goToHome} platforms={platforms} />
             </div>
             <div className="home-screen__games">
-                <div className="home-screen__top-menu">
-                    <HomeTopMenu platformTitle={platformTitle} goToCart={goToCart} />
-                </div>
+                <HomeTopMenu platformTitle={platformTitle} goToCart={goToCart} />
                 <div className="home-screen__carousels-wrapper">
                     {Object.keys(games).map((key, indexCategory) => (
                         <div className="home-screen__carousel" key={`game-carousel-0-${indexCategory}`}>
