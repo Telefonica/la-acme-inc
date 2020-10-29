@@ -70,7 +70,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     const isFocused = (indexCategory: number, indexCard: number) =>
         indexCard === focusedIndexes[indexCategory] && focusedIndexVertical === indexCategory && cardFocused;
 
-    console.log(focusedIndexVertical);
     return (
         <div className="home-screen">
             <div className="home-screen__menu">

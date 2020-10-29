@@ -28,11 +28,10 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                                 <NavigableWrapper
                                     id={`cart-item-${index}`}
                                     defaultFocused={index === 0}
+                                    onClick={() => deleteItem(game.id)}
                                     focusedClass="cart-screen__focused"
                                 >
-                                    <button className="cart-screen__delete" onClick={() => deleteItem(game.id)}>
-                                        X
-                                    </button>
+                                    <div className="cart-screen__delete">X</div>
                                 </NavigableWrapper>
                             </li>
                         );
