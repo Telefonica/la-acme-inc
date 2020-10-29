@@ -3,7 +3,8 @@ import { Suggestion } from '@telefonica/la-bot-sdk';
 export const LIBRARY_NAME = 'la-acme-inc';
 
 export interface SessionData {
-    items: CartGame[];
+    games: CartGame[];
+    platformId: string;
 }
 
 export enum DialogId {
@@ -24,18 +25,19 @@ export enum Intent {
     HOME = 'intent.la-acme-inc.home',
     GAME = 'intent.la-acme-inc.game',
     BACK = 'intent.la-acme-inc.back',
-    CART = 'intent.la-acme-inc.cart',
-    ADD_CART = 'intent.la-acme-inc.add_cart',
-    REMOVE_CART = 'intent.la-acme-inc.remove_cart',
+    CART = 'intent.la-acme-inc.cart',   
 }
 export enum Operation {
     BACK = 'intent.operation.sdk.back',
+    ADD_CART = 'intent.operation.la-acme-inc.add_cart',
+    REMOVE_CART = 'intent.operation.la-acme-inc.remove_cart',
 }
 export enum Entity {
     PLTID = 'ent.plt-id',
     GAMEID = 'ent.game-id',
     GAMETITLE = 'ent.game-title',
     QUANTITY = 'ent.quantity',
+    PRICE = 'ent.price',
 }
 export interface GameCard {
     id: string;
@@ -76,6 +78,7 @@ export interface CartGame {
 
 export interface CartScreenData {
     games: CartGame[];
+    totalPrice: number;
 }
 
 export interface Category {
@@ -101,3 +104,5 @@ export interface Platform {
     id: string;
     name: string;
 }
+
+

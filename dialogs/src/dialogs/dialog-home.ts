@@ -29,7 +29,8 @@ export default class HomeDialog extends Dialog {
     */
     protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {
         const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-        delete sessionData.items;
+        delete sessionData.games;
+        delete sessionData.platformId;
         return;
     }
 
@@ -41,9 +42,17 @@ export default class HomeDialog extends Dialog {
         const games = await apiClient.getGames();
         const platforms = await apiClient.getPlatforms();
 
-        const pltId = sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID) || 'ptl01';
+        const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
 
-        // show pc data by default
+        const defaultPlatform = 'ptl01';
+
+        const pltId = sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID) || sessionData.platformId || defaultPlatform;        
+
+        sessionData.platformId = pltId;
+
+        const context = await sdk.persistence.getStoredData(stepContext);
+        await sdk.persistence.storeData(stepContext, { ...context, sessionData });
+
         const gamesByCat = helper.getGamesByPlatform(categories, games, pltId);
         const backgrounds = helper.getCategoriesBackgrounds(categories);
 

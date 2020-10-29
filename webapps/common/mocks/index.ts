@@ -1,4 +1,4 @@
-import { Screen, Intent, GameScreenData, HomeScreenData, CartScreenData } from '../../../dialogs/src/models';
+import { Screen, Intent, GameScreenData, HomeScreenData, CartScreenData, Operation } from '../../../dialogs/src/models';
 
 const START = 'intent.internal.living-app.start';
 
@@ -26,8 +26,8 @@ const script = {
     [Intent.HOME]: () => changeScreenWithBreadcrumbs(Screen.HOME),
     [Intent.GAME]: () => changeScreenWithBreadcrumbs(Screen.GAME),
     [Intent.CART]: () => changeScreenWithBreadcrumbs(Screen.CART),
-    [Intent.ADD_CART]: () => changeScreenWithBreadcrumbs(Screen.CART),
-    [Intent.REMOVE_CART]: () => changeScreenWithBreadcrumbs(Screen.CART),
+    [Operation.ADD_CART]: () => changeScreenWithBreadcrumbs(Screen.CART),
+    [Operation.REMOVE_CART]: () => changeScreenWithBreadcrumbs(Screen.CART),
     [Intent.BACK]: () => changeScreenWithBreadcrumbs(getLastScreen() || Screen.HOME),
 };
 

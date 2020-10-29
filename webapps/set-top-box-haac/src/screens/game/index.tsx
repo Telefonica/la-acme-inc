@@ -3,7 +3,7 @@ import './game.scss';
 import React, { useEffect } from 'react';
 import { screenReady, NavigableButton, useBackground, useAura } from '@telefonica/la-web-sdk';
 import Metacritic from '../../components/Metacritic';
-import { Entity, Intent, GameScreenData, Categories } from '../../../../../dialogs/src/models';
+import { Entity, Intent, GameScreenData, Categories, Operation } from '../../../../../dialogs/src/models';
 
 const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
     const { sendCommand } = useAura();
@@ -16,13 +16,11 @@ const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
         sendCommand({ intent: Intent.HOME, entities: [{ type: Entity.PLTID, entity: platformId }] });
     };
 
-    const addToCard = (platformId: string, gameId: string, title: string, quantity = 1) => {
+    const addToCard = (gameId: string, quantity = 1) => {
         sendCommand({
-            intent: Intent.ADD_CART,
+            intent: Operation.ADD_CART,
             entities: [
-                { type: Entity.PLTID, entity: platformId },
                 { type: Entity.GAMEID, entity: gameId },
-                { type: Entity.GAMETITLE, entity: title },
                 { type: Entity.QUANTITY, entity: quantity },
             ],
         });
@@ -61,7 +59,7 @@ const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
                 </NavigableButton>
                 <NavigableButton
                     id="buy"
-                    onClick={() => addToCard(platformId, id, title)}
+                    onClick={() => addToCard(id)}
                     makeFocused={true}
                     defaultClass="game-screen__button"
                 >
