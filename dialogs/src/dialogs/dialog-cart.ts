@@ -36,7 +36,6 @@ export default class ChartDialog extends Dialog {
         // possible operations
         const choices: string[] = [
             Intent.HOME, // go to home Dialog
-            Intent.GAME, // go to game Dialog
         ];
 
         return await sdk.messaging.prompt(stepContext, ChartDialog.dialogPrompt, choices);
@@ -47,12 +46,8 @@ export default class ChartDialog extends Dialog {
 
         const cases: PromptCase[] = [
             {
-                operation: Intent.GAME,
-                action: [RouteAction.PUSH, DialogId.CART],
-            },
-            {
-                operation: Intent.HOME,
-                action: [RouteAction.PUSH, DialogId.CART],
+                operation: Operation.BACK,
+                action: [RouteAction.REPLACE, DialogId.HOME],
             },
             {
                 operation: Operation.REMOVE_CART,
