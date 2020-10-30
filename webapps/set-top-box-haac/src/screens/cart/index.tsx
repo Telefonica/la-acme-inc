@@ -1,19 +1,21 @@
 import './cart.scss';
 
 import React from 'react';
-import { NavigableWrapper, NavigableButton, screenReady, useAura } from '@telefonica/la-web-sdk';
+import { NavigableWrapper, NavigableButton, screenReady, useAura, useBack } from '@telefonica/la-web-sdk';
 import { CartScreenData, Entity, Intent } from '../../../../../dialogs/src/models';
 
 const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
     const { games } = cart;
     const { sendCommand } = useAura();
 
+    useBack();
+
     const deleteItem = (gameId: string) => {
         sendCommand({ intent: Intent.CART, entities: [{ type: Entity.GAMEID, entity: gameId }] });
     };
 
-    const goToHome = () => {
-        sendCommand({ intent: Intent.HOME, entities: [] });
+    const goBack = () => {
+        sendCommand({ intent: Intent.BACK, entities: [] });
     };
 
     return (
@@ -37,12 +39,7 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                         );
                     })}
                 </ul>
-                <NavigableButton
-                    id="back"
-                    onClick={() => goToHome()}
-                    makeFocused={true}
-                    defaultClass="game-screen__button"
-                >
+                <NavigableButton id="back" onClick={goBack} makeFocused={true} defaultClass="game-screen__button">
                     BACK
                 </NavigableButton>
             </div>
