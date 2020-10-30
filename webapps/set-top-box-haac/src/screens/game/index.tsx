@@ -1,7 +1,7 @@
 import './game.scss';
 
 import React, { useEffect } from 'react';
-import { screenReady, NavigableButton, useBackground, useAura } from '@telefonica/la-web-sdk';
+import { screenReady, NavigableButton, useBackground, useAura, useBack } from '@telefonica/la-web-sdk';
 import Metacritic from '../../components/Metacritic';
 import { Entity, Intent, GameScreenData, Categories, Operation } from '../../../../../dialogs/src/models';
 
@@ -9,11 +9,13 @@ const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
     const { sendCommand } = useAura();
     const { setBackground, clearBackground } = useBackground();
 
+    useBack();
+
     const { game, platformId } = screenData;
     const { id, videoUrl, image, title, metacritic, company, price, category, description } = game;
 
-    const goToHome = (platformId: string) => {
-        sendCommand({ intent: Intent.HOME, entities: [{ type: Entity.PLTID, entity: platformId }] });
+    const goBack = (platformId: string) => {
+        sendCommand({ intent: Intent.BACK, entities: [{ type: Entity.PLTID, entity: platformId }] });
     };
 
     const addToCard = (gameId: string, quantity = 1) => {
@@ -51,7 +53,7 @@ const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
             <div className="game-screen__buttons">
                 <NavigableButton
                     id="back"
-                    onClick={() => goToHome(platformId)}
+                    onClick={() => goBack(platformId)}
                     makeFocused={true}
                     defaultClass="game-screen__button"
                 >
