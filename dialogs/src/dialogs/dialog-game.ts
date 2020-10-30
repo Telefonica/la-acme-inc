@@ -1,7 +1,7 @@
 import { Configuration, Dialog, PromptCase, RouteAction, ScreenMessage } from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, GameScreenData, Intent, Entity, Screen, SessionData } from '../models';
+import { DialogId, LIBRARY_NAME, GameScreenData, Intent, Entity, Screen, SessionData, Operation } from '../models';
 import { ApiClient } from '../clients/api-client';
 import { helper } from '../helpers/helpers';
 
@@ -47,7 +47,7 @@ export default class GameDialog extends Dialog {
 
         const screenData: GameScreenData = {
             game: gameById,
-            platformId
+            platformId,
         };
 
         // answer for the webapp
@@ -69,6 +69,15 @@ export default class GameDialog extends Dialog {
             RouteAction.PUSH to control the navigation routing between dialogs
         */
 
+        console.log('dialog game')
+        const apiClient = new ApiClient(this.config, stepContext);
+
+        const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
+        const quantity = sdk.lifecycle.getCallingEntity(stepContext, Entity.QUANTITY);
+
+        const games = await apiClient.getGames();
+        const game = helper.getGameById(games, gameId);
+
         const cases: PromptCase[] = [
             {
                 operation: Intent.HOME,
@@ -77,6 +86,12 @@ export default class GameDialog extends Dialog {
             {
                 operation: Intent.CART,
                 action: [RouteAction.PUSH, DialogId.GAME],
+            },
+            {
+                operation: Operation.ADD_CART,
+                logic: async () => {
+                    await helper.addGameToCart(helper.gameToCartGame(game, quantity), stepContext);
+                },
             },
         ];
 

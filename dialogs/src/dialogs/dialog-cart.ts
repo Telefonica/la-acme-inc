@@ -1,9 +1,8 @@
 import { Configuration, Dialog, PromptCase, RouteAction } from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, Intent, SessionData, Entity, Operation } from '../models';
+import { DialogId, LIBRARY_NAME, Intent, SessionData, Operation, Entity } from '../models';
 import { helper } from '../helpers/helpers';
-import { ApiClient } from '../clients/api-client';
 
 export default class ChartDialog extends Dialog {
     static readonly dialogPrompt = `${DialogId.CART}-prompt`;
@@ -44,13 +43,7 @@ export default class ChartDialog extends Dialog {
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
-        const apiClient = new ApiClient(this.config, stepContext);
-
         const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
-        const quantity = sdk.lifecycle.getCallingEntity(stepContext, Entity.QUANTITY);
-
-        const games = await apiClient.getGames();
-        const game = helper.getGameById(games, gameId);
 
         const cases: PromptCase[] = [
             {
@@ -62,10 +55,9 @@ export default class ChartDialog extends Dialog {
                 action: [RouteAction.PUSH, DialogId.CART],
             },
             {
-                operation: Operation.ADD_CART,
+                operation: Operation.REMOVE_CART,
                 logic: async () => {
-                    console.log('ADD_CART');
-                    await helper.addGameToCart(helper.gameToCartGame(game, quantity), stepContext);
+                    helper.removeGameToCart(gameId, stepContext);
                 },
             },
         ];

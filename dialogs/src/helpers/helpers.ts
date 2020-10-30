@@ -92,7 +92,22 @@ export class helper {
         const screenData: CartScreenData = {
             games: newGames,
             totalPrice: games.reduce((totalPrice, game) => totalPrice + game.price, 0),
-        };        
+        };
+
+        // answer for the webapp
+        const message = new ScreenMessage(Screen.GAME, screenData);
+
+        await sdk.messaging.send(stepContext, message);
+    }
+
+    static async removeGameToCart(gameId: string, stepContext: WaterfallStepContext) {
+        const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
+        const { games } = sessionData;
+
+        const screenData: CartScreenData = {
+            games: games.filter((g) => gameId !== g.id),
+            totalPrice: games.reduce((totalPrice, game) => totalPrice + game.price, 0),
+        };
 
         // answer for the webapp
         const message = new ScreenMessage(Screen.CART, screenData);
