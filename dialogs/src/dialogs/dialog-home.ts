@@ -1,8 +1,16 @@
 import { ApiClient } from '../clients/api-client';
-import { Configuration, Dialog, PromptCase, ScreenMessage, RouteAction } from '@telefonica/la-bot-sdk';
+import {
+    Configuration,
+    Dialog,
+    PromptCase,
+    ScreenMessage,
+    RouteAction,
+    ActionMessage,
+    Action,
+} from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, Screen, Intent, Entity, HomeScreenData, SessionData } from '../models';
+import { DialogId, LIBRARY_NAME, Screen, Entity, HomeScreenData, SessionData, Operation } from '../models';
 import { helper } from '../helpers/helpers';
 
 /*
@@ -29,7 +37,6 @@ export default class HomeDialog extends Dialog {
     */
     protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {
         const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-        delete sessionData.games;
         delete sessionData.platformId;
         return;
     }
@@ -46,7 +53,8 @@ export default class HomeDialog extends Dialog {
 
         const defaultPlatform = 'ptl01';
 
-        const pltId = sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID) || sessionData.platformId || defaultPlatform;        
+        const pltId =
+            sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID) || sessionData.platformId || defaultPlatform;
 
         sessionData.platformId = pltId;
 
@@ -70,21 +78,42 @@ export default class HomeDialog extends Dialog {
 
         // possible operations
         const choices: string[] = [
-            Intent.GAME, // go to game Dialog
+            Operation.GAME, // go to game Dialog
+            Operation.CART, // go to game Dialog
         ];
 
         return await sdk.messaging.prompt(stepContext, HomeDialog.dialogPrompt, choices);
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
+        const cart = await helper.getCart(stepContext);
         /*
             RouteAction.PUSH to control the navigation routing between dialogs
         */
-
         const cases: PromptCase[] = [
             {
-                operation: Intent.GAME,
-                action: [RouteAction.PUSH, DialogId.HOME],
+                operation: Operation.GAME,
+                action: [RouteAction.PUSH, DialogId.GAME],
+                logic: async () => {
+                    const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
+                    const id = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
+                    this.logger.info({
+                        msg: `home dialog - selected game: ${id}`,
+                    });
+                    sessionData.currentGameId = id;
+                },
+            },
+            {
+                operation: Operation.CART,
+                action: cart && cart.length ? [RouteAction.PUSH, DialogId.CART] : [RouteAction.NONE],
+                logic: async () => {
+                    if (!cart || !cart.length) {
+                        const msg = new ActionMessage().withAction(
+                            Action.toast('Aún no tienes productos en la cesta.', 'warning'),
+                        );
+                        await sdk.messaging.send(stepContext, msg);
+                    }
+                },
             },
         ];
 

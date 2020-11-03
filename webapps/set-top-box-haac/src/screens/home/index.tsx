@@ -1,8 +1,8 @@
 import './home.scss';
 
 import React, { useState, useEffect } from 'react';
-import { screenReady, useAura, useBackground } from '@telefonica/la-web-sdk';
-import { HomeScreenData, Intent, GameCard, Entity, Categories } from '../../../../../dialogs/src/models';
+import { AuraCommands, screenReady, useAura, useBackground } from '@telefonica/la-web-sdk';
+import { HomeScreenData, Intent, GameCard, Entity, Categories, Operation } from '../../../../../dialogs/src/models';
 
 import GameCardComponent from '../../components/GameCardComponent';
 
@@ -38,15 +38,15 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     }, [setBackground, clearBackground, focusedIndexVertical, backgrounds]);
 
     const goToGame = (gameId: string) => {
-        sendCommand({ intent: Intent.GAME, entities: [{ type: Entity.GAMEID, entity: gameId }] });
+        sendCommand(AuraCommands.getAuraCommandSingle(Operation.GAME, { type: Entity.GAMEID, entity: gameId }));
     };
 
     const goToHome = (platformId: string) => {
-        sendCommand({ intent: Intent.HOME, entities: [{ type: Entity.PLTID, entity: platformId }] });
+        sendCommand(AuraCommands.getAuraCommandSingle(Intent.HOME, { type: Entity.PLTID, entity: platformId }));
     };
 
     const goToCart = () => {
-        sendCommand({ intent: Intent.CART, entities: [] });
+        sendCommand(AuraCommands.getAuraCommand(Operation.CART));
     };
 
     interface switchObject<TValue> {

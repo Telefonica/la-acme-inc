@@ -1,7 +1,15 @@
-import { Configuration, Dialog, PromptCase, RouteAction, ScreenMessage } from '@telefonica/la-bot-sdk';
+import {
+    Action,
+    ActionMessage,
+    Configuration,
+    Dialog,
+    PromptCase,
+    RouteAction,
+    ScreenMessage,
+} from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, GameScreenData, Intent, Entity, Screen, SessionData, Operation } from '../models';
+import { DialogId, LIBRARY_NAME, GameScreenData, Entity, Screen, SessionData, Operation } from '../models';
 import { ApiClient } from '../clients/api-client';
 import { helper } from '../helpers/helpers';
 
@@ -28,25 +36,23 @@ export default class GameDialog extends Dialog {
       method to clear the state of the dialogs, for example session data of a dialog
     */
     protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {
-        const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-        delete sessionData.games;
-        delete sessionData.platformId;
         return;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private async _dialogStage(stepContext: WaterfallStepContext<any>): Promise<DialogTurnResult> {
+        const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
         const apiClient = new ApiClient(this.config, stepContext);
 
         const games = await apiClient.getGames();
 
-        const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
+        const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID) || sessionData.currentGameId;
         const platformId = sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID);
 
-        const gameById = await helper.getGameById(games, gameId);
+        sessionData.currentGame = await helper.getGameById(games, gameId);
 
         const screenData: GameScreenData = {
-            game: gameById,
+            game: sessionData.currentGame,
             platformId,
         };
 
@@ -57,8 +63,9 @@ export default class GameDialog extends Dialog {
 
         // possible operations
         const choices: string[] = [
-            Intent.HOME, // go to home Dialog
-            Intent.CART, // go to chart Dialog
+            Operation.BACK, // go back
+            Operation.ADD_CART,
+            Operation.CART, // go to chart Dialog
         ];
 
         return await sdk.messaging.prompt(stepContext, GameDialog.dialogPrompt, choices);
@@ -68,29 +75,27 @@ export default class GameDialog extends Dialog {
         /*
             RouteAction.PUSH to control the navigation routing between dialogs
         */
-
-        console.log('dialog game')
-        const apiClient = new ApiClient(this.config, stepContext);
-
-        const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
-        const quantity = sdk.lifecycle.getCallingEntity(stepContext, Entity.QUANTITY);
-
-        const games = await apiClient.getGames();
-        const game = helper.getGameById(games, gameId);
-
         const cases: PromptCase[] = [
             {
-                operation: Intent.HOME,
-                action: [RouteAction.PUSH, DialogId.GAME],
+                operation: Operation.BACK,
+                action: [RouteAction.REPLACE, DialogId.HOME],
             },
             {
-                operation: Intent.CART,
-                action: [RouteAction.PUSH, DialogId.GAME],
+                operation: Operation.CART,
+                action: [RouteAction.REPLACE, DialogId.CART],
             },
             {
                 operation: Operation.ADD_CART,
                 logic: async () => {
-                    await helper.addGameToCart(helper.gameToCartGame(game, quantity), stepContext);
+                    const { currentGame } = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
+                    const quantity = sdk.lifecycle.getCallingEntity(stepContext, Entity.QUANTITY);
+
+                    await helper.addGameToCart(helper.gameToCartGame(currentGame, quantity), stepContext);
+
+                    const msg = new ActionMessage().withAction(
+                        Action.toast(`${currentGame.title} añadido a la cesta.`, 'success'),
+                    );
+                    await sdk.messaging.send(stepContext, msg);
                 },
             },
         ];

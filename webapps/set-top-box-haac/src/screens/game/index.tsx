@@ -1,9 +1,9 @@
 import './game.scss';
 
 import React, { useEffect } from 'react';
-import { screenReady, NavigableButton, useBackground, useAura, useBack } from '@telefonica/la-web-sdk';
+import { screenReady, NavigableButton, useBackground, useAura, useBack, AuraCommands } from '@telefonica/la-web-sdk';
 import Metacritic from '../../components/Metacritic';
-import { Entity, Intent, GameScreenData, Categories, Operation } from '../../../../../dialogs/src/models';
+import { Entity, GameScreenData, Categories, Operation } from '../../../../../dialogs/src/models';
 
 const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
     const { sendCommand } = useAura();
@@ -12,20 +12,23 @@ const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
     useBack();
 
     const { game, platformId } = screenData;
-    const { id, videoUrl, image, title, metacritic, company, price, category, description } = game;
+    const { id, image, title, metacritic, company, price, category, description } = game;
 
     const goBack = (platformId: string) => {
-        sendCommand({ intent: Intent.BACK, entities: [{ type: Entity.PLTID, entity: platformId }] });
+        sendCommand(AuraCommands.getAuraCommandSingle(Operation.BACK, { type: Entity.PLTID, entity: platformId }));
     };
 
-    const addToCard = (gameId: string, quantity = 1) => {
-        sendCommand({
-            intent: Operation.ADD_CART,
-            entities: [
+    const goToCart = () => {
+        sendCommand(AuraCommands.getAuraCommand(Operation.CART));
+    };
+
+    const addToCart = (gameId: string, quantity = 1) => {
+        sendCommand(
+            AuraCommands.getAuraCommand(Operation.ADD_CART, [
                 { type: Entity.GAMEID, entity: gameId },
                 { type: Entity.QUANTITY, entity: quantity },
-            ],
-        });
+            ]),
+        );
     };
 
     useEffect(() => {
@@ -60,8 +63,16 @@ const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
                     BACK
                 </NavigableButton>
                 <NavigableButton
+                    id="back"
+                    onClick={() => goToCart()}
+                    makeFocused={true}
+                    defaultClass="game-screen__button"
+                >
+                    CART
+                </NavigableButton>
+                <NavigableButton
                     id="buy"
-                    onClick={() => addToCard(id)}
+                    onClick={() => addToCart(id)}
                     makeFocused={true}
                     defaultClass="game-screen__button"
                 >
