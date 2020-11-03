@@ -28,7 +28,7 @@ const script = {
     [Intent.CART]: () => changeScreenWithBreadcrumbs(Screen.CART),
     [Operation.ADD_CART]: () => changeScreenWithBreadcrumbs(Screen.CART),
     [Operation.REMOVE_CART]: () => changeScreenWithBreadcrumbs(Screen.CART),
-    [Intent.BACK]: () => changeScreenWithBreadcrumbs(getLastScreen() || Screen.HOME),
+    [Operation.BACK]: () => changeScreenWithBreadcrumbs(getLastScreen() || Screen.HOME),
 };
 
 interface mocks {

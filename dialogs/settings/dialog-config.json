@@ -29,16 +29,6 @@
             ],
             "id": "la-acme-inc-cart",
             "onlyIn": ["movistar-home", "set-top-box", "set-top-box-haac"]
-        },
-        {
-            "triggerConditions": [
-                {
-                    "context_filters": [],
-                    "intent": "intent.la-acme-inc.back"
-                }
-            ],
-            "id": "la-acme-inc-back",
-            "only_in": ["movistar-home", "set-top-box", "set-top-box-haac"]
         }
     ],
     "name": "la-acme-inc"
