@@ -1,8 +1,18 @@
-import { Configuration, Dialog, PromptCase, RouteAction, ScreenMessage } from '@telefonica/la-bot-sdk';
+import {
+    Action,
+    ActionMessage,
+    Configuration,
+    Dialog,
+    PromptCase,
+    RouteAction,
+    ScreenMessage,
+} from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
 import { DialogId, LIBRARY_NAME, Operation, Entity, CartScreenData, Screen } from '../models';
 import { helper } from '../helpers/helpers';
+import { ApiClient } from '../clients/api-client';
+import { RouteActionType } from '@telefonica/la-bot-sdk/lib/models/dialog';
 
 export default class CartDialog extends Dialog {
     static readonly dialogPrompt = `${DialogId.CART}-prompt`;
@@ -22,7 +32,7 @@ export default class CartDialog extends Dialog {
     /*
       method to clear the state of the dialogs, for example session data of a dialog
     */
-    protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {
+    protected async clearDialogState(): Promise<void> {
         return;
     }
 
@@ -49,6 +59,12 @@ export default class CartDialog extends Dialog {
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
+        const test = async (): Promise<RouteActionType> => {
+            const cart = await helper.getCart(stepContext);
+            console.log('BRO AQUI', cart);
+            return cart.length ? [RouteAction.REPLACE, DialogId.CART] : [RouteAction.POP];
+        };
+
         const cases: PromptCase[] = [
             {
                 operation: Operation.BACK,
@@ -56,10 +72,19 @@ export default class CartDialog extends Dialog {
             },
             {
                 operation: Operation.REMOVE_CART,
-                action: [RouteAction.REPLACE, DialogId.CART],
+                action: await test(),
                 logic: async () => {
+                    const apiClient = new ApiClient(this.config, stepContext);
+
                     const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
-                    helper.removeGameToCart(gameId, stepContext);
+                    const games = await apiClient.getGames();
+                    const { title } = helper.getGameById(games, gameId);
+                    await helper.removeGameFromCart(gameId, stepContext);
+
+                    const msg = new ActionMessage().withAction(
+                        Action.toast(`${title} fue eliminado de la cesta.`, 'success'),
+                    );
+                    await sdk.messaging.send(stepContext, msg);
                 },
             },
         ];
