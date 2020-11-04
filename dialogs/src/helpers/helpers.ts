@@ -1,4 +1,5 @@
 import * as sdk from '@telefonica/la-bot-sdk';
+import { Action, ActionMessage } from '@telefonica/la-bot-sdk';
 import { WaterfallStepContext } from 'botbuilder-dialogs';
 import { CartGame, Category, Game, GameCards, SessionData } from '../models';
 
@@ -8,20 +9,18 @@ export class helper {
     and returns an array of games grouped by a specific category and platform
     */
     static getGamesByPlatform = (categories: Category[], games: Game[], platform: string): GameCards => {
-        const gameCards = categories.map(({ id }) => {
-            return {
-                [id]: games
-                    .filter((game) => game.category === id && game.platforms.indexOf(platform) !== -1)
-                    .map((game) => ({
-                        id: game.id,
-                        company: game.company,
-                        price: game.price,
-                        image: game.image,
-                        title: game.title,
-                        dominantColor: game.dominantColor,
-                    })),
-            };
-        });
+        const gameCards = categories.map(({ id }) => ({
+            [id]: games
+                .filter((game) => game.category === id && game.platforms.indexOf(platform) !== -1)
+                .map((game) => ({
+                    id: game.id,
+                    company: game.company,
+                    price: game.price,
+                    image: game.image,
+                    title: game.title,
+                    dominantColor: game.dominantColor,
+                })),
+        }));
 
         return gameCards.reduce((obj, item) => {
             obj[Object.keys(item)[0]] = item[Object.keys(item)[0]];
@@ -79,7 +78,7 @@ export class helper {
         return cart;
     }
 
-    static async removeGameToCart(gameId: string, stepContext: WaterfallStepContext): Promise<void> {
+    static async removeGameFromCart(gameId: string, stepContext: WaterfallStepContext): Promise<CartGame[]> {
         const cart = await this.getCart(stepContext);
         const existingIndex = cart.findIndex((cartItem) => cartItem.id === gameId);
         if (existingIndex !== -1) {
@@ -93,5 +92,14 @@ export class helper {
         await sdk.persistence.storeData(stepContext, {
             cart,
         });
+
+        return cart;
+    }
+
+    static async messageIfCardEmpty(stepContext: WaterfallStepContext, cart: CartGame[]): Promise<void> {
+        if (!cart || !cart.length) {
+            const msg = new ActionMessage().withAction(Action.toast('Aún no tienes productos en la cesta.', 'warning'));
+            await sdk.messaging.send(stepContext, msg);
+        }
     }
 }

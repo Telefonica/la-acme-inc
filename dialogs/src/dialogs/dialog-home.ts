@@ -1,13 +1,5 @@
 import { ApiClient } from '../clients/api-client';
-import {
-    Configuration,
-    Dialog,
-    PromptCase,
-    ScreenMessage,
-    RouteAction,
-    ActionMessage,
-    Action,
-} from '@telefonica/la-bot-sdk';
+import { Configuration, Dialog, PromptCase, ScreenMessage, RouteAction } from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
 import { DialogId, LIBRARY_NAME, Screen, Entity, HomeScreenData, SessionData, Operation } from '../models';
@@ -106,14 +98,7 @@ export default class HomeDialog extends Dialog {
             {
                 operation: Operation.CART,
                 action: cart && cart.length ? [RouteAction.PUSH, DialogId.CART] : [RouteAction.NONE],
-                logic: async () => {
-                    if (!cart || !cart.length) {
-                        const msg = new ActionMessage().withAction(
-                            Action.toast('Aún no tienes productos en la cesta.', 'warning'),
-                        );
-                        await sdk.messaging.send(stepContext, msg);
-                    }
-                },
+                logic: () => helper.messageIfCardEmpty(stepContext, cart),
             },
         ];
 

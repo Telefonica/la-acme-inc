@@ -9,7 +9,7 @@ const configurationSchema: joi.SchemaMap = {
     LA_ACME_INC_API_GET_CATEGORIES: joi.string().default('/categories.json'),
     LA_ACME_INC_API_GET_GAMES: joi.string().default('/games.json'),
     LA_ACME_INC_API_GET_GAMECARDS: joi.string().default('/gameCards.json'),
-    LA_ACME_INC_API_GET_PLATFORMS: joi.string().default('/platforms.json')    
+    LA_ACME_INC_API_GET_PLATFORMS: joi.string().default('/platforms.json'),
 };
 
 export default configurationSchema;

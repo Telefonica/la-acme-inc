@@ -72,6 +72,7 @@ export default class GameDialog extends Dialog {
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
+        const cart = await helper.getCart(stepContext);
         /*
             RouteAction.PUSH to control the navigation routing between dialogs
         */
@@ -82,7 +83,8 @@ export default class GameDialog extends Dialog {
             },
             {
                 operation: Operation.CART,
-                action: [RouteAction.REPLACE, DialogId.CART],
+                action: cart && cart.length ? [RouteAction.PUSH, DialogId.CART] : [RouteAction.NONE],
+                logic: () => helper.messageIfCardEmpty(stepContext, cart),
             },
             {
                 operation: Operation.ADD_CART,
