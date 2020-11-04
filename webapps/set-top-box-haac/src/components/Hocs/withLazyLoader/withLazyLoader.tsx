@@ -20,6 +20,8 @@ export const withLazyLoader = <R extends React.HTMLAttributes<T>, T extends HTML
             });
 
             observableObjectRef.current && observer.observe(observableObjectRef.current);
+
+            return () => observer.disconnect();
         });
         return <div ref={observableObjectRef}>{show && <Comp {...props} />}</div>;
     };
