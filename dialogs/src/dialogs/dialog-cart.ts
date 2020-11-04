@@ -59,11 +59,7 @@ export default class CartDialog extends Dialog {
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
-        const test = async (): Promise<RouteActionType> => {
-            const cart = await helper.getCart(stepContext);
-            console.log('BRO AQUI', cart);
-            return cart.length ? [RouteAction.REPLACE, DialogId.CART] : [RouteAction.POP];
-        };
+        const action: RouteActionType = [RouteAction.REPLACE, DialogId.CART];
 
         const cases: PromptCase[] = [
             {
@@ -72,19 +68,23 @@ export default class CartDialog extends Dialog {
             },
             {
                 operation: Operation.REMOVE_CART,
-                action: await test(),
+                action,
                 logic: async () => {
                     const apiClient = new ApiClient(this.config, stepContext);
 
                     const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
                     const games = await apiClient.getGames();
                     const { title } = helper.getGameById(games, gameId);
-                    await helper.removeGameFromCart(gameId, stepContext);
+                    const cart = await helper.removeGameFromCart(gameId, stepContext);
 
                     const msg = new ActionMessage().withAction(
                         Action.toast(`${title} fue eliminado de la cesta.`, 'success'),
                     );
                     await sdk.messaging.send(stepContext, msg);
+
+                    if (!cart.length) {
+                        action[1] = DialogId.HOME;
+                    }
                 },
             },
         ];
