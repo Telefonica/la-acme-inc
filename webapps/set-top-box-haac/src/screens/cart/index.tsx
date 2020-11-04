@@ -1,14 +1,12 @@
 import './cart.scss';
 
 import React from 'react';
-import { NavigableWrapper, NavigableButton, screenReady, useAura, useBack } from '@telefonica/la-web-sdk';
+import { NavigableWrapper, NavigableButton, screenReady, useAura } from '@telefonica/la-web-sdk';
 import { CartScreenData, Entity, Operation } from '../../../../../dialogs/src/models';
 
 const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
     const { games } = cart;
     const { sendCommand } = useAura();
-
-    useBack();
 
     const deleteItem = (gameId: string) => {
         sendCommand({ intent: Operation.REMOVE_CART, entities: [{ type: Entity.GAMEID, entity: gameId }] });

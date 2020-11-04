@@ -1,15 +1,13 @@
 import './game.scss';
 
 import React, { useEffect } from 'react';
-import { screenReady, NavigableButton, useBackground, useAura, useBack, AuraCommands } from '@telefonica/la-web-sdk';
+import { screenReady, NavigableButton, useBackground, useAura, AuraCommands } from '@telefonica/la-web-sdk';
 import Metacritic from '../../components/Metacritic';
 import { Entity, GameScreenData, Categories, Operation } from '../../../../../dialogs/src/models';
 
 const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
     const { sendCommand } = useAura();
     const { setBackground, clearBackground } = useBackground();
-
-    useBack();
 
     const { game, platformId } = screenData;
     const { id, image, title, metacritic, company, price, category, description } = game;
