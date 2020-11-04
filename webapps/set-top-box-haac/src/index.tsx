@@ -3,23 +3,23 @@ import 'react-app-polyfill/stable';
 import './index.css';
 import script from '../../common/mocks';
 import { Screen } from '../../../dialogs/src/models';
-import { init, Channel } from '@telefonica/la-web-sdk';
+import { init, Channel, SDKScreen } from '@telefonica/la-web-sdk';
 import SplashScreen from './screens/splash';
-import ErrorScreen from './screens/error';
 import HomeScreen from './screens/home';
-import GenreScreen from './screens/genre';
+import ErrorScreen from './screens/error';
+import GameScreen from './screens/game';
+import CartScreen from './screens/cart';
 
 init({
     channel: Channel.STB,
     laName: process.env.REACT_APP_LA_NAME as string,
     screens: {
+        [SDKScreen.LOADING]: () => () => null,
         [Screen.SPLASH]: () => SplashScreen,
         [Screen.ERROR]: () => ErrorScreen,
         [Screen.HOME]: () => HomeScreen,
-        [Screen.ADVENTURE]: () => GenreScreen,
-        [Screen.ACTION]: () => GenreScreen,
-        [Screen.INDIE]: () => GenreScreen,
-        [Screen.RPG]: () => GenreScreen,
+        [Screen.GAME]: () => GameScreen,
+        [Screen.CART]: () => CartScreen,
     },
     buildNumber: process.env.BUILD_NUMBER,
     auraMockClient:

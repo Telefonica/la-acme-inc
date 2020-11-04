@@ -1,87 +1,112 @@
 import './home.scss';
 
-import { KeyCode, KeyEvent, NavigableButton, screenReady, useBackground, useInput } from '@telefonica/la-web-sdk';
-import { HomeScreenData, Category } from '../../../../../dialogs/src/models';
-import { useAura } from '@telefonica/la-web-sdk';
-import React, { useEffect, useCallback, useState } from 'react';
-import { Intent } from '../../../../../dialogs/src/models';
+import React, { useState, useEffect } from 'react';
+import { AuraCommands, screenReady, useAura, useBackground } from '@telefonica/la-web-sdk';
+import { HomeScreenData, Intent, GameCard, Entity, Categories, Operation } from '../../../../../dialogs/src/models';
 
-const HomeScreen: React.FC<HomeScreenData> = (data: HomeScreenData) => {
-    const { categories, title } = data;
-    const background = useBackground();
+import GameCardComponent from '../../components/GameCardComponent';
+
+import HomeMenu from './components/HomeMenu';
+import HomeTopMenu from './components/HomeTopMenu';
+
+import styled from 'styled-components';
+
+interface CarouselTitleProps {
+    focusedIndexVertical: number;
+}
+
+const CarouselTitle = styled.div<CarouselTitleProps>`
+    font-size: 26px;
+    height: 50px;
+    transform: ${(props) => `translateY(-${props.focusedIndexVertical * 400}px)`};
+`;
+const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
+    const { platformTitle, platforms, games, backgrounds } = screenData;
     const { sendCommand } = useAura();
-    const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const { setBackground, clearBackground } = useBackground();
+
+    const [cardFocused, setCardFocused] = useState(false);
+
+    const [focusedIndex, setFocusedIndex] = useState(0);
+    const [focusedIndexSecond, setFocusedIndexSecond] = useState(0);
+    const [focusedIndexThird, setFocusedIndexThird] = useState(0);
+    const [focusedIndexFourth, setFocusedIndexFourth] = useState(0);
+    const [focusedIndexVertical, setFocusedIndexVertical] = useState(0);
 
     useEffect(() => {
-        background.clearBackground();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        setBackground(backgrounds[focusedIndexVertical]);
+    }, [setBackground, clearBackground, focusedIndexVertical, backgrounds]);
 
-    const onKeyPressed = useCallback(
-        (e: KeyEvent) => {
-            switch (e.data.keyCode) {
-                case KeyCode.KEY_LEFT:
-                    if (currentIndex > 0) {
-                        setCurrentIndex(currentIndex - 1);
-                    }
-                    break;
-                case KeyCode.KEY_RIGHT:
-                    if (currentIndex < categories.length - 1) {
-                        setCurrentIndex(currentIndex + 1);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [currentIndex],
-    );
-    useInput(onKeyPressed);
-
-    useEffect(() => {
-        background.setBackground(categories[currentIndex].image_background);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentIndex]);
-
-    const goToCategory = (genre: string) => {
-        switch (genre.toLowerCase()) {
-            case 'adventure':
-                sendCommand({ intent: Intent.ADVENTURE, entities: [] });
-                break;
-            case 'action':
-                sendCommand({ intent: Intent.ACTION, entities: [] });
-                break;
-            case 'indie':
-                sendCommand({ intent: Intent.INDIE, entities: [] });
-                break;
-            case 'rpg':
-                sendCommand({ intent: Intent.RPG, entities: [] });
-                break;
-            default:
-                break;
-        }
+    const goToGame = (gameId: string) => {
+        sendCommand(AuraCommands.getAuraCommandSingle(Operation.GAME, { type: Entity.GAMEID, entity: gameId }));
     };
+
+    const goToHome = (platformId: string) => {
+        sendCommand(AuraCommands.getAuraCommandSingle(Intent.HOME, { type: Entity.PLTID, entity: platformId }));
+    };
+
+    const goToCart = () => {
+        sendCommand(AuraCommands.getAuraCommand(Operation.CART));
+    };
+
+    interface switchObject<TValue> {
+        [id: string]: TValue;
+    }
+
+    const focusedIndexFunctions: switchObject<Function> = {
+        0: setFocusedIndex,
+        1: setFocusedIndexSecond,
+        2: setFocusedIndexThird,
+        3: setFocusedIndexFourth,
+    };
+
+    const focusedIndexes: switchObject<number> = {
+        0: focusedIndex,
+        1: focusedIndexSecond,
+        2: focusedIndexThird,
+        3: focusedIndexFourth,
+    };
+
+    const isFocused = (indexCategory: number, indexCard: number) =>
+        indexCard === focusedIndexes[indexCategory] && focusedIndexVertical === indexCategory && cardFocused;
 
     return (
         <div className="home-screen">
-            <h1 className="title">{title}</h1>
-            {categories.map((category: Category, index: number) => (
-                <div className="home-section" key={category.id}>
-                    <NavigableButton
-                        onClick={() => {
-                            setCurrentIndex(index);
-                            goToCategory(category.name);
-                        }}
-                        defaultClass="button"
-                        focusedClass="focus"
-                        defaultFocused={index === 0}
-                        id={category.id}
-                    >
-                        Go to {category.name}
-                    </NavigableButton>
+            <div className="home-screen__menu">
+                <HomeMenu goToHome={goToHome} platforms={platforms} />
+            </div>
+            <div className="home-screen__games">
+                <HomeTopMenu platformTitle={platformTitle} goToCart={goToCart} />
+                <div className="home-screen__carousels-wrapper">
+                    {Object.keys(games).map((key, indexCategory) => (
+                        <div className="home-screen__carousel" key={`game-carousel-0-${indexCategory}`}>
+                            <CarouselTitle focusedIndexVertical={focusedIndexVertical}>
+                                {Categories[key as keyof typeof Categories].toUpperCase()}
+                            </CarouselTitle>
+                            <div className="home-screen__cards-wrapper">
+                                {games[key as string].map((game: GameCard, indexCard: number) => (
+                                    <GameCardComponent
+                                        onClick={() => goToGame(game.id)}
+                                        onFocus={() => {
+                                            focusedIndexFunctions[indexCategory](() => indexCard);
+                                            setFocusedIndexVertical(() => indexCategory);
+                                            setCardFocused((isFocused) => !isFocused);
+                                        }}
+                                        onBlur={() => setCardFocused((isFocused) => !isFocused)}
+                                        game={game}
+                                        key={`game-card-0-${indexCard}`}
+                                        focused={indexCard === 0 && indexCategory === 0}
+                                        isFocused={isFocused(indexCategory, indexCard)}
+                                        navigableId={`${indexCard}-${indexCategory}`}
+                                        indexX={focusedIndexes[indexCategory]}
+                                        indexY={focusedIndexVertical}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            ))}
+            </div>
         </div>
     );
 };

@@ -1,0 +1,58 @@
+.music-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    min-height: 600px;
+    min-width: 450px;
+    margin-left: 50px;
+    will-change: transform;
+
+    &__image {
+        width: 100%;
+        border-radius: 5px 5px 0px 0px;
+    }
+
+    &__border {
+        position: absolute;
+        background-color: white;
+        min-height: 610px;
+        min-width: 460px;
+        z-index: -1;
+        opacity: 0;
+        border-radius: 5px;
+    }
+
+    &__info {
+        display: flex;
+        height: 100%;
+        border-radius: 0px 0px 5px 5px;
+        text-transform: uppercase;
+
+        &__text {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            
+            height: 100%;
+            padding: 0px 30px;
+            font-weight: bold;
+
+            &__title {
+                font-size: 35px;
+            }
+
+            &__company {
+                font-size: 20px;
+            }
+        }
+    }
+    
+    @keyframes movoAndScale {
+        100% {
+            transform: scale(1.1)
+        }
+    }
+}

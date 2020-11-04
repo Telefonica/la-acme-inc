@@ -3,102 +3,107 @@ import { Suggestion } from '@telefonica/la-bot-sdk';
 export const LIBRARY_NAME = 'la-acme-inc';
 
 export interface SessionData {
-    name: string;
+    cart: CartGame[];
+    currentGameId: string;
+    currentGame: Game;
+    platformId: string;
 }
 
 export enum DialogId {
     HOME = 'la-acme-inc-home',
-    ADVENTURE = 'la-acme-inc-adventure',
-    ACTION = 'la-acme-inc-action',
-    INDIE = 'la-acme-inc-indie',
-    RPG = 'la-acme-inc-rpg',
+    GAME = 'la-acme-inc-game',
+    CART = 'la-acme-inc-cart',
 }
 
 export enum Screen {
     HOME = 'home',
+    GAME = 'game',
+    CART = 'cart',
     ERROR = 'error',
     SPLASH = 'splash',
-    ADVENTURE = 'adventure',
-    ACTION = 'action',
-    INDIE = 'indie',
-    RPG = 'rpg',
 }
 
 export enum Intent {
     HOME = 'intent.la-acme-inc.home',
-    ADVENTURE = 'intent.la-acme-inc.adventure',
-    ACTION = 'intent.la-acme-inc.action',
-    INDIE = 'intent.la-acme-inc.indie',
-    RPG = 'intent.la-acme-inc.rpg',
-    BACK = 'intent.la-acme-inc.back',
-    NAME = 'intent.la-acme-inc.name',
 }
 
 export enum Operation {
     BACK = 'intent.operation.sdk.back',
+    GAME = 'intent.operation.acme-inc.game',
+    CART = 'intent.operation.acme-inc.cart',
+    ADD_CART = 'intent.operation.acme-inc.add_cart',
+    REMOVE_CART = 'intent.operation.acme-inc.remove_cart',
 }
 
 export enum Entity {
-    NAME = 'ent.name',
+    PLTID = 'ent.plt-id',
+    GAMEID = 'ent.game-id',
+    GAMETITLE = 'ent.game-title',
+    QUANTITY = 'ent.quantity',
+    PRICE = 'ent.price',
 }
-
+export interface GameCard {
+    id: string;
+    company: string;
+    price: number;
+    image: string;
+    title: string;
+    dominantColor: string;
+}
+export enum Categories {
+    cat01 = 'action',
+    cat02 = 'rpg',
+    cat03 = 'sports',
+    cat04 = 'indie',
+}
+export interface GameCards {
+    [key: string]: GameCard[];
+}
 export interface HomeScreenData {
-    title: string;
-    categories: Category[];
+    platformTitle: string;
+    platforms: Platform[];
+    games: GameCards;
+    backgrounds: string[];
+    suggestions?: Suggestion[];
+}
+export interface GameScreenData {
+    game: Game;
+    platformId: string;
     suggestions?: Suggestion[];
 }
 
-export interface GameScreenData {
+export interface CartGame {
     title: string;
-    games: Game[];
-    suggestions?: Suggestion[];
+    id: string;
+    price: number;
+    quantity: number;
+}
+
+export interface CartScreenData {
+    games: CartGame[];
+    totalPrice: number;
 }
 
 export interface Category {
     id: string;
     name: string;
-    slug: string;
-    games_count: number;
-    image_background: string;
+    imageBackground: string;
 }
 
 export interface Game {
     id: string;
-    background_image: string;
-    name: string;
-    slug: string;
-    platforms: Platform[];
-    released: string;
-    metacritic: number;
-    playtime: number;
-    description: string;
-    clips: unknown;
-    short_screenshots: ShortScreenshots[];
-    stores: Stores[];
-    tags: Tags[];
-}
-
-export interface ShortScreenshots {
-    id: string;
     image: string;
+    title: string;
+    description: string;
+    metacritic: number;
+    company: string;
+    videoUrl: string;
+    price: number;
+    dominantColor: string;
+    platforms: string[];
+    category: string;
 }
-
 export interface Platform {
     id: string;
     name: string;
-}
-
-export interface Stores {
-    id: string;
-    name: string;
-    slug: string;
-}
-
-export interface Tags {
-    id: string;
-    name: string;
-    games_count: number;
-    language: string;
-    slug: string;
-    image_background: string;
 }

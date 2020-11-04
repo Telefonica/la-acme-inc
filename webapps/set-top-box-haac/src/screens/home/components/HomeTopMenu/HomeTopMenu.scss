@@ -1,0 +1,25 @@
+.home-top-menu {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 50px;
+    height: 100px;
+
+    &__cart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+        margin: 14px;
+        border-radius: 5px;
+        background-color: white;
+        fill: black;
+    }
+
+    &__cart-focused {
+        border: 5px solid red;
+    }
+  }

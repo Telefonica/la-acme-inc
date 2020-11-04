@@ -1,0 +1,22 @@
+.metacritic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    text-shadow: white 0px 0px 10px;
+
+    height: 80px;
+    width: 80px;
+    border-radius: 10px;
+    font-size: 50px;
+
+    &__green {
+        background-color: green;
+    }
+    &__yellow {
+        background-color: yellow;
+    }
+    &__red {
+        background-color: red;
+    }
+}
