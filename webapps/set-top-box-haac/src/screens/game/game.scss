@@ -1,0 +1,61 @@
+.game-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 1080px;
+  width: 1920px;
+  text-shadow: white 0px 0px 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+no 
+
+  &__container{
+      display: flex;
+      height: 80%;
+  }
+
+  &__data {
+      margin: 60px 0px 0px 100px;
+      width: 50%;
+  }
+
+  &__top-wrapper {
+      display: flex;
+      flex-direction: column;
+  }
+
+  &__info {
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      font-size: 24px;
+  }
+
+  &__price {
+      font-size: 25px;
+      margin: 20px;
+  }
+
+  &__title {
+      font-size: 70px;
+  }
+
+  &__company {
+    margin: 20px;
+  }
+
+  &__description {
+      font-size: 32px;
+      padding: 30px;
+      font-size: 30px;
+      border-radius: 5px;
+      max-height: 580px;
+      overflow-y: hidden;
+      text-overflow: ellipsis;
+  }
+
+  &__button {
+      width: 200px;
+      font-size: 30px;
+  }
+}

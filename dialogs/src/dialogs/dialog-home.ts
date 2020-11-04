@@ -1,8 +1,9 @@
 import { ApiClient } from '../clients/api-client';
-import { Configuration, Dialog, PromptCase, ScreenMessage, RouteAction, Suggestion } from '@telefonica/la-bot-sdk';
+import { Configuration, Dialog, PromptCase, ScreenMessage, RouteAction } from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, Screen, SessionData, Intent, Entity, HomeScreenData } from '../models';
+import { DialogId, LIBRARY_NAME, Screen, Entity, HomeScreenData, SessionData, Operation } from '../models';
+import { helper } from '../helpers/helpers';
 
 /*
 This dialog is the parent of the action, adventure, simulation and sport dialogs
@@ -28,85 +29,76 @@ export default class HomeDialog extends Dialog {
     */
     protected async clearDialogState(stepContext: WaterfallStepContext): Promise<void> {
         const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-        delete sessionData.name;
+        delete sessionData.platformId;
         return;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private async _dialogStage(stepContext: WaterfallStepContext<any>): Promise<DialogTurnResult> {
-        // get the session data from sdk
-        const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-
-        // getting the persistent data from sdk
-        const context = await sdk.persistence.getStoredData(stepContext);
-
-        const name = sessionData.name || context.name;
-
-        // instantiate the client
         const apiClient = new ApiClient(this.config, stepContext);
 
-        // videogames categories data
         const categories = await apiClient.getCategories();
+        const games = await apiClient.getGames();
+        const platforms = await apiClient.getPlatforms();
+
+        const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
+
+        const defaultPlatform = 'ptl01';
+
+        const pltId =
+            sdk.lifecycle.getCallingEntity(stepContext, Entity.PLTID) || sessionData.platformId || defaultPlatform;
+
+        sessionData.platformId = pltId;
+
+        const context = await sdk.persistence.getStoredData(stepContext);
+        await sdk.persistence.storeData(stepContext, { ...context, sessionData });
+
+        const gamesByCat = helper.getGamesByPlatform(categories, games, pltId);
+        const backgrounds = helper.getCategoriesBackgrounds(categories);
 
         const screenData: HomeScreenData = {
-            title: 'VIDEOGAMES CATEGORIES',
-            categories: categories['results'],
-            suggestions: Suggestion.getSuggestions(stepContext, 'home.suggestion', { name }), // TODO config para usar locale (LANGUAGES)
+            platformTitle: 'Video Game Shop Home',
+            backgrounds,
+            platforms,
+            games: gamesByCat,
         };
 
         // answer for the webapp
-        const message = new ScreenMessage(Screen.HOME, screenData).withText('home.welcome').withSpeak('home.welcome');
+        const message = new ScreenMessage(Screen.HOME, screenData);
 
         await sdk.messaging.send(stepContext, message);
 
         // possible operations
         const choices: string[] = [
-            Intent.ADVENTURE, // go to adventure Dialog
-            Intent.ACTION, // go to action dialog
-            Intent.INDIE, // go to indie dialog
-            Intent.RPG, // go to rpg dialog
+            Operation.GAME, // go to game Dialog
+            Operation.CART, // go to game Dialog
         ];
 
         return await sdk.messaging.prompt(stepContext, HomeDialog.dialogPrompt, choices);
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
-        // session data from user
-        const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
-
-        // getting the persistent data from sdk
-        const context = await sdk.persistence.getStoredData(stepContext);
-
+        const cart = await helper.getCart(stepContext);
         /*
             RouteAction.PUSH to control the navigation routing between dialogs
         */
-
         const cases: PromptCase[] = [
             {
-                operation: Intent.ADVENTURE,
-                action: [RouteAction.PUSH, DialogId.ADVENTURE],
-            },
-            {
-                operation: Intent.ACTION,
-                action: [RouteAction.PUSH, DialogId.ACTION],
-            },
-            {
-                operation: Intent.INDIE,
-                action: [RouteAction.PUSH, DialogId.INDIE],
-            },
-            {
-                operation: Intent.RPG,
-                action: [RouteAction.PUSH, DialogId.RPG],
-            },
-            {
-                operation: Intent.NAME,
+                operation: Operation.GAME,
+                action: [RouteAction.PUSH, DialogId.GAME],
                 logic: async () => {
-                    const name = sdk.lifecycle.getCallingEntity(stepContext, Entity.NAME);
-                    if (name) {
-                        sessionData.name = name;
-                        await sdk.persistence.storeData(stepContext, { ...context, name });
-                    }
+                    const sessionData = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
+                    const id = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
+                    this.logger.info({
+                        msg: `home dialog - selected game: ${id}`,
+                    });
+                    sessionData.currentGameId = id;
                 },
+            },
+            {
+                operation: Operation.CART,
+                action: cart && cart.length ? [RouteAction.PUSH, DialogId.CART] : [RouteAction.NONE],
+                logic: () => helper.messageIfCardEmpty(stepContext, cart),
             },
         ];
 
