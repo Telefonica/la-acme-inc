@@ -1,4 +1,9 @@
 .game-card {
+    &__image-wrapper {
+        width: 426px;
+        height: 240px;
+        background-color: black;
+    }
     &__image {
         width: 426px;
         height: 240px;

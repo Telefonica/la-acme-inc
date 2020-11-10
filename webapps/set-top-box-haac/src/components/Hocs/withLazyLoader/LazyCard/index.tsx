@@ -1,10 +1,13 @@
 import React from 'react';
-import withLazyLoader, { LazyProps } from '../withLazyLoader';
 
-import GameCardComponent, { GameCardProps } from '../../../GameCardComponent';
+import { GameCardProps } from '../../../GameCardComponent';
 
-type LazyImageProps = GameCardProps & LazyProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
+const LazyTest = React.lazy(() => import('../../../GameCardComponent'));
 
-const LazyImages: React.FC<LazyImageProps> = ({ ...props }: LazyImageProps) => <GameCardComponent {...props} />;
+const LazyCard: React.FC<GameCardProps> = ({ ...props }: GameCardProps) => (
+    <React.Suspense fallback="">
+        <LazyTest {...props} />;
+    </React.Suspense>
+);
 
-export default withLazyLoader(LazyImages);
+export default LazyCard;

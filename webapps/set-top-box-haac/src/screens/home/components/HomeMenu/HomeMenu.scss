@@ -1,3 +1,37 @@
-.home-top-menu {
+.home-menu {
+    background-color: #121212;
+    height: 1080px;
+    width: 350px;
 
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+
+    &__list {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    &__menu-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 34px;
+        text-transform: uppercase;
+        height: 100px;
+        width: 350px;
+
+        margin-bottom: 15px;
+        background-color: #1F1F1F;
+        color: white;
+
+        -webkit-box-shadow: 0px 0px 16px 3px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 16px 3px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 16px 3px rgba(0,0,0,0.75);
+    }
+
+    &__menu-focused {
+        transform: scaleX(1.1);
+    }
 }
