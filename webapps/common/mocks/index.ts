@@ -24,8 +24,8 @@ const getLastScreen = () => breadcrumbs.pop() && breadcrumbs[breadcrumbs.length 
 const script = {
     [START]: () => changeScreenWithBreadcrumbs(Screen.SPLASH),
     [Intent.HOME]: () => changeScreenWithBreadcrumbs(Screen.HOME),
-    [Intent.GAME]: () => changeScreenWithBreadcrumbs(Screen.GAME),
-    [Intent.CART]: () => changeScreenWithBreadcrumbs(Screen.CART),
+    [Operation.GAME]: () => changeScreenWithBreadcrumbs(Screen.GAME),
+    [Operation.CART]: () => changeScreenWithBreadcrumbs(Screen.CART),
     [Operation.ADD_CART]: () => changeScreenWithBreadcrumbs(Screen.CART),
     [Operation.REMOVE_CART]: () => changeScreenWithBreadcrumbs(Screen.CART),
     [Operation.BACK]: () => changeScreenWithBreadcrumbs(getLastScreen() || Screen.HOME),

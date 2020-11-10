@@ -4,12 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { AuraCommands, screenReady, useAura, useBackground } from '@telefonica/la-web-sdk';
 import { HomeScreenData, Intent, GameCard, Entity, Categories, Operation } from '../../../../../dialogs/src/models';
 
-import GameCardComponent from '../../components/GameCardComponent';
-
 import HomeMenu from './components/HomeMenu';
 import HomeTopMenu from './components/HomeTopMenu';
 
 import styled from 'styled-components';
+import LazyCard from '../../components/Hocs/withLazyLoader/LazyCard';
 
 interface CarouselTitleProps {
     focusedIndexVertical: number;
@@ -85,7 +84,7 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                             </CarouselTitle>
                             <div className="home-screen__cards-wrapper">
                                 {games[key as string].map((game: GameCard, indexCard: number) => (
-                                    <GameCardComponent
+                                    <LazyCard
                                         onClick={() => goToGame(game.id)}
                                         onFocus={() => {
                                             focusedIndexFunctions[indexCategory](() => indexCard);
