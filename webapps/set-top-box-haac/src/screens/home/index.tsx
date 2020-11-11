@@ -1,7 +1,7 @@
 import './home.scss';
 
-import React, { useState, useEffect } from 'react';
-import { AuraCommands, screenReady, useAura, useBackground } from '@telefonica/la-web-sdk';
+import React, { useState } from 'react';
+import { AuraCommands, screenReady, useAura } from '@telefonica/la-web-sdk';
 import { HomeScreenData, Intent, GameCard, Entity, Categories, Operation } from '../../../../../dialogs/src/models';
 
 import HomeMenu from './components/HomeMenu';
@@ -16,13 +16,13 @@ interface CarouselTitleProps {
 
 const CarouselTitle = styled.div<CarouselTitleProps>`
     font-size: 26px;
+    font-weight: bold;
     height: 50px;
     transform: ${(props) => `translateY(-${props.focusedIndexVertical * 400}px)`};
 `;
 const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
-    const { platformTitle, platforms, games, backgrounds } = screenData;
+    const { platformTitle, platforms, games } = screenData;
     const { sendCommand } = useAura();
-    const { setBackground, clearBackground } = useBackground();
 
     const [cardFocused, setCardFocused] = useState(false);
 
@@ -30,11 +30,9 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     const [focusedIndexSecond, setFocusedIndexSecond] = useState(0);
     const [focusedIndexThird, setFocusedIndexThird] = useState(0);
     const [focusedIndexFourth, setFocusedIndexFourth] = useState(0);
+    const [focusedIndexFifth, setFocusedIndexFifth] = useState(0);
+    const [focusedIndexSixth, setFocusedIndexSixth] = useState(0);
     const [focusedIndexVertical, setFocusedIndexVertical] = useState(0);
-
-    useEffect(() => {
-        setBackground(backgrounds[focusedIndexVertical]);
-    }, [setBackground, clearBackground, focusedIndexVertical, backgrounds]);
 
     const goToGame = (gameId: string) => {
         sendCommand(AuraCommands.getAuraCommandSingle(Operation.GAME, { type: Entity.GAMEID, entity: gameId }));
@@ -57,6 +55,8 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
         1: setFocusedIndexSecond,
         2: setFocusedIndexThird,
         3: setFocusedIndexFourth,
+        4: setFocusedIndexFifth,
+        5: setFocusedIndexSixth,
     };
 
     const focusedIndexes: switchObject<number> = {
@@ -64,6 +64,8 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
         1: focusedIndexSecond,
         2: focusedIndexThird,
         3: focusedIndexFourth,
+        4: focusedIndexFifth,
+        5: focusedIndexSixth,
     };
 
     const isFocused = (indexCategory: number, indexCard: number) =>

@@ -55,6 +55,8 @@ export enum Categories {
     cat02 = 'rpg',
     cat03 = 'sports',
     cat04 = 'indie',
+    cat05 = 'something',
+    cat06 = 'something else',
 }
 export interface GameCards {
     [key: string]: GameCard[];
