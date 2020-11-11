@@ -1,23 +1,25 @@
+body {
+  font-family: roboto!important;
+}
 .home-screen {
   display: flex;
   height: 1080px;
   width: 1920px;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.6);
 
   // Left Side
   &__menu {
     display: flex;
     align-items: center;
-    font-size: 30px;
-    width: 460px;
+    width: 350px;
   }
 
   // Right side
   &__games {
     display: flex;
     flex-direction: column;
-    width:1460px;
+    width:1570px;
+    background-image: linear-gradient(315deg, #121212 0%, #28313b 74%);
   }
 
 
@@ -26,36 +28,20 @@
     display: flex;
     flex-direction: column;
     height: 980px;
-    width: 1460px;
+    width: 1570px;
+
+    margin: 30px;
     overflow: hidden;
   }
 
   &__carousel {
-    height: 400px;
+    min-height: 400px;
   }
 
   &__cards-wrapper {
     display: flex;
     align-items: center;
     height: 350px;
-  }
-
-  //MENU: ENVIAR A SU SITIO//
-  &__menu-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 34px;
-    text-transform: uppercase;
-    width: 340px;
-    background-color: white;
-    color: black;
-    border-radius: 5px;
-    margin: 30px 0px;
-  }
-
-  &__menu-focused {
-    transform: scale(1.2);
   }
 
 }

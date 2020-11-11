@@ -64,7 +64,9 @@ const GameCardComponent: React.FC<GameCardProps> = ({
                 Ypx={400}
                 Xpx={456}
             >
-                <LazyImage className="game-card__image" src={game.image} alt={game.title} />
+                <div className="game-card__image-wrapper">
+                    <LazyImage className="game-card__image" src={game.image} alt={game.title} />
+                </div>
                 <div
                     className="game-card__info"
                     style={{

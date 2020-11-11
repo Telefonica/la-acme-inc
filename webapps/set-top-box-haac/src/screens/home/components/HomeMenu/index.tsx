@@ -11,18 +11,20 @@ export interface HomeMenuProps {
 
 const HomeMenu: React.FC<HomeMenuProps> = ({ platforms, goToHome }: HomeMenuProps) => {
     return (
-        <ul>
-            {platforms.map((platform) => (
-                <NavigableWrapper
-                    onClick={() => goToHome(platform.id)}
-                    id={platform.id}
-                    key={platform.id}
-                    focusedClass="home-screen__menu-focused"
-                >
-                    <li className="home-screen__menu-item">{platform.name}</li>
-                </NavigableWrapper>
-            ))}
-        </ul>
+        <div className="home-menu">
+            <ul className="home-menu__list">
+                {platforms.map((platform) => (
+                    <NavigableWrapper
+                        onClick={() => goToHome(platform.id)}
+                        id={platform.id}
+                        key={platform.id}
+                        focusedClass="home-menu__menu-focused"
+                    >
+                        <li className="home-menu__menu-item">{platform.name}</li>
+                    </NavigableWrapper>
+                ))}
+            </ul>
+        </div>
     );
 };
 
