@@ -16,7 +16,7 @@ const HomeTopMenu: React.FC<HomeTopMenuProps> = ({ platformTitle, goToCart }: Ho
             <div className="home-top-menu__platform">{platformTitle}</div>
             <NavigableWrapper onClick={() => goToCart()} id="cart" focusedClass="home-top-menu__cart-focused">
                 <div className="home-top-menu__cart">
-                    <Cart fill="white" />
+                    <Cart fill="black" />
                 </div>
             </NavigableWrapper>
         </div>

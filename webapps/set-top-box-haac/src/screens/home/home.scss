@@ -6,7 +6,6 @@ body {
   height: 1080px;
   width: 1920px;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.6);
 
   // Left Side
   &__menu {
@@ -20,6 +19,7 @@ body {
     display: flex;
     flex-direction: column;
     width:1570px;
+    background-image: linear-gradient(315deg, #121212 0%, #28313b 74%);
   }
 
 

@@ -31,6 +31,7 @@ const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
 
     useEffect(() => {
         setBackground(image);
+        return clearBackground;
     }, [setBackground, clearBackground, image]);
 
     return (
