@@ -1,9 +1,12 @@
 .home-top-menu {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    //background-color: #121212;
 
+    padding-left: 30px;
     font-size: 50px;
-    height: 100px;
+    height: 120px;
 
     &__cart {
         display: flex;
@@ -13,10 +16,9 @@
         width: 40px;
         height: 40px;
         padding: 10px;
-        margin: 14px;
+        margin-right: 50px;
         border-radius: 5px;
         background-color: white;
-        fill: black;
     }
 
     &__cart-focused {
