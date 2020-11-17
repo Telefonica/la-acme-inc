@@ -6,7 +6,7 @@ const LazyTest = React.lazy(() => import('../../../GameCardComponent'));
 
 const LazyCard: React.FC<GameCardProps> = ({ ...props }: GameCardProps) => (
     <React.Suspense fallback="">
-        <LazyTest {...props} />;
+        <LazyTest {...props} />
     </React.Suspense>
 );
 

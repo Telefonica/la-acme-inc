@@ -4,6 +4,10 @@ import React, { useEffect } from 'react';
 import { screenReady, NavigableButton, useBackground, useAura, AuraCommands } from '@telefonica/la-web-sdk';
 import Metacritic from '../../components/Metacritic';
 import { Entity, GameScreenData, Categories, Operation } from '../../../../../dialogs/src/models';
+import withProvider from '../home/withProvider';
+
+import { useDispatch } from 'react-redux';
+import { FUNCTION_DONE } from '../../redux/types';
 
 const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
     const { sendCommand } = useAura();
@@ -11,6 +15,8 @@ const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
 
     const { game, platformId } = screenData;
     const { id, image, title, metacritic, company, price, category, description } = game;
+
+    const dispatch = useDispatch();
 
     const goBack = (platformId: string) => {
         sendCommand(AuraCommands.getAuraCommandSingle(Operation.BACK, { type: Entity.PLTID, entity: platformId }));
@@ -28,6 +34,10 @@ const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
             ]),
         );
     };
+
+    useEffect(() => {
+        dispatch({ type: FUNCTION_DONE });
+    }, [dispatch]);
 
     useEffect(() => {
         setBackground(image);
@@ -82,4 +92,4 @@ const GameScreen: React.FC<GameScreenData> = (screenData: GameScreenData) => {
     );
 };
 
-export default screenReady(GameScreen);
+export default screenReady(withProvider(GameScreen));

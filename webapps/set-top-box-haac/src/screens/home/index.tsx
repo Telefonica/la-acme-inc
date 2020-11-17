@@ -4,11 +4,16 @@ import React, { useState } from 'react';
 import { AuraCommands, screenReady, useAura } from '@telefonica/la-web-sdk';
 import { HomeScreenData, Intent, GameCard, Entity, Categories, Operation } from '../../../../../dialogs/src/models';
 
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
+import { navigationSaga } from '../../redux/actions/navigationActions';
+
 import HomeMenu from './components/HomeMenu';
 import HomeTopMenu from './components/HomeTopMenu';
 
 import styled from 'styled-components';
 import LazyCard from '../../components/Hocs/withLazyLoader/LazyCard';
+import withProvider from './withProvider';
+//import GameCardComponent from '../../components/GameCardComponent';
 
 interface CarouselTitleProps {
     focusedIndexVertical: number;
@@ -23,6 +28,8 @@ const CarouselTitle = styled.div<CarouselTitleProps>`
 const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     const { platformTitle, platforms, games } = screenData;
     const { sendCommand } = useAura();
+    const dispatch = useDispatch();
+    const { isActive } = useSelector((state: RootStateOrAny) => state.navigation);
 
     const [cardFocused, setCardFocused] = useState(false);
 
@@ -86,22 +93,25 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                             </CarouselTitle>
                             <div className="home-screen__cards-wrapper">
                                 {games[key as string].map((game: GameCard, indexCard: number) => (
-                                    <LazyCard
-                                        onClick={() => goToGame(game.id)}
-                                        onFocus={() => {
-                                            focusedIndexFunctions[indexCategory](() => indexCard);
-                                            setFocusedIndexVertical(() => indexCategory);
-                                            setCardFocused((isFocused) => !isFocused);
-                                        }}
-                                        onBlur={() => setCardFocused((isFocused) => !isFocused)}
-                                        game={game}
-                                        key={`game-card-0-${indexCard}`}
-                                        focused={indexCard === 0 && indexCategory === 0}
-                                        isFocused={isFocused(indexCategory, indexCard)}
-                                        navigableId={`${indexCard}-${indexCategory}`}
-                                        indexX={focusedIndexes[indexCategory]}
-                                        indexY={focusedIndexVertical}
-                                    />
+                                    <div key={`game-card-0-${indexCard}`}>
+                                        <LazyCard
+                                            onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
+                                            onFocus={() => {
+                                                focusedIndexFunctions[indexCategory](() => indexCard);
+                                                setFocusedIndexVertical(() => indexCategory);
+                                                setCardFocused((isFocused) => !isFocused);
+                                            }}
+                                            onBlur={() => setCardFocused((isFocused) => !isFocused)}
+                                            game={game}
+                                            key={`game-card-0-${indexCard}`}
+                                            focused={indexCard === 0 && indexCategory === 0}
+                                            isFocused={isFocused(indexCategory, indexCard)}
+                                            navigableId={`${indexCard}-${indexCategory}`}
+                                            indexX={focusedIndexes[indexCategory]}
+                                            indexY={focusedIndexVertical}
+                                            isActive={isActive}
+                                        />
+                                    </div>
                                 ))}
                             </div>
                         </div>
@@ -112,4 +122,4 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     );
 };
 
-export default screenReady(HomeScreen);
+export default screenReady(withProvider(HomeScreen));

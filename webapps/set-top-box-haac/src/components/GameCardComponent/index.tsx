@@ -13,6 +13,7 @@ interface GameCardContainerProps {
     indexX: number;
     Xpx: number;
     Ypx: number;
+    isActive: boolean;
 }
 
 const GameCardContainer = styled.div<GameCardContainerProps>`
@@ -24,6 +25,7 @@ const GameCardContainer = styled.div<GameCardContainerProps>`
     will-change: transform;
     margin-left: 30px;
     will-change: transform;
+    opacity: ${(props) => (props.isActive ? '1' : '.5')};
     transform: ${(props) =>
         props.isFocused
             ? `translate(-${props.indexX * props.Xpx}px, -${props.indexY * props.Ypx}px) scale(1.1)`
@@ -40,6 +42,7 @@ export interface GameCardProps {
     navigableId: string;
     indexY: number;
     indexX: number;
+    isActive: boolean;
 }
 
 const GameCardComponent: React.FC<GameCardProps> = ({
@@ -52,6 +55,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     navigableId,
     indexY,
     indexX,
+    isActive,
 }: GameCardProps) => {
     return (
         <NavigableWrapper onClick={onClick} onFocus={onFocus} onBlur={onBlur} defaultFocused={focused} id={navigableId}>
@@ -63,6 +67,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
                 indexY={indexY}
                 Ypx={400}
                 Xpx={456}
+                isActive={isActive}
             >
                 <div className="game-card__image-wrapper">
                     <LazyImage className="game-card__image" src={game.image} alt={game.title} />
