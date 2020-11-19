@@ -31,6 +31,42 @@ init({
 
             return MhSuggestionsWrapper;
         },
+        [Screen.CART]: (data) => {
+            const platformSuggestions = data.platforms.map((platform: any) => ({
+                title: platform.name,
+                intent: Intent.HOME,
+                entities: [{ type: Entity.PLTID, entity: platform.id }],
+            }));
+
+            data.suggestions = [
+                ...platformSuggestions,
+                {
+                    title: 'VER CESTA',
+                    intent: Operation.CART,
+                    entities: [],
+                },
+            ];
+
+            return MhSuggestionsWrapper;
+        },
+        [Screen.GAME]: (data) => {
+            const platformSuggestions = data.platforms.map((platform: any) => ({
+                title: platform.name,
+                intent: Intent.HOME,
+                entities: [{ type: Entity.PLTID, entity: platform.id }],
+            }));
+
+            data.suggestions = [
+                ...platformSuggestions,
+                {
+                    title: 'VER CESTA',
+                    intent: Operation.CART,
+                    entities: [],
+                },
+            ];
+
+            return MhSuggestionsWrapper;
+        },
     },
     buildNumber: process.env.BUILD_NUMBER,
     auraMockClient:

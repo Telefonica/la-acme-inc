@@ -24,8 +24,8 @@ const GameCardContainer = styled.div<GameCardContainerProps>`
     min-width: 426px;
     will-change: transform;
     margin-left: 30px;
-    will-change: transform;
     opacity: ${(props) => (props.isActive ? '1' : '.5')};
+    transition: transform 0.3s ease-in-out;
     transform: ${(props) =>
         props.isFocused
             ? `translate(-${props.indexX * props.Xpx}px, -${props.indexY * props.Ypx}px) scale(1.1)`
@@ -60,7 +60,7 @@ const GameCardComponent: React.FC<GameCardProps> = ({
     return (
         <NavigableWrapper onClick={onClick} onFocus={onFocus} onBlur={onBlur} defaultFocused={focused} id={navigableId}>
             <GameCardContainer
-                className="game-card"
+                //className="game-card"
                 key={game.id}
                 isFocused={isFocused}
                 indexX={indexX}

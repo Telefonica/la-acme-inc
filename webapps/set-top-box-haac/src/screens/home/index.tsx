@@ -13,7 +13,6 @@ import HomeTopMenu from './components/HomeTopMenu';
 import styled from 'styled-components';
 import LazyCard from '../../components/Hocs/withLazyLoader/LazyCard';
 import withProvider from './withProvider';
-//import GameCardComponent from '../../components/GameCardComponent';
 
 interface CarouselTitleProps {
     focusedIndexVertical: number;
@@ -23,6 +22,8 @@ const CarouselTitle = styled.div<CarouselTitleProps>`
     font-size: 26px;
     font-weight: bold;
     height: 50px;
+    will-change: transform;
+    transition: transform 0.3s ease-in-out;
     transform: ${(props) => `translateY(-${props.focusedIndexVertical * 400}px)`};
 `;
 const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
