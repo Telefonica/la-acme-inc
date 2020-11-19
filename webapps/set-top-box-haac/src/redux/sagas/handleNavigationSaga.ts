@@ -16,9 +16,7 @@ function* takeFirst(pattern: string, saga: any, ...args: any[]) {
 function* handleNavigation(action: NavigationActionSaga) {
     yield put(toggleNavigation());
     yield call(action.payload);
-    console.log('WAITING FOR DONE:');
     yield take(FUNCTION_DONE);
-    console.log('IS DONE!');
     yield put(toggleNavigation());
 }
 
