@@ -4,7 +4,7 @@ import 'intersection-observer';
 import './index.css';
 import script from '../../common/mocks';
 import { Screen } from '../../../dialogs/src/models';
-import { init, Channel, SDKScreen } from '@telefonica/la-web-sdk';
+import { init, Channel, SDKScreen } from '@telefonica/custom-la-web-sdk';
 import SplashScreen from './screens/splash';
 import HomeScreen from './screens/home';
 import ErrorScreen from './screens/error';

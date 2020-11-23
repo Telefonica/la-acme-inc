@@ -1,7 +1,7 @@
 import './home.scss';
 
 import React, { useState } from 'react';
-import { AuraCommands, screenReady, useAura } from '@telefonica/la-web-sdk';
+import { AuraCommands, screenReady, useAura } from '@telefonica/custom-la-web-sdk';
 import { HomeScreenData, Intent, GameCard, Entity, Categories, Operation } from '../../../../../dialogs/src/models';
 
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
