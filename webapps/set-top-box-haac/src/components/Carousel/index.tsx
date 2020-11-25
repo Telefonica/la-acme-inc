@@ -73,6 +73,7 @@ type CarouselProps = {
     titleHeight?: number;
     transition?: string;
     children: JSX.Element | JSX.Element[];
+    isActive?: boolean;
 };
 
 const Carousel: React.FC<CarouselProps> = ({
@@ -85,6 +86,7 @@ const Carousel: React.FC<CarouselProps> = ({
     titleHeight = 50,
     transition = 'transform 0.3s ease-in-out',
     children,
+    isActive = true,
 }: CarouselProps) => {
     const [cardFocused, setCardFocused] = useState(false);
     const [focusedHorizontalIndex, setFocusedHorizonalIndex] = useState(0);
@@ -120,7 +122,7 @@ const Carousel: React.FC<CarouselProps> = ({
                         isFocused={isFocused(verticalIndex, horizontalIndex)}
                         focusedVerticalIndex={focusedVerticalIndex}
                         focusedHorizontalIndex={focusedHorizontalIndex}
-                        isActive={true}
+                        isActive={isActive}
                         width={getItemWidth(horizontalIndex)}
                         height={carouselRef.current?.offsetHeight}
                         gapPx={gapPx}

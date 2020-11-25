@@ -13,6 +13,7 @@ export enum DialogId {
     HOME = 'la-acme-inc-home',
     GAME = 'la-acme-inc-game',
     CART = 'la-acme-inc-cart',
+    NAVIGATION = 'la-acme-inc-navigation',
 }
 
 export enum Screen {
@@ -33,6 +34,7 @@ export enum Operation {
     CART = 'intent.operation.acme-inc.cart',
     ADD_CART = 'intent.operation.acme-inc.add_cart',
     REMOVE_CART = 'intent.operation.acme-inc.remove_cart',
+    NAVIGATION = 'intent.operation.acme-inc.navigation',
 }
 
 export enum Entity {

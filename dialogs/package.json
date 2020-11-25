@@ -14,7 +14,7 @@
     },
     "dependencies": {
         "@hapi/joi": "^16.1.5",
-        "@telefonica/la-bot-sdk": "beta",
+        "@telefonica/la-bot-sdk": "1.2.1",
         "botbuilder": "~4.6.2",
         "botbuilder-dialogs": "~4.6.2",
         "request-promise-native": "^1.0.8"

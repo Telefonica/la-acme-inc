@@ -1,6 +1,8 @@
 import './home.scss';
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { toggleNavigation, navigationSaga } from '../../redux/actions/navigationActions';
 import { AuraCommands, screenReady, useAura, useActions } from '@telefonica/la-web-sdk';
 import { HomeScreenData, Intent, GameCard, Entity, Categories, Operation } from '../../../../../dialogs/src/models';
 
@@ -24,7 +26,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     const addToRefsv2 = useCallback(
         (el: HTMLDivElement) => {
             setRefTest((ref) => {
-                console.log(ref);
                 return {
                     current: [...ref.current, el],
                 };
@@ -33,8 +34,28 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
         [setRefTest],
     );
 
-    const goToGame = (gameId: string) => {
-        sendCommand(AuraCommands.getAuraCommandSingle(Operation.GAME, { type: Entity.GAMEID, entity: gameId }));
+    const dispatch = useDispatch();
+    const { isActive } = useSelector((state: RootStateOrAny) => state.navigation);
+
+    const actionHandler = useCallback(
+        (actions: any) => {
+            if (actions && actions.length > 0) {
+                interface DoAction {
+                    [key: string]: Function;
+                }
+                const doAction: DoAction = {
+                    toggleNavigation: () => dispatch(toggleNavigation()),
+                };
+
+                doAction[actions[0].name] && doAction[actions[0].name]();
+            }
+        },
+        [dispatch],
+    );
+    useActions(actionHandler);
+
+    const goToGame = async (gameId: string) => {
+        await sendCommand(AuraCommands.getAuraCommandSingle(Operation.GAME, { type: Entity.GAMEID, entity: gameId }));
     };
 
     const goToHome = (platformId: string) => {
@@ -61,12 +82,13 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                             focusedVerticalIndex={focusedIndexVertical}
                             setFocusedVerticalIndex={setFocusedVerticalIndex}
                             itemsRef={refTest}
+                            isActive={isActive}
                         >
                             {games[key as string].map((game: GameCard, indexCard: number) => (
                                 <GameCardComponent
                                     game={game}
                                     key={`game-card-0-${indexCard}`}
-                                    onClick={() => goToGame(game.id)}
+                                    onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
                                     addToRefs={addToRefsv2}
                                 />
                             ))}
