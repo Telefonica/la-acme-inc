@@ -8,7 +8,7 @@
     "build:mock": "REACT_APP_AURA_MOCK_CLIENT=true react-app-rewired build"
   },
   "dependencies": {
-    "@telefonica/custom-la-web-sdk": "file:../custom-la-web-sdk",
+    "@telefonica/la-web-sdk": "file:../../../living-apps-core/la-web-sdk",
     "@types/classnames": "^2.2.10",
     "@types/react-redux": "^7.1.11",
     "@types/styled-components": "^5.1.4",
