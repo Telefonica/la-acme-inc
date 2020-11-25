@@ -13,6 +13,7 @@ export = function setup(options: any, imports: any, register: (err: Error, resul
         './dialogs/dialog-home',
         './dialogs/dialog-game',
         './dialogs/dialog-cart',
+        './dialogs/dialog-navigation',
     ];
 
     sdk.loader.excludeDialogs(dialogs, options);

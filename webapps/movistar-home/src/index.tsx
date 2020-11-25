@@ -27,6 +27,11 @@ init({
                     intent: Operation.CART,
                     entities: [],
                 },
+                {
+                    title: 'DESACTIVAR NAVEGACION',
+                    intent: Operation.NAVIGATION,
+                    entities: [],
+                },
             ];
 
             return MhSuggestionsWrapper;
