@@ -18,7 +18,7 @@ init({
         [SDKScreen.LOADING]: () => () => null,
         [Screen.SPLASH]: () => SplashScreen,
         [Screen.ERROR]: () => ErrorScreen,
-        [Screen.HOME]: () => CartScreen,
+        [Screen.HOME]: () => HomeScreen,
         [Screen.GAME]: () => GameScreen,
         [Screen.CART]: () => CartScreen,
     },

@@ -41,7 +41,7 @@ interface mocks {
 }
 
 const mockedValues: mocks = {
-    cart: {
+    home: {
         platformTitle: 'PC',
         backgrounds: [
             'https://media.rawg.io/media/games/511/5118aff5091cb3efec399c808f8c598f.jpg',
@@ -381,7 +381,7 @@ const mockedValues: mocks = {
                 'DiRT Rally for Mac is standing by for Metal<br />\nDiRT Rally is the most authentic and thrilling rally game ever made, road-tested over 80 million miles by the DiRT community. It perfectly captures that white knuckle feeling of racing on the edge as you hurtle along dangerous roads at breakneck speed, knowing that one crash could irreparably harm your stage time.<br />\nDiRT Rally also includes officially licensed World Rallycross content, allowing you to experience the breathless, high-speed thrills of some of the world’s fastest off-road cars as you trade paint with other drivers at some of the series’ best-loved circuits, in both singleplayer and high-intensity multiplayer races.',
         },
     },
-    home: {
+    cart: {
         games: [
             {
                 title: 'League of legends',

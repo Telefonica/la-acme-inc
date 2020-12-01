@@ -1,11 +1,13 @@
 import './cart.scss';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigableWrapper, NavigableButton, screenReady, useAura } from '@telefonica/la-web-sdk';
 import { CartScreenData, Entity, Operation } from '../../../../../dialogs/src/models';
+import QuantitySelector from '../../components/QuantitySelector';
 
 const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
     const { games, totalPrice } = cart;
+    const [quantity, setQuantity] = useState(games.map((game) => game.quantity));
     const { sendCommand } = useAura();
     const shipping = 0;
 
@@ -29,54 +31,71 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {games.map((game, index) => {
-                        return (
-                            <tr key={`cart-item-${index}`}>
-                                <td className="td-delete">
-                                    <NavigableWrapper
-                                        id={`cart-item-${index}`}
-                                        defaultFocused={index === 0}
-                                        onClick={() => deleteItem(game.id)}
-                                        focusedClass="cart-screen__item-focused"
-                                    >
+                    {games &&
+                        games.map((game, index) => {
+                            return (
+                                <tr key={`cart-item-${index}`}>
+                                    <td className="td-delete">
+                                        <NavigableWrapper
+                                            id={`cart-item-${index}`}
+                                            defaultFocused={index === 0}
+                                            onClick={() => deleteItem(game.id)}
+                                            focusedClass="cart-screen__item-focused"
+                                        >
+                                            <div>
+                                                <div className="cart-screen__icon-delete">X</div>
+                                            </div>
+                                        </NavigableWrapper>
+                                    </td>
+                                    <td className="td-title">
+                                        <div>{game.title}</div>
+                                    </td>
+                                    <td>
+                                        <div>{game.price}</div>
+                                    </td>
+                                    <td>
                                         <div>
-                                            <div className="cart-screen__icon-delete">X</div>
+                                            <QuantitySelector
+                                                value={quantity[index]}
+                                                onDecrement={async () => {
+                                                    await sendCommand({
+                                                        intent: Operation.QUANTITY_REMOVE,
+                                                        entities: [{ type: Entity.GAMEID, entity: game.id }],
+                                                    });
+                                                    setQuantity((q) => {
+                                                        if (q[index] - 1 === 0) {
+                                                            deleteItem(game.id);
+                                                            q.splice(index, 1);
+                                                            return [...q];
+                                                        } else {
+                                                            q[index] = q[index] - 1;
+                                                            return [...q];
+                                                        }
+                                                    });
+                                                }}
+                                                onIncrement={async () => {
+                                                    await sendCommand({
+                                                        intent: Operation.QUANTITY_ADD,
+                                                        entities: [{ type: Entity.GAMEID, entity: game.id }],
+                                                    });
+                                                    setQuantity((q) => {
+                                                        q[index] = q[index] + 1;
+                                                        return [...q];
+                                                    });
+                                                }}
+                                            />
                                         </div>
-                                    </NavigableWrapper>
-                                </td>
-                                <td className="td-title">
-                                    <div>{game.title}</div>
-                                </td>
-                                <td>
-                                    <div>{game.price}</div>
-                                </td>
-                                <td>
-                                    <div>{game.quantity}</div>
-                                </td>
-                                <td>
-                                    <div>{game.quantity * game.price}€</div>
-                                </td>
-                            </tr>
-                        );
-                    })}
+                                    </td>
+                                    <td>
+                                        <div>{game.quantity * game.price}€</div>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                 </tbody>
                 <tfoot>
                     <tr className="cart-screen__table-footer">
                         <td className="cart-screen__table-footer-left">
-                            <div className="cart-screen__table-footer-left__item">
-                                <div>CART SUBTOTAL: </div>
-                                <div>{totalPrice}€</div>
-                            </div>
-                            <div className="cart-screen__table-footer-left__item">
-                                <div>SHIPPING: </div>
-                                <div>{shipping === 0 ? 'FREE' : `${shipping}€`}</div>
-                            </div>
-                            <div className="cart-screen__table-footer-left__item">
-                                <div>ORDER TOTAL: </div>
-                                <div>{totalPrice + shipping}€</div>
-                            </div>
-                        </td>
-                        <td className="cart-screen__table-footer-right">
                             <NavigableButton
                                 id="back"
                                 onClick={goBack}
@@ -85,6 +104,20 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                             >
                                 BACK
                             </NavigableButton>
+                        </td>
+                        <td className="cart-screen__table-footer-right">
+                            <div className="cart-screen__table-footer-right__item">
+                                <div>CART SUBTOTAL: </div>
+                                <div>{totalPrice}€</div>
+                            </div>
+                            <div className="cart-screen__table-footer-right__item">
+                                <div>SHIPPING: </div>
+                                <div>{shipping === 0 ? 'FREE' : `${shipping}€`}</div>
+                            </div>
+                            <div className="cart-screen__table-footer-right__item">
+                                <div>ORDER TOTAL: </div>
+                                <div>{totalPrice + shipping}€</div>
+                            </div>
                         </td>
                     </tr>
                 </tfoot>
