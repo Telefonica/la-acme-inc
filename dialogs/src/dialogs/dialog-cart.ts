@@ -103,7 +103,7 @@ export default class CartDialog extends Dialog {
                 action: [RouteAction.NONE],
                 logic: async () => {
                     const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
-                    await helper.removeGameFromCart(gameId, stepContext);
+                    await helper.removeItemQuantity(gameId, stepContext);
                 },
             },
         ];
