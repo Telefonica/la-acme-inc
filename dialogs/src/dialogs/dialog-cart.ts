@@ -41,7 +41,7 @@ export default class CartDialog extends Dialog {
         const cart = await helper.getCart(stepContext);
         const screenData: CartScreenData = {
             games: cart,
-            totalPrice: cart.reduce((totalPrice, game) => totalPrice + game.price, 0),
+            totalPrice: cart.reduce((totalPrice, game) => totalPrice + game.price * game.quantity, 0),
         };
 
         // answer for the webapp
@@ -53,6 +53,8 @@ export default class CartDialog extends Dialog {
         const choices: string[] = [
             Operation.BACK, // go back
             Operation.REMOVE_CART,
+            Operation.QUANTITY_ADD,
+            Operation.QUANTITY_REMOVE,
         ];
 
         return await sdk.messaging.prompt(stepContext, CartDialog.dialogPrompt, choices);
@@ -85,6 +87,23 @@ export default class CartDialog extends Dialog {
                     if (!cart.length) {
                         action[1] = DialogId.HOME;
                     }
+                },
+            },
+            {
+                operation: Operation.QUANTITY_ADD,
+                action: [RouteAction.NONE],
+                logic: async () => {
+                    const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
+                    console.log('addGameQuantity');
+                    await helper.addGameQuantity(gameId, stepContext);
+                },
+            },
+            {
+                operation: Operation.QUANTITY_REMOVE,
+                action: [RouteAction.NONE],
+                logic: async () => {
+                    const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
+                    await helper.removeGameFromCart(gameId, stepContext);
                 },
             },
         ];

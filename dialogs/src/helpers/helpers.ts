@@ -78,7 +78,20 @@ export class helper {
         return cart;
     }
 
+    static async addGameQuantity(gameId: string, stepContext: WaterfallStepContext): Promise<CartGame[]> {
+        console.log('add game quantity');
+        const cart = await this.getCart(stepContext);
+        const existingIndex = cart.findIndex((cartItem) => cartItem.id === gameId);
+        cart[existingIndex].quantity++;
+        await sdk.persistence.storeData(stepContext, {
+            cart,
+        });
+
+        return cart;
+    }
+
     static async removeGameFromCart(gameId: string, stepContext: WaterfallStepContext): Promise<CartGame[]> {
+        console.log('remove game');
         const cart = await this.getCart(stepContext);
         const existingIndex = cart.findIndex((cartItem) => cartItem.id === gameId);
         if (existingIndex !== -1) {
@@ -86,7 +99,7 @@ export class helper {
             if (existing.quantity === 1) {
                 cart.splice(existingIndex, 1);
             } else {
-                existing.quantity--;
+                cart[existingIndex].quantity--;
             }
         }
         await sdk.persistence.storeData(stepContext, {
