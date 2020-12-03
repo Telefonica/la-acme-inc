@@ -58,10 +58,6 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                                             <QuantitySelector
                                                 value={quantity[index]}
                                                 onDecrement={async () => {
-                                                    await sendCommand({
-                                                        intent: Operation.QUANTITY_REMOVE,
-                                                        entities: [{ type: Entity.GAMEID, entity: game.id }],
-                                                    });
                                                     setQuantity((q) => {
                                                         if (q[index] - 1 === 0) {
                                                             deleteItem(game.id);
@@ -72,15 +68,19 @@ const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
                                                             return [...q];
                                                         }
                                                     });
-                                                }}
-                                                onIncrement={async () => {
                                                     await sendCommand({
-                                                        intent: Operation.QUANTITY_ADD,
+                                                        intent: Operation.QUANTITY_REMOVE,
                                                         entities: [{ type: Entity.GAMEID, entity: game.id }],
                                                     });
+                                                }}
+                                                onIncrement={async () => {
                                                     setQuantity((q) => {
                                                         q[index] = q[index] + 1;
                                                         return [...q];
+                                                    });
+                                                    await sendCommand({
+                                                        intent: Operation.QUANTITY_ADD,
+                                                        entities: [{ type: Entity.GAMEID, entity: game.id }],
                                                     });
                                                 }}
                                             />

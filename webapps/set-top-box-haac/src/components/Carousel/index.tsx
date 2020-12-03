@@ -19,7 +19,6 @@ const CarouselTitle = styled.div<CarouselTitleProps>`
 `;
 
 type CarouselItemProps = {
-    isFocused: boolean;
     isActive: boolean;
     focusedVerticalIndex: number;
     focusedHorizontalIndex: number;
@@ -37,12 +36,12 @@ const CarouselItem = styled.div<CarouselItemProps>`
     margin-left: ${({ gapPx }) => `${gapPx}px`};
     opacity: ${({ isActive }) => (isActive ? '1' : '.5')};
     transition: ${({ transition }) => `${transition}`};
-    transform: ${({ isFocused, focusedVerticalIndex, focusedHorizontalIndex, height, width, gapPx }) => {
+    transform: ${({ focusedVerticalIndex, focusedHorizontalIndex, height, width, gapPx }) => {
         const horizontalTranslation = focusedHorizontalIndex * (width + gapPx);
         const verticalTranslation = focusedVerticalIndex * height;
         const translation = `translate(-${horizontalTranslation}px, -${verticalTranslation}px)`;
 
-        return isFocused ? `${translation} scale(1.1)` : translation;
+        return translation;
     }};
 `;
 
@@ -74,6 +73,7 @@ type CarouselProps = {
     transition?: string;
     children: JSX.Element | JSX.Element[];
     isActive?: boolean;
+    focusedClass: string;
 };
 
 const Carousel: React.FC<CarouselProps> = ({
@@ -87,25 +87,21 @@ const Carousel: React.FC<CarouselProps> = ({
     transition = 'transform 0.3s ease-in-out',
     children,
     isActive = true,
+    focusedClass,
 }: CarouselProps) => {
-    const [cardFocused, setCardFocused] = useState(false);
     const [focusedHorizontalIndex, setFocusedHorizonalIndex] = useState(0);
 
     const carouselRef = useRef() as React.MutableRefObject<HTMLDivElement>;
     const titleRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
-    const isFocused = useCallback(
-        (verticalIndex: number, horizontalIndex: number) =>
-            horizontalIndex === focusedHorizontalIndex && focusedVerticalIndex === verticalIndex && cardFocused,
-        [cardFocused, focusedHorizontalIndex, focusedVerticalIndex],
-    );
-
     const getItemWidth = useCallback((horizontalIndex: number) => itemsRef.current[horizontalIndex]?.offsetWidth, [
         itemsRef,
     ]);
+
     const getItemHeight = useCallback((horizontalIndex: number) => itemsRef.current[horizontalIndex]?.offsetHeight, [
         itemsRef,
     ]);
+
     const getCarouselWidth = useCallback(() => itemsRef.current?.reduce((acc, el) => el.offsetWidth + acc + gapPx, 0), [
         itemsRef,
         gapPx,
@@ -119,7 +115,6 @@ const Carousel: React.FC<CarouselProps> = ({
             <ItemsWrapper>
                 {React.Children.map(children, (child, horizontalIndex) => (
                     <CarouselItem
-                        isFocused={isFocused(verticalIndex, horizontalIndex)}
                         focusedVerticalIndex={focusedVerticalIndex}
                         focusedHorizontalIndex={focusedHorizontalIndex}
                         isActive={isActive}
@@ -133,11 +128,10 @@ const Carousel: React.FC<CarouselProps> = ({
                             onFocus={() => {
                                 setFocusedHorizonalIndex(() => horizontalIndex);
                                 setFocusedVerticalIndex(() => verticalIndex);
-                                setCardFocused((isFocused) => !isFocused);
                             }}
-                            onBlur={() => setCardFocused((isFocused) => !isFocused)}
                             defaultFocused={!horizontalIndex && !verticalIndex}
                             id={`${horizontalIndex}${verticalIndex}`}
+                            focusedClass={focusedClass}
                         >
                             <div>{child}</div>
                         </NavigableWrapper>

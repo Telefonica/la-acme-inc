@@ -9,10 +9,9 @@ import {
 } from '@telefonica/la-bot-sdk';
 import * as sdk from '@telefonica/la-bot-sdk';
 import { DialogTurnResult, WaterfallStep, WaterfallStepContext } from 'botbuilder-dialogs';
-import { DialogId, LIBRARY_NAME, Operation, Entity, CartScreenData, Screen } from '../models';
+import { DialogId, LIBRARY_NAME, Operation, Entity, CartScreenData, Screen, SessionData } from '../models';
 import { helper } from '../helpers/helpers';
 import { ApiClient } from '../clients/api-client';
-import { RouteActionType } from '@telefonica/la-bot-sdk/lib/models/dialog';
 
 export default class CartDialog extends Dialog {
     static readonly dialogPrompt = `${DialogId.CART}-prompt`;
@@ -38,20 +37,29 @@ export default class CartDialog extends Dialog {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private async _dialogStage(stepContext: WaterfallStepContext<any>): Promise<DialogTurnResult> {
-        const cart = await helper.getCart(stepContext);
-        const screenData: CartScreenData = {
-            games: cart,
-            totalPrice: cart.reduce((totalPrice, game) => totalPrice + game.price * game.quantity, 0),
-        };
+        const session = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
 
-        // answer for the webapp
-        const message = new ScreenMessage(Screen.CART, screenData);
+        if (!session.cart?.length) {
+            return await this.routeDialog(stepContext, [RouteAction.REPLACE, DialogId.HOME]);
+        }
 
-        await sdk.messaging.send(stepContext, message);
+        if (session.skipScreenMessage) {
+            delete session.skipScreenMessage;
+        } else {
+            const cart = await helper.getCart(stepContext);
+            const screenData: CartScreenData = {
+                games: cart,
+                totalPrice: cart.reduce((totalPrice, game) => totalPrice + game.price * game.quantity, 0),
+            };
 
+            // answer for the webapp
+            const message = new ScreenMessage(Screen.CART, screenData);
+
+            await sdk.messaging.send(stepContext, message);
+        }
         // possible operations
         const choices: string[] = [
-            Operation.BACK, // go back
+            Operation.BACK,
             Operation.REMOVE_CART,
             Operation.QUANTITY_ADD,
             Operation.QUANTITY_REMOVE,
@@ -61,8 +69,6 @@ export default class CartDialog extends Dialog {
     }
 
     private async _promptResponse(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
-        const action: RouteActionType = [RouteAction.REPLACE, DialogId.CART];
-
         const cases: PromptCase[] = [
             {
                 operation: Operation.BACK,
@@ -70,31 +76,31 @@ export default class CartDialog extends Dialog {
             },
             {
                 operation: Operation.REMOVE_CART,
-                action,
+                action: [RouteAction.NONE],
                 logic: async () => {
+                    const session = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
+                    session.skipScreenMessage = true;
+
                     const apiClient = new ApiClient(this.config, stepContext);
 
                     const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
                     const games = await apiClient.getGames();
                     const { title } = helper.getGameById(games, gameId);
-                    const cart = await helper.removeGameFromCart(gameId, stepContext);
+                    await helper.removeGameFromCart(gameId, stepContext);
 
                     const msg = new ActionMessage().withAction(
                         Action.toast(`${title} fue eliminado de la cesta.`, 'success'),
                     );
                     await sdk.messaging.send(stepContext, msg);
-
-                    if (!cart.length) {
-                        action[1] = DialogId.HOME;
-                    }
                 },
             },
             {
                 operation: Operation.QUANTITY_ADD,
                 action: [RouteAction.NONE],
                 logic: async () => {
+                    const session = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
+                    session.skipScreenMessage = true;
                     const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
-                    console.log('addGameQuantity');
                     await helper.addGameQuantity(gameId, stepContext);
                 },
             },
@@ -102,6 +108,8 @@ export default class CartDialog extends Dialog {
                 operation: Operation.QUANTITY_REMOVE,
                 action: [RouteAction.NONE],
                 logic: async () => {
+                    const session = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
+                    session.skipScreenMessage = true;
                     const gameId = sdk.lifecycle.getCallingEntity(stepContext, Entity.GAMEID);
                     await helper.removeItemQuantity(gameId, stepContext);
                 },

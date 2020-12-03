@@ -7,6 +7,7 @@ export interface SessionData {
     currentGameId: string;
     currentGame: Game;
     platformId: string;
+    skipScreenMessage?: boolean;
 }
 
 export enum DialogId {

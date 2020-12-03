@@ -2,6 +2,10 @@
     width: 440px;
     height: 320px;
 
+    &__focused {
+        transform: scale(1.1);
+    }
+
     &__image-wrapper {
         height: 240px;
         width: 440px;
