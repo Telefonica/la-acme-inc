@@ -14,7 +14,6 @@ export = function setup(options: any, imports: any, register: (err: Error, resul
         './dialogs/dialog-game',
         './dialogs/dialog-cart',
         './dialogs/dialog-navigation',
-        './dialogs/dialog-quantity',
     ];
 
     sdk.loader.excludeDialogs(dialogs, options);

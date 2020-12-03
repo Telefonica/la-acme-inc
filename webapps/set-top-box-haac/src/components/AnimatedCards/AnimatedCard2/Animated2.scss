@@ -1,0 +1,44 @@
+.view-second img { 	
+	transition: all 0.2s ease-in;
+}
+.view-second .mask { 
+    width: 700px;
+    height: 600px;
+    padding: 60px;
+	transform: translate(0px, 0px) rotate(90deg);
+	transition: all 0.5s ease-in-out;
+}
+.view-second h2 {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    margin: 20px 40px 0px 40px;
+	transition: all 0.2s ease-in-out;
+}
+.view-second p {
+	transform: translate(-200px, 200px);
+	transition: all 0.2s ease-in-out;
+}
+.view-second a.info { 
+    transform: translate(0px, 150px);
+	transition: all 0.2s 0.1s ease-in-out;
+}
+
+.view-second-focused {
+    transform: scale(1.1)
+}
+
+.view-second-focused .mask { 
+    transform: translate(0px, 0px) rotate(0deg);
+	background-color: rgba(115,146,184, 0.7); 
+}							  
+.view-second-focused h2 { 
+	transform: translate(0px,0px);
+	transition-delay: 0.3s; 
+}
+.view-second-focused p { 
+    transform: translate(0px,0px); 
+	transition-delay: 0.4s;
+}
+.view-second-focused a.info { 
+	transform: translate(0px,0px); 
+	transition-delay: 0.5s;
+}
