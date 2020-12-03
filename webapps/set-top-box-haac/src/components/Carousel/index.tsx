@@ -4,13 +4,14 @@ import styled from 'styled-components';
 
 type CarouselTitleProps = {
     focusedVerticalIndex: number;
+    titleHeight: number;
     carouselRef: React.MutableRefObject<HTMLDivElement>;
 };
 
 const CarouselTitle = styled.div<CarouselTitleProps>`
     font-size: 26px;
     font-weight: bold;
-    height: 50px;
+    height: ${({ titleHeight }) => `${titleHeight}px`};
     width: 1570px;
     will-change: transform;
     transition: transform 0.3s ease-in-out;
@@ -71,7 +72,7 @@ type CarouselProps = {
     gapPx?: number;
     titleHeight?: number;
     transition?: string;
-    children: JSX.Element | JSX.Element[];
+    children: React.ReactElement | React.ReactElement[];
     isActive?: boolean;
     focusedClass: string;
 };
@@ -90,26 +91,30 @@ const Carousel: React.FC<CarouselProps> = ({
     focusedClass,
 }: CarouselProps) => {
     const [focusedHorizontalIndex, setFocusedHorizonalIndex] = useState(0);
+    const [itemHeight, setItemHeight] = useState(0);
+    const [itemWidth, setItemWidth] = useState(0);
+    const [carouselWidth, setCarouselWidth] = useState(0);
 
     const carouselRef = useRef() as React.MutableRefObject<HTMLDivElement>;
     const titleRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
-    const getItemWidth = useCallback((horizontalIndex: number) => itemsRef.current[horizontalIndex]?.offsetWidth, [
-        itemsRef,
-    ]);
-
-    const getItemHeight = useCallback((horizontalIndex: number) => itemsRef.current[horizontalIndex]?.offsetHeight, [
-        itemsRef,
-    ]);
-
-    const getCarouselWidth = useCallback(() => itemsRef.current?.reduce((acc, el) => el.offsetWidth + acc + gapPx, 0), [
-        itemsRef,
-        gapPx,
-    ]);
+    useEffect(() => {
+        console.log('RE-RENDER :(');
+        requestAnimationFrame(() => {
+            setItemWidth(itemsRef.current[0]?.offsetWidth);
+            setItemHeight(itemsRef.current[0]?.offsetHeight);
+            setCarouselWidth(itemsRef.current?.reduce((acc, el) => el.offsetWidth + acc + gapPx, 0));
+        });
+    }, [gapPx, itemsRef]);
 
     return (
-        <CarouselWrapper width={getCarouselWidth()} height={450} ref={carouselRef}>
-            <CarouselTitle focusedVerticalIndex={focusedVerticalIndex} carouselRef={carouselRef} ref={titleRef}>
+        <CarouselWrapper width={carouselWidth} height={450} ref={carouselRef}>
+            <CarouselTitle
+                focusedVerticalIndex={focusedVerticalIndex}
+                titleHeight={titleHeight}
+                carouselRef={carouselRef}
+                ref={titleRef}
+            >
                 {title}
             </CarouselTitle>
             <ItemsWrapper>
@@ -118,7 +123,7 @@ const Carousel: React.FC<CarouselProps> = ({
                         focusedVerticalIndex={focusedVerticalIndex}
                         focusedHorizontalIndex={focusedHorizontalIndex}
                         isActive={isActive}
-                        width={getItemWidth(horizontalIndex)}
+                        width={itemWidth}
                         height={carouselRef.current?.offsetHeight}
                         gapPx={gapPx}
                         transition={transition}
