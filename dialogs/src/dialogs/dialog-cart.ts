@@ -38,8 +38,10 @@ export default class CartDialog extends Dialog {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private async _dialogStage(stepContext: WaterfallStepContext<any>): Promise<DialogTurnResult> {
         const session = await sdk.lifecycle.getSessionData<SessionData>(stepContext);
+        const cart = await helper.getCart(stepContext);
 
-        if (!session.cart?.length) {
+        if (!cart.length) {
+            delete session.skipScreenMessage;
             return await this.routeDialog(stepContext, [RouteAction.REPLACE, DialogId.HOME]);
         }
 
@@ -49,7 +51,6 @@ export default class CartDialog extends Dialog {
             const cart = await helper.getCart(stepContext);
             const screenData: CartScreenData = {
                 games: cart,
-                totalPrice: cart.reduce((totalPrice, game) => totalPrice + game.price * game.quantity, 0),
             };
 
             // answer for the webapp

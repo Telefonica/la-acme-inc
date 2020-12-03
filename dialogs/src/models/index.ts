@@ -89,7 +89,6 @@ export interface CartGame {
 
 export interface CartScreenData {
     games: CartGame[];
-    totalPrice: number;
 }
 
 export interface Category {

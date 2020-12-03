@@ -1,7 +1,7 @@
 import './home.scss';
 import '../../components/AnimatedCards/AnimatedDefault.scss';
 
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { toggleNavigation, navigationSaga } from '../../redux/actions/navigationActions';
 import { AuraCommands, screenReady, useAura, useActions } from '@telefonica/la-web-sdk';
@@ -17,6 +17,7 @@ import AnimatedCard1 from '../../components/AnimatedCards/AnimatedCard1';
 import AnimatedCard2 from '../../components/AnimatedCards/AnimatedCard2';
 import AnimatedCard3 from '../../components/AnimatedCards/AnimatedCard3';
 import AnimatedCard4 from '../../components/AnimatedCards/AnimatedCard4';
+import { FUNCTION_DONE } from '../../redux/types';
 
 const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     const { platformTitle, platforms, games } = screenData;
@@ -24,9 +25,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
 
     const [focusedIndexVertical, setFocusedVerticalIndex] = useState(0);
     const [refTest, setRefTest] = useState<React.MutableRefObject<HTMLDivElement[]>>({ current: [] });
-
-    const itemsRef = useRef([]) as React.MutableRefObject<HTMLDivElement[]>;
-    //const addToRefs = (el: HTMLDivElement) => el && !itemsRef.current.includes(el) && itemsRef.current.push(el);
 
     const addToRefsv2 = useCallback(
         (el: HTMLDivElement) => {
@@ -58,6 +56,10 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
         [dispatch],
     );
     useActions(actionHandler);
+
+    useEffect(() => {
+        dispatch({ type: FUNCTION_DONE });
+    }, [dispatch]);
 
     const goToGame = async (gameId: string) => {
         await sendCommand(AuraCommands.getAuraCommandSingle(Operation.GAME, { type: Entity.GAMEID, entity: gameId }));
