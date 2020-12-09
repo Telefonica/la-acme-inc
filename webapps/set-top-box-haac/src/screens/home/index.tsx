@@ -1,7 +1,7 @@
 import './home.scss';
 import '../../components/AnimatedCards/AnimatedDefault.scss';
 
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { toggleNavigation, navigationSaga } from '../../redux/actions/navigationActions';
 import { AuraCommands, screenReady, useAura, useActions } from '@telefonica/la-web-sdk';
@@ -24,18 +24,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     const { sendCommand } = useAura();
 
     const [focusedIndexVertical, setFocusedVerticalIndex] = useState(0);
-    const [refTest, setRefTest] = useState<React.MutableRefObject<HTMLDivElement[]>>({ current: [] });
-
-    const addToRefsv2 = useCallback(
-        (el: HTMLDivElement) => {
-            setRefTest((ref) => {
-                return {
-                    current: [...ref.current, el],
-                };
-            });
-        },
-        [setRefTest],
-    );
 
     const dispatch = useDispatch();
     const { isActive } = useSelector((state: RootStateOrAny) => state.navigation);
@@ -90,7 +78,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                                     verticalIndex={verticalIndex}
                                     focusedVerticalIndex={focusedIndexVertical}
                                     setFocusedVerticalIndex={setFocusedVerticalIndex}
-                                    itemsRef={refTest}
                                     isActive={isActive}
                                     focusedClass={'game-card__focused'}
                                 >
@@ -99,7 +86,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                                             game={game}
                                             key={`game-card-${verticalIndex}-${indexCard}`}
                                             onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
-                                            addToRefs={addToRefsv2}
                                         />
                                     ))}
                                 </Carousel>
@@ -113,7 +99,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                                     verticalIndex={verticalIndex}
                                     focusedVerticalIndex={focusedIndexVertical}
                                     setFocusedVerticalIndex={setFocusedVerticalIndex}
-                                    itemsRef={refTest}
                                     isActive={isActive}
                                     focusedClass={'view-second-focused'}
                                 >
@@ -124,7 +109,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                                             image={game.image}
                                             company={game.company}
                                             onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
-                                            addToRefs={addToRefsv2}
                                         />
                                     ))}
                                 </Carousel>
@@ -138,7 +122,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                                     verticalIndex={verticalIndex}
                                     focusedVerticalIndex={focusedIndexVertical}
                                     setFocusedVerticalIndex={setFocusedVerticalIndex}
-                                    itemsRef={refTest}
                                     isActive={isActive}
                                     focusedClass={'view-third-focused'}
                                 >
@@ -149,7 +132,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                                             image={game.image}
                                             company={game.company}
                                             onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
-                                            addToRefs={addToRefsv2}
                                         />
                                     ))}
                                 </Carousel>
@@ -163,7 +145,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                                     verticalIndex={verticalIndex}
                                     focusedVerticalIndex={focusedIndexVertical}
                                     setFocusedVerticalIndex={setFocusedVerticalIndex}
-                                    itemsRef={refTest}
                                     isActive={isActive}
                                     focusedClass={'view-fourth-focused'}
                                 >
@@ -174,7 +155,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                                             image={game.image}
                                             company={game.company}
                                             onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
-                                            addToRefs={addToRefsv2}
                                         />
                                     ))}
                                 </Carousel>
@@ -187,7 +167,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                                 verticalIndex={verticalIndex}
                                 focusedVerticalIndex={focusedIndexVertical}
                                 setFocusedVerticalIndex={setFocusedVerticalIndex}
-                                itemsRef={refTest}
                                 isActive={isActive}
                                 focusedClass={'view-first-focused'}
                                 gapPx={15}
@@ -199,7 +178,6 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                                         image={game.image}
                                         company={game.company}
                                         onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
-                                        addToRefs={addToRefsv2}
                                     />
                                 ))}
                             </Carousel>

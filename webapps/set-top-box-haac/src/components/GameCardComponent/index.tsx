@@ -7,12 +7,11 @@ import LazyImage from '../Hocs/withLazyLoader/LazyImage';
 export interface GameCardProps {
     game: GameCard;
     onClick: Function;
-    addToRefs: any;
 }
 
-const GameCardComponent: React.FC<GameCardProps> = ({ game, addToRefs }: GameCardProps) => {
+const GameCardComponent: React.FC<GameCardProps> = ({ game }: GameCardProps) => {
     return (
-        <div className="game-card" ref={addToRefs}>
+        <div className="game-card">
             <div className="game-card__image-wrapper">
                 <LazyImage className="game-card__image" src={game.image} alt={game.title} />
             </div>
