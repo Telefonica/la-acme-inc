@@ -1,4 +1,5 @@
-import { Screen, Intent, GameScreenData, HomeScreenData, CartScreenData, Operation } from '../../../dialogs/src/models';
+import { Screen, Intent, GameScreenData, HomeScreenData, CartScreenData, Operation, GameCard } from '../../../dialogs/src/models';
+import game from '../../set-top-box-haac/src/screens/game';
 
 const START = 'intent.internal.living-app.start';
 
@@ -32,8 +33,8 @@ const script = {
 };
 
 interface mocks {
-    home: HomeScreenData;
-    game: GameScreenData;
+    home: any;
+    game: any;
     cart: any;
     error: any;
     splash: any;
@@ -458,6 +459,7 @@ const mockedValues: mocks = {
                 price: 45,
             },
         ],
+        totalPrice: 595,
     },
     error: {},
     splash: {},

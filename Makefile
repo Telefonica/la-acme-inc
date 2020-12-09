@@ -86,7 +86,7 @@ dev-stb-mock:
 
 launch-stb: build-stb
 	@docker-compose up -d web-stb
-	@npx @telefonica/stb-url-launch "http://localhost:8081?auraId=79a8077f-98e3-42b2-86a2-43e83050b4a2&dlSecret=${AURA_MICROSOFT_DL_SECRET}"
+	@npx @telefonica/stb-url-launch "http://localhost:8081?auraId=79a8077f-98e3-42b2-86a2-43e83050b4a2&dlSecret=${AURA_MICROSOFT_DL_SECRET}&env=PRO"
 
 launch-stb-mock: build-stb-mock
 	@docker-compose up -d web-stb

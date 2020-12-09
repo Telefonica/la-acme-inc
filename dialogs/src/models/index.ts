@@ -7,12 +7,15 @@ export interface SessionData {
     currentGameId: string;
     currentGame: Game;
     platformId: string;
+    skipScreenMessage?: boolean;
 }
 
 export enum DialogId {
     HOME = 'la-acme-inc-home',
     GAME = 'la-acme-inc-game',
     CART = 'la-acme-inc-cart',
+    NAVIGATION = 'la-acme-inc-navigation',
+    CART_QUANTITY = 'la-acme-inc-quantity',
 }
 
 export enum Screen {
@@ -33,6 +36,9 @@ export enum Operation {
     CART = 'intent.operation.acme-inc.cart',
     ADD_CART = 'intent.operation.acme-inc.add_cart',
     REMOVE_CART = 'intent.operation.acme-inc.remove_cart',
+    NAVIGATION = 'intent.operation.acme-inc.navigation',
+    QUANTITY_ADD = 'intent.operation.acme-inc.quantity_add',
+    QUANTITY_REMOVE = 'intent.operation.acme-inc.quantity_remove',
 }
 
 export enum Entity {
@@ -83,7 +89,6 @@ export interface CartGame {
 
 export interface CartScreenData {
     games: CartGame[];
-    totalPrice: number;
 }
 
 export interface Category {

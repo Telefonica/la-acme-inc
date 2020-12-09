@@ -72,6 +72,7 @@ export default class HomeDialog extends Dialog {
         const choices: string[] = [
             Operation.GAME, // go to game Dialog
             Operation.CART, // go to game Dialog
+            Operation.NAVIGATION,
         ];
 
         return await sdk.messaging.prompt(stepContext, HomeDialog.dialogPrompt, choices);
@@ -99,6 +100,10 @@ export default class HomeDialog extends Dialog {
                 operation: Operation.CART,
                 action: cart && cart.length ? [RouteAction.PUSH, DialogId.CART] : [RouteAction.NONE],
                 logic: () => helper.messageIfCardEmpty(stepContext, cart),
+            },
+            {
+                operation: Operation.NAVIGATION,
+                action: [RouteAction.REPLACE, DialogId.NAVIGATION],
             },
         ];
 
