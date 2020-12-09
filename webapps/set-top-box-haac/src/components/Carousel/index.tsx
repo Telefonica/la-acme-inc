@@ -1,6 +1,9 @@
 import { NavigableWrapper } from '@telefonica/la-web-sdk';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+
 import styled from 'styled-components';
+import { setLastCarouselHeight } from '../../redux/actions/carouselActions';
 
 type CarouselTitleProps = {
     focusedVerticalIndex: number;
@@ -12,6 +15,7 @@ const CarouselTitle = styled.div<CarouselTitleProps>`
     font-size: 26px;
     font-weight: bold;
     height: ${({ titleHeight }) => `${titleHeight}px`};
+    margin: 5px;
     width: 1570px;
     will-change: transform;
     transition: transform 0.3s ease-in-out;
@@ -68,9 +72,9 @@ type CarouselProps = {
     verticalIndex: number;
     focusedVerticalIndex: number;
     setFocusedVerticalIndex: Function;
-    itemsRef: React.MutableRefObject<HTMLDivElement[]>;
     gapPx?: number;
     titleHeight?: number;
+    extraHeight?: number;
     transition?: string;
     children: React.ReactElement | React.ReactElement[];
     isActive?: boolean;
@@ -82,9 +86,9 @@ const Carousel: React.FC<CarouselProps> = ({
     verticalIndex,
     focusedVerticalIndex,
     setFocusedVerticalIndex,
-    itemsRef,
     gapPx = 30,
     titleHeight = 50,
+    extraHeight = 50,
     transition = 'transform 0.3s ease-in-out',
     children,
     isActive = true,
@@ -92,32 +96,40 @@ const Carousel: React.FC<CarouselProps> = ({
 }: CarouselProps) => {
     const [focusedHorizontalIndex, setFocusedHorizonalIndex] = useState(0);
 
-    const [itemHeight, setItemHeight] = useState(0);
     const [itemWidth, setItemWidth] = useState(0);
-
     const [carouselWidth, setCarouselWidth] = useState(0);
-    const [carouselHeight, setCarouselHeight] = useState(450);
+    const [carouselHeight, setCarouselHeight] = useState(0);
 
-    const carouselRef = useRef() as React.MutableRefObject<HTMLDivElement>;
     const titleRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+    const [itemsRef, setItemsRef] = useState<React.MutableRefObject<HTMLDivElement[]>>({ current: [] });
+
+    const dispatch = useDispatch();
+    const carouselState = useSelector((state: RootStateOrAny) => state.carousel);
+    const height = carouselState.carouselHeight;
 
     useEffect(() => {
         requestAnimationFrame(() => {
             setItemWidth(itemsRef.current[0]?.offsetWidth);
-            setItemHeight(itemsRef.current[0]?.offsetHeight);
             setCarouselWidth(itemsRef.current?.reduce((acc, el) => el.offsetWidth + acc + gapPx, 0));
-            //setCarouselHeight(carouselRef.current.offsetHeight);
+            setCarouselHeight(itemsRef.current[0]?.offsetHeight + titleRef.current.offsetHeight);
         });
-    }, [gapPx, itemsRef]);
+    }, [gapPx, itemsRef, titleRef]);
 
-    console.log('carouselHeight', carouselHeight);
+    const addToRefs = useCallback(
+        (el: HTMLDivElement) => {
+            setItemsRef((ref) => ({
+                current: [...ref.current, el.childNodes[0] as HTMLDivElement],
+            }));
+        },
+        [setItemsRef],
+    );
 
     return (
-        <CarouselWrapper width={carouselWidth} height={450}>
+        <CarouselWrapper width={carouselWidth} height={carouselHeight + extraHeight}>
             <CarouselTitle
                 focusedVerticalIndex={focusedVerticalIndex}
                 titleHeight={titleHeight}
-                carouselHeight={carouselHeight}
+                carouselHeight={height}
                 ref={titleRef}
             >
                 {title}
@@ -129,7 +141,7 @@ const Carousel: React.FC<CarouselProps> = ({
                         focusedHorizontalIndex={focusedHorizontalIndex}
                         isActive={isActive}
                         width={itemWidth}
-                        height={itemHeight}
+                        height={height}
                         gapPx={gapPx}
                         transition={transition}
                     >
@@ -138,12 +150,15 @@ const Carousel: React.FC<CarouselProps> = ({
                             onFocus={() => {
                                 setFocusedHorizonalIndex(() => horizontalIndex);
                                 setFocusedVerticalIndex(() => verticalIndex);
+                                dispatch(setLastCarouselHeight(carouselHeight + extraHeight));
                             }}
                             defaultFocused={!horizontalIndex && !verticalIndex}
                             id={`${horizontalIndex}${verticalIndex}`}
                             focusedClass={focusedClass}
                         >
-                            <div>{child}</div>
+                            <div>
+                                <div ref={addToRefs}>{child}</div>
+                            </div>
                         </NavigableWrapper>
                     </CarouselItem>
                 ))}

@@ -12,3 +12,10 @@ export interface NavigationActionSaga {
 }
 
 export type NavigationActionTypes = NavigationAction;
+
+export const SET_CAROUSEL_HEIGHT = 'SET_CAROUSEL_HEIGHT';
+
+export interface CarouselAction {
+    type: typeof SET_CAROUSEL_HEIGHT;
+    height: number;
+}

@@ -7,12 +7,11 @@ type AnimatedCard1Props = {
     image: string;
     company: string;
     onClick: Function;
-    addToRefs: any;
 };
 
-const AnimatedCard2: React.FC<AnimatedCard1Props> = ({ title, image, company, addToRefs }: AnimatedCard1Props) => {
+const AnimatedCard2: React.FC<AnimatedCard1Props> = ({ title, image, company }: AnimatedCard1Props) => {
     return (
-        <div className="view view-second" ref={addToRefs}>
+        <div className="view view-second">
             <img src={image} />
             <div className="mask"></div>
             <div className="content">
