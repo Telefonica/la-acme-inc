@@ -13,7 +13,6 @@
     "@types/react-redux": "^7.1.11",
     "@types/styled-components": "^5.1.4",
     "classnames": "^2.2.6",
-    "intersection-observer": "^0.11.0",
     "jss": "^10.4.0",
     "jss-plugin-camel-case": "^10.4.0",
     "jss-plugin-default-unit": "^10.4.0",
