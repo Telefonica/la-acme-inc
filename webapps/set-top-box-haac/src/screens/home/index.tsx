@@ -1,5 +1,4 @@
 import './home.scss';
-import '../../components/AnimatedCards/AnimatedDefault.scss';
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
@@ -11,22 +10,21 @@ import HomeMenu from './components/HomeMenu';
 import HomeTopMenu from './components/HomeTopMenu';
 
 import withProvider from './withProvider';
-import Carousel from '../../components/Carousel';
-import GameCardComponent from '../../components/GameCardComponent';
-import AnimatedCard1 from '../../components/AnimatedCards/AnimatedCard1';
-import AnimatedCard2 from '../../components/AnimatedCards/AnimatedCard2';
-import AnimatedCard3 from '../../components/AnimatedCards/AnimatedCard3';
-import AnimatedCard4 from '../../components/AnimatedCards/AnimatedCard4';
+import {
+    SCCarousel,
+    MusicCard,
+    ShopCard,
+    AnimatedCard1,
+    AnimatedCard2,
+    AnimatedCard4,
+} from '@telefonica/la-components';
 import { FUNCTION_DONE } from '../../redux/types';
 
 const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
     const { platformTitle, platforms, games } = screenData;
     const { sendCommand } = useAura();
 
-    const [focusedIndexVertical, setFocusedVerticalIndex] = useState(0);
-
     const dispatch = useDispatch();
-    const { isActive } = useSelector((state: RootStateOrAny) => state.navigation);
 
     const actionHandler = useCallback(
         (actions: any) => {
@@ -72,115 +70,114 @@ const HomeScreen: React.FC<HomeScreenData> = (screenData: HomeScreenData) => {
                     {Object.keys(games).map((key, verticalIndex) => {
                         if (verticalIndex === 0) {
                             return (
-                                <Carousel
+                                <SCCarousel
+                                    id={`carousel${verticalIndex}`}
                                     key={`carousel-${verticalIndex}`}
                                     title={Categories[key as keyof typeof Categories].toUpperCase()}
-                                    verticalIndex={verticalIndex}
-                                    focusedVerticalIndex={focusedIndexVertical}
-                                    setFocusedVerticalIndex={setFocusedVerticalIndex}
-                                    isActive={isActive}
+                                    selectorBorderRadius={15}
+                                    extraHeight={100}
                                     focusedClass={'game-card__focused'}
                                 >
                                     {games[key as string].map((game: GameCard, indexCard: number) => (
-                                        <GameCardComponent
-                                            game={game}
+                                        <ShopCard
                                             key={`game-card-${verticalIndex}-${indexCard}`}
+                                            title={game.title}
+                                            color={game.dominantColor}
+                                            price={game.price}
+                                            image={game.image}
+                                            text={game.company}
                                             onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
                                         />
                                     ))}
-                                </Carousel>
+                                </SCCarousel>
                             );
                         }
                         if (verticalIndex === 1) {
                             return (
-                                <Carousel
+                                <SCCarousel
+                                    id={`carousel${verticalIndex}`}
                                     key={`carousel-${verticalIndex}`}
                                     title={Categories[key as keyof typeof Categories].toUpperCase()}
-                                    verticalIndex={verticalIndex}
-                                    focusedVerticalIndex={focusedIndexVertical}
-                                    setFocusedVerticalIndex={setFocusedVerticalIndex}
-                                    isActive={isActive}
-                                    focusedClass={'view-second-focused'}
+                                    selectorBorderRadius={15}
+                                    extraHeight={100}
+                                >
+                                    {games[key as string].map((game: GameCard, indexCard: number) => (
+                                        <MusicCard
+                                            title={game.title}
+                                            text={game.company}
+                                            image={game.image}
+                                            color={game.dominantColor}
+                                            onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
+                                            key={`music-card-${indexCard}`}
+                                        />
+                                    ))}
+                                </SCCarousel>
+                            );
+                        }
+                        if (verticalIndex === 2) {
+                            return (
+                                <SCCarousel
+                                    id={`carousel${verticalIndex}`}
+                                    key={`carousel-${verticalIndex}`}
+                                    title={Categories[key as keyof typeof Categories].toUpperCase()}
+                                    focusedClass={'view-third-focused'}
+                                    extraHeight={100}
+                                >
+                                    {games[key as string].map((game: GameCard, indexCard: number) => (
+                                        <AnimatedCard1
+                                            key={`game-card-${verticalIndex}-${indexCard}`}
+                                            title={game.title}
+                                            image={game.image}
+                                            text={game.company}
+                                            info="BUY NOW"
+                                            onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
+                                        />
+                                    ))}
+                                </SCCarousel>
+                            );
+                        }
+                        if (verticalIndex === 3) {
+                            return (
+                                <SCCarousel
+                                    id={`carousel${verticalIndex}`}
+                                    key={`carousel-${verticalIndex}`}
+                                    title={Categories[key as keyof typeof Categories].toUpperCase()}
+                                    focusedClass={'view-fourth-focused'}
+                                    extraHeight={100}
                                 >
                                     {games[key as string].map((game: GameCard, indexCard: number) => (
                                         <AnimatedCard2
                                             key={`game-card-${verticalIndex}-${indexCard}`}
                                             title={game.title}
                                             image={game.image}
-                                            company={game.company}
+                                            text={game.company}
+                                            info="BUY NOW"
                                             onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
                                         />
                                     ))}
-                                </Carousel>
-                            );
-                        }
-                        if (verticalIndex === 2) {
-                            return (
-                                <Carousel
-                                    key={`carousel-${verticalIndex}`}
-                                    title={Categories[key as keyof typeof Categories].toUpperCase()}
-                                    verticalIndex={verticalIndex}
-                                    focusedVerticalIndex={focusedIndexVertical}
-                                    setFocusedVerticalIndex={setFocusedVerticalIndex}
-                                    isActive={isActive}
-                                    focusedClass={'view-third-focused'}
-                                >
-                                    {games[key as string].map((game: GameCard, indexCard: number) => (
-                                        <AnimatedCard3
-                                            key={`game-card-${verticalIndex}-${indexCard}`}
-                                            title={game.title}
-                                            image={game.image}
-                                            company={game.company}
-                                            onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
-                                        />
-                                    ))}
-                                </Carousel>
-                            );
-                        }
-                        if (verticalIndex === 3) {
-                            return (
-                                <Carousel
-                                    key={`carousel-${verticalIndex}`}
-                                    title={Categories[key as keyof typeof Categories].toUpperCase()}
-                                    verticalIndex={verticalIndex}
-                                    focusedVerticalIndex={focusedIndexVertical}
-                                    setFocusedVerticalIndex={setFocusedVerticalIndex}
-                                    isActive={isActive}
-                                    focusedClass={'view-fourth-focused'}
-                                >
-                                    {games[key as string].map((game: GameCard, indexCard: number) => (
-                                        <AnimatedCard4
-                                            key={`game-card-${verticalIndex}-${indexCard}`}
-                                            title={game.title}
-                                            image={game.image}
-                                            company={game.company}
-                                            onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
-                                        />
-                                    ))}
-                                </Carousel>
+                                </SCCarousel>
                             );
                         }
                         return (
-                            <Carousel
+                            <SCCarousel
+                                id={`carousel${verticalIndex}`}
                                 key={`carousel-${verticalIndex}`}
                                 title={Categories[key as keyof typeof Categories].toUpperCase()}
-                                verticalIndex={verticalIndex}
-                                focusedVerticalIndex={focusedIndexVertical}
-                                setFocusedVerticalIndex={setFocusedVerticalIndex}
-                                isActive={isActive}
                                 focusedClass={'view-first-focused'}
                                 gapPx={15}
+                                extraHeight={100}
                             >
                                 {games[key as string].map((game: GameCard, indexCard: number) => (
-                                    <AnimatedCard1
+                                    <AnimatedCard4
                                         key={`game-card-${verticalIndex}-${indexCard}`}
                                         title={game.title}
                                         image={game.image}
-                                        company={game.company}
+                                        text={game.company}
+                                        info="BUY NOW"
                                         onClick={() => dispatch(navigationSaga(() => goToGame(game.id)))}
                                     />
                                 ))}
-                            </Carousel>
+                            </SCCarousel>
                         );
                     })}
                 </div>

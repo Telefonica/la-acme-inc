@@ -3,7 +3,7 @@ import './cart.scss';
 import React, { useCallback, useState } from 'react';
 import { NavigableWrapper, NavigableButton, screenReady, useAura } from '@telefonica/la-web-sdk';
 import { CartScreenData, Entity, Operation } from '../../../../../dialogs/src/models';
-import QuantitySelector from '../../components/QuantitySelector';
+import { QuantitySelector } from '@telefonica/la-components';
 
 const CartScreen: React.FC<CartScreenData> = (cart: CartScreenData) => {
     const { games } = cart;

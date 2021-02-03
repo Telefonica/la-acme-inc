@@ -1,5 +1,4 @@
 import 'react-app-polyfill/stable';
-import 'intersection-observer';
 
 import './index.css';
 import script from '../../common/mocks';

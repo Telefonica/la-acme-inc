@@ -63,8 +63,8 @@ type CarouselWrapperProps = {
 const CarouselWrapper = styled.div<CarouselWrapperProps>`
     display: flex;
     flex-direction: column;
-    min-height: ${({ height }) => `${height}px`};
-    min-width: ${({ width }) => `${width}px`};
+    height: ${({ height }) => `${height}px`};
+    width: ${({ width }) => `${width}px`};
 `;
 
 type CarouselProps = {
